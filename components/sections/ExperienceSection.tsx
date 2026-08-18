@@ -73,6 +73,12 @@ export default function ExperienceSection() {
             {/* RevoU editorial feature */}
             <AnimatedSection delay={0.15}>
               <div className="overflow-hidden rounded-[1.5rem] bg-[#ffdf20] text-[#111113] shadow-[0_20px_70px_rgba(0,0,0,0.28)]">
+                <div className="flex px-4 pt-4 sm:hidden">
+                  <div className="flex items-center gap-2 rounded-full bg-[#111113]/90 py-1.5 pl-1.5 pr-3 text-white">
+                    <Image src="/assets/revou/revou-logo.jpg" alt="" width={28} height={28} className="rounded-full" />
+                    <span className="text-[10px] font-bold uppercase tracking-[0.16em]">RevoU highlight</span>
+                  </div>
+                </div>
                 <div className="relative aspect-[4/3] overflow-hidden">
                   <Image
                     src="/assets/revou/fikri-revou.png"
@@ -82,7 +88,7 @@ export default function ExperienceSection() {
                     className="object-cover object-[50%_32%] transition-transform duration-700 hover:scale-[1.025]"
                   />
                   <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#ffdf20] to-transparent" aria-hidden="true" />
-                  <div className="absolute left-4 top-4 flex items-center gap-2 rounded-full bg-[#111113]/90 py-1.5 pl-1.5 pr-3 text-white backdrop-blur-sm">
+                  <div className="absolute left-4 top-4 hidden items-center gap-2 rounded-full bg-[#111113]/90 py-1.5 pl-1.5 pr-3 text-white backdrop-blur-sm sm:flex">
                     <Image src="/assets/revou/revou-logo.jpg" alt="" width={28} height={28} className="rounded-full" />
                     <span className="text-[10px] font-bold uppercase tracking-[0.16em]">RevoU highlight</span>
                   </div>
