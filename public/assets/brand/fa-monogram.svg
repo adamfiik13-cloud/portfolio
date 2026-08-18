@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="FA monogram">
+  <rect width="512" height="512" rx="112" fill="#0B0B0D"/>
+  <path d="M118 120h158v64H190v56h76v62h-76v96h-72V120Z" fill="#FFFFFF"/>
+  <path d="M294 120h72l88 278h-76l-15-58h-82l-15 58h-74l102-278Zm29 75-27 88h52l-25-88Z" fill="#D6232F"/>
+</svg>
+

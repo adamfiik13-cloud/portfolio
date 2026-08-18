@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Fikri Adam Digital Marketing Portfolio social preview">
+  <rect width="1200" height="630" fill="#0B0B0D"/>
+  <rect x="905" width="295" height="630" fill="#D6232F"/>
+  <path d="M0 530L905 320v310H0Z" fill="#111114"/>
+  <text x="84" y="95" fill="#FF4B55" font-family="Inter, Arial" font-size="22" font-weight="700" letter-spacing="3">FIKRI ADAM</text>
+  <text x="80" y="245" fill="#FFFFFF" font-family="Manrope, Arial" font-size="76" font-weight="800">Digital Marketing</text>
+  <text x="80" y="335" fill="#FFFFFF" font-family="Manrope, Arial" font-size="76" font-weight="800">Portfolio</text>
+  <text x="84" y="415" fill="#A8A8AE" font-family="Inter, Arial" font-size="26">Ads · SEO · Analytics · Website · Growth</text>
+  <rect x="84" y="465" width="180" height="8" fill="#D6232F"/>
+  <text x="960" y="270" fill="#FFFFFF" font-family="Manrope, Arial" font-size="70" font-weight="800">4+</text>
+  <text x="960" y="310" fill="#FFFFFF" font-family="Inter, Arial" font-size="22">TAHUN</text>
+  <text x="960" y="345" fill="#FFFFFF" font-family="Inter, Arial" font-size="18">PENGALAMAN</text>
+</svg>
+

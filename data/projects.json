@@ -1,0 +1,63 @@
+[
+  {
+    "slug": "groperti-seo",
+    "title": "GroPerti - SEO & Organic Growth",
+    "category": "SEO",
+    "period": "Januari 2025 - sekarang",
+    "thumbnail": "/assets/projects/groperti-seo.svg",
+    "summary": "Membangun pertumbuhan organik melalui fondasi teknis, optimasi konten, dan monitoring berbasis data.",
+    "metrics": ["+263% organic traffic YoY", "+159% search clicks YoY", "+144% search impressions YoY"],
+    "featured": true
+  },
+  {
+    "slug": "fte-renon-meta-ads",
+    "title": "FTE Renon - Meta Ads Performance",
+    "category": "Performance Marketing",
+    "period": "Juni 2026 - sekarang",
+    "thumbnail": "/assets/projects/fte-renon.svg",
+    "summary": "Meningkatkan efisiensi paid media melalui creative testing dan pesan yang menonjolkan pengalaman private gym.",
+    "metrics": ["CTR meningkat", "CPC menurun", "Cost per DM tetap efisien"],
+    "featured": true
+  },
+  {
+    "slug": "conscioustravel-digital-growth",
+    "title": "ConsciousTravel - Website, Ads & SEO",
+    "category": "Digital Growth",
+    "period": "2026 - sekarang",
+    "thumbnail": "/assets/projects/conscioustravel.svg",
+    "summary": "Mengubah landing page menjadi ekosistem digital yang scalable untuk discovery, trust, dan conversion.",
+    "metrics": ["Multi-page website", "Bilingual experience", "Sekitar +70% impressions"],
+    "featured": true
+  },
+  {
+    "slug": "katanya-bento-meta-ads",
+    "title": "Katanya Bento - Meta Ads",
+    "category": "Performance Marketing",
+    "period": "Agustus - Oktober 2022",
+    "thumbnail": "/assets/projects/katanya-bento.svg",
+    "summary": "Mengubah penurunan order menjadi pembelajaran kampanye dan arah optimasi yang lebih jelas.",
+    "metrics": ["Reach hingga +90%", "Cost per reach turun 12%", "Conversion rate hingga +20%"],
+    "featured": true
+  },
+  {
+    "slug": "groperti-property-ads",
+    "title": "GroPerti - Property Ads",
+    "category": "Lead Generation",
+    "period": "",
+    "thumbnail": "/assets/projects/groperti-ads.svg",
+    "summary": "Menemukan formula webinar dan creative untuk menarik calon agen serta mendukung penjualan properti.",
+    "metrics": ["Leads hingga +50%", "Webinar lead magnet", "Creative formula"],
+    "featured": false
+  },
+  {
+    "slug": "laundry-market-test",
+    "title": "Laundry Market Test",
+    "category": "Market Validation",
+    "period": "",
+    "thumbnail": "/assets/projects/laundry-market-test.svg",
+    "summary": "Mengubah ide produk menjadi bukti minat pasar melalui Meta Ads dan Google Ads.",
+    "metrics": ["20+ calon pengguna", "Meta & Google Ads", "Market validation"],
+    "featured": false
+  }
+]
+

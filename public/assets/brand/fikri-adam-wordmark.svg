@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="160" viewBox="0 0 720 160" role="img" aria-labelledby="title desc">
+  <title id="title">Fikri Adam wordmark</title><desc id="desc">Minimal black, red, and white wordmark.</desc>
+  <rect width="720" height="160" rx="24" fill="#0B0B0D"/>
+  <rect x="38" y="38" width="12" height="84" fill="#D6232F"/>
+  <text x="78" y="92" fill="#FFFFFF" font-family="Manrope, Arial, sans-serif" font-size="58" font-weight="800" letter-spacing="-2">FIKRI ADAM</text>
+  <text x="80" y="124" fill="#A8A8AE" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="600" letter-spacing="3">DIGITAL MARKETING SPECIALIST</text>
+</svg>
+
