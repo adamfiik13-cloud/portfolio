@@ -2,131 +2,49 @@ import { Project } from "./types"
 
 export const projectsDetail: Record<string, Partial<Project>> = {
   "groperti-seo": {
-    industry: "Properti",
-    challenge:
-      "GroPerti membutuhkan fondasi SEO yang lebih rapi agar halaman penting lebih mudah ditemukan dan website memiliki kemampuan yang lebih kuat untuk memperoleh calon pengguna melalui Google Search.",
-    contributions: [
-      "Menyusun strategi SEO",
-      "Melakukan keyword monitoring",
-      "Merapikan struktur website",
-      "Memperbaiki sitemap dan robots.txt",
-      "Meningkatkan kualitas konten",
-      "Melakukan website optimization",
-      "Menganalisis performa secara berkala",
-    ],
-    results: [
-      "Organic traffic meningkat +263% YoY (Januari–Juli 2025)",
-      "Search clicks meningkat +159% YoY pada periode yang sama",
-      "Search impressions meningkat +144% YoY pada periode yang sama",
-      "Impresi meningkat sekitar +70% setelah perbaikan teknis website",
-    ],
-    businessImpact:
-      "Website memiliki fondasi organik yang lebih kuat, halaman prioritas lebih mudah dirayapi, dan bisnis memperoleh visibilitas yang lebih besar dari pencarian Google tanpa hanya bergantung pada paid media.",
-    insight:
-      "Perbaikan teknis yang sistematis — sitemap, robots.txt, dan struktur halaman — menghasilkan lonjakan impresi yang terukur bahkan sebelum konten baru dipublikasikan.",
+    industry: "Property",
+    challenge: "Build a stronger search foundation and reduce reliance on paid acquisition.",
+    contributions: ["Set the SEO strategy and keyword monitoring", "Improved site structure, sitemap, and robots.txt", "Optimised priority content and tracked performance"],
+    results: ["+263% organic traffic YoY", "+159% search clicks YoY", "+144% search impressions YoY"],
+    businessImpact: "Priority pages became easier to discover, creating a more durable organic acquisition channel.",
+    insight: "Systematic technical fixes created measurable visibility gains before new content was published.",
   },
   "fte-renon-meta-ads": {
     industry: "Fitness",
-    challenge:
-      "FTE Renon membutuhkan iklan yang mampu menarik calon member yang tepat sekaligus menjaga biaya percakapan tetap efisien.",
-    contributions: [
-      "Mengelola kampanye Meta Ads",
-      "Melakukan creative testing secara berkala",
-      "Mengoptimalkan performa kampanye",
-      "Mengembangkan pesan yang berorientasi pada konversi",
-      "Mengevaluasi CTR, CPC, dan cost per DM",
-    ],
-    results: [
-      "CTR meningkat — materi iklan lebih menarik bagi audiens",
-      "CPC menurun — biaya per klik lebih efisien",
-      "Cost per DM tetap terjaga pada tingkat yang efisien",
-      "Creative angle 'Why Choose Private Gym' menjadi pendekatan terkuat",
-    ],
-    businessImpact:
-      "Kampanye menghasilkan ketertarikan calon member dengan penggunaan anggaran yang lebih efisien serta memberikan arah creative yang dapat dikembangkan pada kampanye berikutnya.",
-    insight:
-      "Pesan yang menonjolkan privasi, personal coaching, dan premium training experience membantu membedakan FTE Renon dari gym konvensional.",
+    challenge: "Attract qualified prospects while keeping conversation costs efficient.",
+    contributions: ["Managed and optimised Meta Ads", "Ran focused creative tests", "Evaluated CTR, CPC, and cost per DM"],
+    results: ["Higher CTR", "Lower CPC", "Efficient cost per DM"],
+    businessImpact: "The campaign generated stronger interest with a clearer, reusable creative direction.",
+    insight: "Privacy, personal coaching, and a premium experience created the strongest distinction.",
   },
   "conscioustravel-digital-growth": {
     industry: "Travel",
-    challenge:
-      "ConsciousTravel membutuhkan platform digital yang lebih scalable untuk memperkenalkan layanan B2B dan B2C, membangun kepercayaan, meningkatkan discovery, dan mendukung lead generation.",
-    contributions: [
-      "Mengembangkan website dari single landing page menjadi multi-page website",
-      "Menyusun information architecture untuk layanan B2B dan B2C",
-      "Mengembangkan pengalaman bilingual",
-      "Merancang CTA yang berorientasi pada konversi",
-      "Menyiapkan fondasi SEO dan integrasi GA4 + Search Console",
-      "Menjalankan Meta Ads untuk awareness dan creative testing",
-      "Merapikan struktur website, sitemap, dan robots.txt",
-    ],
-    results: [
-      "Website berkembang dari 1 landing page menjadi platform multi-page",
-      "Struktur produk lebih mudah dipahami audiens B2B maupun B2C",
-      "Impresi organik meningkat sekitar +70% setelah perbaikan teknis",
-      "Meta Ads memperluas awareness dan menghasilkan pembelajaran creative",
-    ],
-    businessImpact:
-      "ConsciousTravel memiliki fondasi digital yang lebih kuat untuk product discovery, trust building, SEO, paid acquisition, dan lead generation.",
-    insight:
-      "Mengembangkan website secara bertahap dari landing page ke multi-page membutuhkan information architecture yang solid sejak awal agar skalabilitas tidak menjadi masalah di kemudian hari.",
+    challenge: "Create a scalable platform for B2B and B2C discovery, trust, and lead generation.",
+    contributions: ["Expanded one landing page into a multi-page platform", "Designed the information architecture and bilingual experience", "Built the SEO, analytics, and paid acquisition foundations"],
+    results: ["Multi-page platform", "Clearer B2B and B2C journeys", "~70% more organic impressions"],
+    businessImpact: "The business gained a stronger foundation for discovery, acquisition, and future growth.",
+    insight: "Scalable growth starts with information architecture, not more pages.",
   },
   "katanya-bento-meta-ads": {
     industry: "F&B",
-    challenge:
-      "Pesanan online mengalami penurunan dan bisnis membutuhkan analisis penyebab serta strategi yang dapat mendorong kembali konversi melalui layanan delivery.",
-    contributions: [
-      "Menjalankan kampanye Meta Ads untuk produk F&B",
-      "Membuat laporan mingguan dan bulanan",
-      "Menganalisis performa iklan secara berkala",
-      "Melakukan optimasi berdasarkan hasil laporan",
-      "Membuat creative brief untuk momen promosi dan seasonal event",
-    ],
-    results: [
-      "Reach meningkat hingga +90%",
-      "Cost per 1,000 people reached menurun sekitar 12% dalam satu bulan",
-      "Conversion rate meningkat hingga +20% dalam satu bulan",
-      "Kampanye membantu mengidentifikasi penyebab penurunan pesanan",
-    ],
-    businessImpact:
-      "Bisnis memperoleh pemahaman yang lebih baik mengenai performa kampanye dan dapat mengembangkan strategi promosi berdasarkan data, bukan asumsi.",
-    insight:
-      "Analisis berbasis data bukan hanya membantu meningkatkan performa — tetapi juga membantu menjawab pertanyaan bisnis yang lebih mendasar tentang mengapa pesanan turun.",
+    challenge: "Understand declining online orders and rebuild conversion momentum.",
+    contributions: ["Ran and analysed Meta Ads campaigns", "Created weekly and monthly performance reports", "Turned findings into optimisation and creative briefs"],
+    results: ["Up to +90% reach", "12% lower cost per reach", "Up to +20% conversion rate"],
+    businessImpact: "The team gained a clearer, evidence-based direction for promotion and campaign decisions.",
+    insight: "Good analysis improves performance and explains why the business result changed.",
   },
   "groperti-property-ads": {
-    industry: "Properti",
-    challenge:
-      "GroPerti membutuhkan pendekatan lead generation yang lebih efektif untuk menarik calon agen dan mendukung aktivitas penjualan properti.",
-    contributions: [
-      "Merancang struktur kampanye Meta Ads",
-      "Mengembangkan ide dan creative angle",
-      "Menguji webinar event sebagai lead magnet",
-      "Mengevaluasi kualitas dan performa leads",
-    ],
-    results: [
-      "Leads meningkat hingga +50% setelah formula kampanye diterapkan",
-      "Webinar event terbukti efektif sebagai lead magnet di pasar properti",
-      "Creative formula yang dapat direplikasi untuk kampanye berikutnya",
-    ],
-    businessImpact:
-      "GroPerti memperoleh pendekatan akuisisi yang dapat digunakan untuk menarik lebih banyak calon agen dan mendukung aktivitas penjualan properti.",
+    industry: "Property",
+    challenge: "Find a more effective acquisition approach for prospective property agents.",
+    contributions: ["Designed the Meta Ads campaign structure", "Tested creative angles and a webinar lead magnet", "Evaluated lead quality and performance"],
+    results: ["Up to +50% leads", "Validated webinar lead magnet", "Repeatable creative formula"],
+    businessImpact: "GroPerti gained a repeatable acquisition model to support agent recruitment and sales.",
   },
   "laundry-market-test": {
     industry: "Laundry",
-    challenge:
-      "Tim membutuhkan validasi minat pasar sebelum mengambil keputusan pengembangan produk lebih lanjut.",
-    contributions: [
-      "Menjaga arah dan tujuan market test",
-      "Mereview persiapan kampanye Meta Ads dan Google Ads",
-      "Mengarahkan evaluasi hasil iklan",
-      "Membantu tim membaca respons pasar secara objektif",
-    ],
-    results: [
-      "Awareness produk meningkat selama market test",
-      "Berhasil mengumpulkan 20+ calon pengguna",
-      "Minat awal pasar tervalidasi sebelum keputusan pengembangan",
-    ],
-    businessImpact:
-      "Tim memiliki bukti minat pasar yang nyata sebagai dasar pengambilan keputusan, bukan hanya asumsi internal.",
+    challenge: "Validate market interest before committing to further product development.",
+    contributions: ["Set the direction and success criteria", "Reviewed Meta and Google Ads preparation", "Guided an objective evaluation of market response"],
+    results: ["20+ prospects", "Early demand validated", "Evidence before development"],
+    businessImpact: "The team gained real market evidence for its next product decision.",
   },
 }

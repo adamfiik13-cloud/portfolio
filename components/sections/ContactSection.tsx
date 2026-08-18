@@ -53,7 +53,7 @@ export default function ContactSection() {
     <section
       id="kontak"
       className="py-24 lg:py-32 bg-[#151518] relative overflow-hidden"
-      aria-label="Kontak"
+      aria-label="Contact"
     >
       {/* Red glow */}
       <div
@@ -71,19 +71,18 @@ export default function ContactSection() {
               <div className="inline-flex items-center gap-2 mb-4">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#d6232f]" />
                 <span className="text-sm font-medium text-[#a8a8ae] tracking-wide uppercase">
-                  Kontak
+                  Contact
                 </span>
               </div>
               <h2
                 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight mb-6"
-                style={{ fontFamily: "var(--font-manrope)" }}
+                style={{ fontFamily: "var(--font-playfair)" }}
               >
-                Mari ubah tujuan pemasaran menjadi{" "}
-                <span className="text-[#d6232f]">langkah yang bisa dijalankan.</span>
+                Have a clear goal?{" "}
+                <span className="text-[#d6232f]">Let’s find the next move.</span>
               </h2>
               <p className="text-[#a8a8ae] leading-relaxed mb-8 max-w-lg">
-                Diskusikan kebutuhan Meta Ads, Google Ads, SEO, GA4/GTM, website,
-                landing page, atau strategi pemasaran Anda.
+                Strategy, paid media, SEO, analytics, or web.
               </p>
             </AnimatedSection>
 
@@ -95,7 +94,7 @@ export default function ContactSection() {
                 variant="primary"
                 className="text-base px-7 py-3.5"
               >
-                Diskusikan Proyek
+                Start a Conversation
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                   <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
                   <path d="M12 0C5.373 0 0 5.373 0 12c0 2.089.535 4.122 1.558 5.916L.057 23.882a.5.5 0 0 0 .61.61l5.966-1.501A11.943 11.943 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.854 0-3.634-.485-5.19-1.405l-.372-.219-3.853.97.99-3.774-.24-.391A10 10 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
@@ -106,7 +105,7 @@ export default function ContactSection() {
                 variant="secondary"
                 className="text-base px-7 py-3.5"
               >
-                Kirim Email
+                Send an Email
               </Button>
             </AnimatedSection>
           </div>
@@ -118,19 +117,19 @@ export default function ContactSection() {
               <div className="flex items-center gap-4 p-5 rounded-2xl bg-[#0b0b0d] border border-[#29292e]">
                 <Image
                   src="/assets/avatar/avatar-circle-256.webp"
-                  alt="Ilustrasi cartoon Fikri Adam"
+                  alt="Cartoon portrait of Fikri Adam"
                   width={56}
                   height={56}
                   className="w-14 h-14 rounded-full object-cover border-2 border-[#29292e]"
                 />
                 <div>
-                  <p className="font-semibold text-white" style={{ fontFamily: "var(--font-manrope)" }}>
+                  <p className="font-semibold text-white" style={{ fontFamily: "var(--font-playfair)" }}>
                     Fikri Adam
                   </p>
-                  <p className="text-sm text-[#a8a8ae]">Digital Marketing Specialist</p>
+                  <p className="text-sm text-[#a8a8ae]">Digital Marketing Strategist</p>
                   <div className="flex items-center gap-1.5 mt-1">
                     <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" aria-hidden="true" />
-                    <span className="text-xs text-green-400">Tersedia untuk proyek baru</span>
+                    <span className="text-xs text-green-400">Open to selected projects</span>
                   </div>
                 </div>
               </div>

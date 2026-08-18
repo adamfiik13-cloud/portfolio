@@ -13,7 +13,7 @@
   --color-line: #29292e;
 
   /* Fonts */
-  --font-heading: "Manrope", "Plus Jakarta Sans", sans-serif;
+  --font-heading: "Playfair Display", Georgia, serif;
   --font-body: "Inter", sans-serif;
 
   /* Spacing */
@@ -27,8 +27,6 @@
 
 * {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
 
 html {
@@ -36,12 +34,17 @@ html {
 }
 
 body {
+  margin: 0;
   background: var(--background);
   color: var(--foreground);
   font-family: "Inter", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+}
+
+section[id] {
+  scroll-margin-top: 5rem;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -78,7 +81,7 @@ body {
 
 /* Font variables for components */
 .font-heading {
-  font-family: var(--font-manrope), "Plus Jakarta Sans", sans-serif;
+  font-family: var(--font-playfair), Georgia, serif;
 }
 
 /* Marquee animation */

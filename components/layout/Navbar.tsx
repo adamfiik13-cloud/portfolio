@@ -6,11 +6,11 @@ import Image from "next/image"
 import Button from "@/components/ui/Button"
 
 const navLinks = [
-  { label: "Tentang", href: "#tentang" },
-  { label: "Layanan", href: "#layanan" },
-  { label: "Studi Kasus", href: "#studi-kasus" },
-  { label: "Pengalaman", href: "#pengalaman" },
-  { label: "Kontak", href: "#kontak" },
+  { label: "About", href: "#tentang" },
+  { label: "Expertise", href: "#layanan" },
+  { label: "Work", href: "#studi-kasus" },
+  { label: "Experience", href: "#pengalaman" },
+  { label: "Contact", href: "#kontak" },
 ]
 
 export default function Navbar() {
@@ -44,20 +44,24 @@ export default function Navbar() {
           {/* Logo */}
           <a
             href="#"
-            className="flex items-center gap-2"
-            aria-label="Fikri Adam - Kembali ke atas"
+            className="group flex items-center gap-3"
+            aria-label="Fikri Adam — Back to top"
           >
-            <Image
-              src="/assets/brand/fa-monogram.svg"
-              alt="FA"
-              width={32}
-              height={32}
-              className="w-8 h-8"
-            />
+            <span className="relative block w-9 h-9 overflow-hidden rounded-full border border-white/15 group-hover:border-[#d6232f] transition-colors">
+              <Image
+                src="/assets/avatar/avatar-circle-64.png"
+                alt="Fikri Adam"
+                fill
+                sizes="36px"
+                className="object-cover"
+                priority
+              />
+            </span>
+            <span className="hidden sm:block text-sm font-semibold text-white">Fikri Adam</span>
           </a>
 
           {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-1" aria-label="Navigasi utama">
+          <nav className="hidden md:flex items-center gap-1" aria-label="Main navigation">
             {navLinks.map((link) => (
               <button
                 key={link.href}
@@ -78,7 +82,7 @@ export default function Navbar() {
               variant="primary"
               className="text-sm px-5 py-2.5"
             >
-              Diskusikan Proyek
+              Start a Conversation
             </Button>
           </div>
 
@@ -86,7 +90,7 @@ export default function Navbar() {
           <button
             className="md:hidden w-10 h-10 flex items-center justify-center text-[#a8a8ae] hover:text-white transition-colors"
             onClick={() => setMenuOpen(!menuOpen)}
-            aria-label={menuOpen ? "Tutup menu" : "Buka menu"}
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
             aria-expanded={menuOpen}
           >
             <div className="w-5 space-y-1.5">
@@ -120,7 +124,7 @@ export default function Navbar() {
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
           >
-            <nav className="flex flex-col gap-1 flex-1" aria-label="Navigasi mobile">
+            <nav className="flex flex-col gap-1 flex-1" aria-label="Mobile navigation">
               {navLinks.map((link, i) => (
                 <motion.button
                   key={link.href}
@@ -143,14 +147,14 @@ export default function Navbar() {
                 variant="primary"
                 className="w-full justify-center"
               >
-                Diskusikan Proyek
+                Start a Conversation
               </Button>
               <Button
                 href="#studi-kasus"
                 variant="secondary"
                 className="w-full justify-center"
                 onClick={() => handleNavClick("#studi-kasus")}              >
-                Lihat Studi Kasus
+                View Selected Work
               </Button>
             </div>
           </motion.div>

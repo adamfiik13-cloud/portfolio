@@ -7,9 +7,8 @@ import AnimatedSection from "@/components/ui/AnimatedSection"
 const steps = [
   {
     number: "01",
-    title: "Memahami masalah",
-    description:
-      "Memetakan tujuan bisnis, target audiens, penawaran, channel yang tersedia, dan hambatan dalam perjalanan pelanggan.",
+    title: "Frame",
+    description: "Define the business question, audience, and constraint.",
     icon: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v4l2 2"/>
@@ -18,9 +17,8 @@ const steps = [
   },
   {
     number: "02",
-    title: "Menyusun hipotesis",
-    description:
-      "Menentukan pesan, channel, creative, landing page, dan ukuran keberhasilan yang perlu diuji sebelum eksekusi penuh.",
+    title: "Hypothesise",
+    description: "Choose the message, channel, and signal worth testing.",
     icon: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <path d="M9 3H5a2 2 0 0 0-2 2v4"/><path d="M9 3h6"/><path d="M15 3h4a2 2 0 0 1 2 2v4"/><path d="M3 9v6"/><path d="M21 9v6"/><path d="M3 15v4a2 2 0 0 0 2 2h4"/><path d="M15 21h4a2 2 0 0 0 2-2v-4"/><path d="M9 21h6"/>
@@ -29,9 +27,8 @@ const steps = [
   },
   {
     number: "03",
-    title: "Menjalankan dan mengukur",
-    description:
-      "Mengeksekusi strategi dengan setup campaign dan tracking yang sesuai, lalu memonitor respons pasar secara berkala.",
+    title: "Test",
+    description: "Run a focused experiment with reliable measurement.",
     icon: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
@@ -40,9 +37,8 @@ const steps = [
   },
   {
     number: "04",
-    title: "Mempelajari dan mengoptimalkan",
-    description:
-      "Mengubah data menjadi insight, prioritas perbaikan, dan keputusan untuk eksperimen berikutnya. Tujuannya bukan sekadar angka — tetapi pembelajaran yang bisa dijalankan.",
+    title: "Decide",
+    description: "Turn the signal into the next practical move.",
     icon: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 16h5v5"/>
@@ -59,7 +55,7 @@ export default function ProcessSection() {
     <section
       id="proses"
       className="py-24 lg:py-32 bg-[#0b0b0d] relative overflow-hidden"
-      aria-label="Cara Kerja"
+      aria-label="Approach"
     >
       {/* Subtle bg accent */}
       <div
@@ -74,19 +70,18 @@ export default function ProcessSection() {
           <div className="inline-flex items-center gap-2 mb-4">
             <span className="w-1.5 h-1.5 rounded-full bg-[#d6232f]" />
             <span className="text-sm font-medium text-[#a8a8ae] tracking-wide uppercase">
-              Cara Kerja
+              Approach
             </span>
           </div>
           <h2
             className="text-3xl sm:text-4xl font-bold text-white leading-tight mb-4"
-            style={{ fontFamily: "var(--font-manrope)" }}
+            style={{ fontFamily: "var(--font-playfair)" }}
           >
-            Pendekatan yang berbasis{" "}
-            <span className="text-[#d6232f]">data dan keputusan</span>
+            Think clearly.{" "}
+            <span className="text-[#d6232f]">Move deliberately.</span>
           </h2>
           <p className="text-[#a8a8ae] leading-relaxed">
-            Setiap kampanye dimulai dari pertanyaan yang tepat — bukan dari asumsi.
-            Proses ini memastikan setiap langkah dapat dievaluasi dan dikembangkan.
+            Every useful campaign starts with a better question.
           </p>
         </AnimatedSection>
 
@@ -116,7 +111,7 @@ export default function ProcessSection() {
                   </div>
                   <span
                     className="text-3xl font-black text-[#29292e]"
-                    style={{ fontFamily: "var(--font-manrope)" }}
+                    style={{ fontFamily: "var(--font-playfair)" }}
                     aria-hidden="true"
                   >
                     {step.number}
@@ -125,7 +120,7 @@ export default function ProcessSection() {
 
                 <h3
                   className="font-bold text-white mb-2"
-                  style={{ fontFamily: "var(--font-manrope)" }}
+                  style={{ fontFamily: "var(--font-playfair)" }}
                 >
                   {step.title}
                 </h3>
@@ -139,9 +134,9 @@ export default function ProcessSection() {
         <AnimatedSection delay={0.3} className="mt-12">
           <div className="max-w-2xl mx-auto text-center">
             <p className="text-lg text-[#a8a8ae] leading-relaxed italic">
-              &ldquo;Tujuan saya bukan hanya mendapatkan data, tetapi membantu bisnis mengetahui{" "}
+              &ldquo;Data matters when it reveals{" "}
               <span className="text-white not-italic font-medium">
-                apa yang perlu dilakukan setelah melihat data tersebut.
+                what to do next.
               </span>&rdquo;
             </p>
           </div>
@@ -150,7 +145,7 @@ export default function ProcessSection() {
         {/* Tools marquee */}
         <AnimatedSection delay={0.2} className="mt-16">
           <p className="text-xs font-semibold text-[#a8a8ae] uppercase tracking-widest mb-5 text-center">
-            Tools yang digunakan
+            Tools in practice
           </p>
           <div className="relative overflow-hidden">
             <div className="flex gap-3 animate-marquee whitespace-nowrap">

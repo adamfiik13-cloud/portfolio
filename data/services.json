@@ -1,9 +1,8 @@
 [
-  {"id":"meta-ads","title":"Meta Ads","description":"Kampanye awareness, engagement, leads, pesan, dan penjualan melalui strategi audiens, creative testing, dan optimasi."},
-  {"id":"google-ads","title":"Google Ads","description":"Paid search untuk menjangkau calon pelanggan yang sedang aktif mencari produk atau layanan."},
-  {"id":"seo","title":"SEO","description":"Peningkatan visibilitas organik melalui keyword strategy, technical SEO, content improvement, dan monitoring."},
-  {"id":"analytics","title":"GA4 & GTM","description":"Tracking yang membantu bisnis memahami tindakan pengguna, sumber traffic, dan jalur konversi."},
-  {"id":"website","title":"Website & Landing Page","description":"Struktur website, CTA, dan halaman yang dirancang untuk mendukung discovery, trust, dan conversion."},
-  {"id":"consultation","title":"Marketing Consultation","description":"Analisis masalah pemasaran dan rekomendasi prioritas yang dapat dijalankan oleh bisnis."}
+  {"id":"meta-ads","title":"Meta Ads","description":"Audience strategy, creative testing, and campaign optimisation."},
+  {"id":"google-ads","title":"Google Ads","description":"Reach people with the right search intent."},
+  {"id":"seo","title":"SEO","description":"Technical and content foundations for organic growth."},
+  {"id":"analytics","title":"GA4 & GTM","description":"Turn user behaviour into useful signals."},
+  {"id":"website","title":"Web & Landing Pages","description":"Build trust and guide the next action."},
+  {"id":"consultation","title":"Marketing Strategy","description":"Clear priorities that teams can act on."}
 ]
-

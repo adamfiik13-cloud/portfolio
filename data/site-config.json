@@ -1,7 +1,7 @@
 {
   "name": "Fikri Adam",
-  "role": "Digital Marketing Specialist",
-  "experience": "4+ tahun",
+  "role": "Digital Marketing Strategist",
+  "experience": "4+ years",
   "location": "Indonesia",
   "email": "adam.fikri13@gmail.com",
   "whatsappDisplay": "+62 851-5520-2123",
@@ -9,16 +9,15 @@
   "linkedinLabel": "Fikri Adam",
   "linkedinUrl": "https://www.linkedin.com/in/fikri-adam/",
   "instagramUrl": "https://www.instagram.com/adamfiik/",
-  "headline": "Strategi yang jelas. Eksekusi yang terukur. Pembelajaran yang dapat ditindaklanjuti.",
-  "summary": "Saya membantu bisnis menemukan audiens, pesan, dan jalur konversi yang paling relevan melalui strategi digital yang dapat diuji dan dievaluasi berdasarkan data.",
-  "primaryCta": "Diskusikan Proyek",
-  "secondaryCta": "Lihat Studi Kasus",
-  "navigation": ["Tentang", "Layanan", "Studi Kasus", "Pengalaman", "Kontak"],
+  "headline": "Clarity first. Measure what matters. Learn what works.",
+  "summary": "I turn business questions into focused digital experiments and practical growth decisions.",
+  "primaryCta": "Start a Conversation",
+  "secondaryCta": "View Selected Work",
+  "navigation": ["About", "Expertise", "Work", "Experience", "Contact"],
   "stats": [
-    { "value": "4+", "label": "tahun pengalaman" },
-    { "value": "50+", "label": "student dibimbing" },
-    { "value": "10+", "label": "market test" },
-    { "value": "5+", "label": "industri" }
+    { "value": "4+", "label": "years in practice" },
+    { "value": "50+", "label": "students mentored" },
+    { "value": "10+", "label": "market tests" },
+    { "value": "5+", "label": "industries" }
   ]
 }
-

@@ -24,7 +24,7 @@ export default function ProjectsSection() {
     <section
       id="studi-kasus"
       className="py-24 lg:py-32 bg-[#0b0b0d] relative"
-      aria-label="Studi Kasus"
+      aria-label="Selected work"
     >
       <div className="max-w-[1200px] mx-auto px-6">
         {/* Header */}
@@ -32,19 +32,18 @@ export default function ProjectsSection() {
           <div className="inline-flex items-center gap-2 mb-4">
             <span className="w-1.5 h-1.5 rounded-full bg-[#d6232f]" />
             <span className="text-sm font-medium text-[#a8a8ae] tracking-wide uppercase">
-              Studi Kasus
+              Selected work
             </span>
           </div>
           <h2
             className="text-3xl sm:text-4xl font-bold text-white leading-tight mb-4"
-            style={{ fontFamily: "var(--font-manrope)" }}
+            style={{ fontFamily: "var(--font-playfair)" }}
           >
-            Bukti kerja, bukan sekadar{" "}
-            <span className="text-[#d6232f]">klaim</span>
+            Evidence over{" "}
+            <span className="text-[#d6232f]">assumption.</span>
           </h2>
           <p className="text-[#a8a8ae] leading-relaxed">
-            Setiap proyek mencerminkan proses yang nyata — dari memahami masalah bisnis
-            hingga mengeksekusi strategi dan membaca hasilnya.
+            Clear problems. Measured actions. Useful outcomes.
           </p>
         </AnimatedSection>
 
@@ -58,7 +57,7 @@ export default function ProjectsSection() {
               transition={{ duration: 0.5, delay: i * 0.1, ease: [0.21, 0.47, 0.32, 0.98] }}
               onClick={() => setActiveProject(project)}
               className="group relative cursor-pointer rounded-2xl bg-[#151518] border border-[#29292e] hover:border-[#d6232f]/40 overflow-hidden transition-all duration-300"
-              aria-label={`Buka detail: ${project.title}`}
+              aria-label={`Open details: ${project.title}`}
               role="button"
               tabIndex={0}
               onKeyDown={(e) => e.key === "Enter" && setActiveProject(project)}
@@ -91,7 +90,7 @@ export default function ProjectsSection() {
                 <div className="flex items-start justify-between gap-4 mb-2">
                   <h3
                     className="font-bold text-white text-lg leading-snug group-hover:text-[#ff4b55] transition-colors"
-                    style={{ fontFamily: "var(--font-manrope)" }}
+                    style={{ fontFamily: "var(--font-playfair)" }}
                   >
                     {project.title}
                   </h3>
@@ -120,7 +119,7 @@ export default function ProjectsSection() {
 
                 {/* CTA */}
                 <div className="mt-4 flex items-center gap-1.5 text-sm font-medium text-[#a8a8ae] group-hover:text-[#ff4b55] transition-colors">
-                  Lihat detail
+                  View case study
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <path d="M5 12h14M12 5l7 7-7 7"/>
                   </svg>
@@ -133,7 +132,7 @@ export default function ProjectsSection() {
         {/* Supporting projects */}
         <AnimatedSection delay={0.2}>
           <p className="text-xs font-semibold text-[#a8a8ae] uppercase tracking-widest mb-4">
-            Proyek lainnya
+            More work
           </p>
           <div className="grid sm:grid-cols-2 gap-4">
             {supporting.map((project) => (
@@ -141,7 +140,7 @@ export default function ProjectsSection() {
                 key={project.slug}
                 onClick={() => setActiveProject(project)}
                 className="group cursor-pointer flex gap-4 p-5 rounded-2xl bg-[#151518] border border-[#29292e] hover:border-[#d6232f]/40 transition-all duration-300"
-                aria-label={`Buka detail: ${project.title}`}
+                aria-label={`Open details: ${project.title}`}
                 role="button"
                 tabIndex={0}
                 onKeyDown={(e) => e.key === "Enter" && setActiveProject(project)}
@@ -163,7 +162,7 @@ export default function ProjectsSection() {
                   </div>
                   <h3
                     className="font-semibold text-white text-sm leading-snug mb-1 group-hover:text-[#ff4b55] transition-colors"
-                    style={{ fontFamily: "var(--font-manrope)" }}
+                    style={{ fontFamily: "var(--font-playfair)" }}
                   >
                     {project.title}
                   </h3>

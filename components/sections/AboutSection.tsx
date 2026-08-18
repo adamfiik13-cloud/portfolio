@@ -12,21 +12,16 @@ const skills = [
   "Landing Page",
   "Marketing Consultation",
   "Creative Testing",
-  "Keyword Research",
-  "Technical SEO",
-  "Campaign Strategy",
-  "Performance Reporting",
-  "Conversion Optimization",
 ]
 
-const industries = ["F&B", "Properti", "Laundry", "Travel", "Fitness"]
+const industries = ["F&B", "Property", "Laundry", "Travel", "Fitness"]
 
 export default function AboutSection() {
   return (
     <section
       id="tentang"
       className="py-24 lg:py-32 bg-[#0b0b0d] relative overflow-hidden"
-      aria-label="Tentang Fikri Adam"
+      aria-label="About Fikri Adam"
     >
       {/* Subtle background accent */}
       <div
@@ -52,17 +47,20 @@ export default function AboutSection() {
                 aria-hidden="true"
               />
               <Image
-                src="/assets/avatar/avatar-profile-640.webp"
-                alt="Ilustrasi cartoon Fikri Adam, Digital Marketing Specialist"
+                src="/assets/avatar/avatar-about-640.webp"
+                alt="Cartoon portrait of Fikri Adam, Digital Marketing Strategist"
                 width={480}
                 height={480}
                 className="relative z-10 w-full max-w-sm lg:max-w-md rounded-3xl object-cover"
                 quality={85}
               />
+              <div className="absolute -left-5 top-8 z-20 -rotate-6 rounded-lg bg-[#f3f3f4] px-3 py-2 text-xs font-bold text-[#0b0b0d] shadow-xl">
+                Curious by default.
+              </div>
               {/* Floating badge */}
               <div className="absolute -bottom-4 -right-4 bg-[#151518] border border-[#29292e] rounded-2xl px-4 py-3 shadow-xl">
-                <div className="text-2xl font-bold text-white" style={{ fontFamily: "var(--font-manrope)" }}>4+</div>
-                <div className="text-xs text-[#a8a8ae]">tahun pengalaman</div>
+                <div className="text-2xl font-bold text-white" style={{ fontFamily: "var(--font-playfair)" }}>4+</div>
+                <div className="text-xs text-[#a8a8ae]">years in practice</div>
               </div>
             </div>
           </AnimatedSection>
@@ -74,7 +72,7 @@ export default function AboutSection() {
               <div className="inline-flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#d6232f]" />
                 <span className="text-sm font-medium text-[#a8a8ae] tracking-wide uppercase">
-                  Tentang Saya
+                  About
                 </span>
               </div>
             </AnimatedSection>
@@ -83,37 +81,27 @@ export default function AboutSection() {
             <AnimatedSection delay={0.15}>
               <h2
                 className="text-3xl sm:text-4xl font-bold text-white leading-tight"
-                style={{ fontFamily: "var(--font-manrope)" }}
+                style={{ fontFamily: "var(--font-playfair)" }}
               >
-                Digital marketing adalah proses belajar dari{" "}
-                <span className="text-[#d6232f]">respons pasar</span>, bukan sekadar menjalankan iklan.
+                Read the{" "}
+                <span className="text-[#d6232f]">market signal</span>. Then decide.
               </h2>
             </AnimatedSection>
 
             {/* Body */}
             <AnimatedSection delay={0.2}>
               <p className="text-[#a8a8ae] leading-relaxed">
-                Digital marketing bukan hanya tentang membuat iklan tayang atau mendapatkan traffic.
-                Bagi saya, digital marketing adalah proses memahami masalah bisnis, menyusun hipotesis,
-                menjalankan strategi, membaca respons pasar, lalu mengubah pembelajaran tersebut menjadi
-                keputusan yang lebih baik.
-              </p>
-            </AnimatedSection>
-
-            <AnimatedSection delay={0.25}>
-              <p className="text-[#a8a8ae] leading-relaxed">
-                Pengalaman saya mencakup berbagai industri — F&B, properti, laundry, travel, dan fitness.
-                Selain menjalankan kampanye, saya juga pernah membimbing lebih dari{" "}
-                <span className="text-white font-medium">50 student Digital Marketing</span> di RevoU
-                selama dua tahun sebagai Team Lead.
+                I connect experiments, data, and business context to find the next useful move.
+                Four years across five industries, plus{" "}
+                <span className="text-white font-medium">50+ digital marketing students</span> mentored at RevoU.
               </p>
             </AnimatedSection>
 
             {/* Industries */}
-            <AnimatedSection delay={0.3}>
+            <AnimatedSection delay={0.25}>
               <div>
                 <p className="text-xs font-semibold text-[#a8a8ae] uppercase tracking-widest mb-3">
-                  Industri yang pernah ditangani
+                  Industries
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {industries.map((ind) => (
@@ -124,10 +112,10 @@ export default function AboutSection() {
             </AnimatedSection>
 
             {/* Skills */}
-            <AnimatedSection delay={0.35}>
+            <AnimatedSection delay={0.3}>
               <div>
                 <p className="text-xs font-semibold text-[#a8a8ae] uppercase tracking-widest mb-3">
-                  Keahlian
+                  Core skills
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {skills.map((skill) => (

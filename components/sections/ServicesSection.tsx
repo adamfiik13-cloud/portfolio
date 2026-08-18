@@ -48,7 +48,7 @@ export default function ServicesSection() {
     <section
       id="layanan"
       className="py-24 lg:py-32 bg-[#151518] relative overflow-hidden"
-      aria-label="Layanan"
+      aria-label="Expertise"
     >
       <div className="max-w-[1200px] mx-auto px-6">
         {/* Header */}
@@ -56,20 +56,18 @@ export default function ServicesSection() {
           <div className="inline-flex items-center gap-2 mb-4">
             <span className="w-1.5 h-1.5 rounded-full bg-[#d6232f]" />
             <span className="text-sm font-medium text-[#a8a8ae] tracking-wide uppercase">
-              Layanan
+              Expertise
             </span>
           </div>
           <h2
             className="text-3xl sm:text-4xl font-bold text-white leading-tight mb-4"
-            style={{ fontFamily: "var(--font-manrope)" }}
+            style={{ fontFamily: "var(--font-playfair)" }}
           >
-            Satu ekosistem digital yang{" "}
-            <span className="text-[#d6232f]">saling terhubung</span>
+            Connected thinking.{" "}
+            <span className="text-[#d6232f]">Focused execution.</span>
           </h2>
           <p className="text-[#a8a8ae] leading-relaxed">
-            Traffic, data, website, dan conversion bukan silo yang terpisah.
-            Saya membantu bisnis melihat bagaimana setiap channel bekerja bersama
-            untuk menciptakan pertumbuhan yang terukur.
+            The right channels, aligned around one business goal.
           </p>
         </AnimatedSection>
 
@@ -101,7 +99,7 @@ export default function ServicesSection() {
               {/* Title */}
               <h3
                 className="font-semibold text-white mb-2 text-base"
-                style={{ fontFamily: "var(--font-manrope)" }}
+                style={{ fontFamily: "var(--font-playfair)" }}
               >
                 {service.title}
               </h3>
@@ -117,21 +115,6 @@ export default function ServicesSection() {
           ))}
         </div>
 
-        {/* Connection callout */}
-        <AnimatedSection delay={0.3} className="mt-10">
-          <div className="flex items-start gap-4 px-6 py-5 rounded-2xl bg-[#0b0b0d] border border-[#29292e]">
-            <div className="w-8 h-8 rounded-lg bg-[#d6232f]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#d6232f" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true">
-                <path d="M9 18l6-6-6-6"/>
-              </svg>
-            </div>
-            <p className="text-sm text-[#a8a8ae] leading-relaxed">
-              <span className="text-white font-medium">Tidak semua layanan perlu dijalankan bersamaan.</span>{" "}
-              Setiap bisnis memiliki prioritas yang berbeda. Saya akan membantu mengidentifikasi channel
-              dan strategi yang paling relevan untuk kondisi dan tujuan bisnis Anda saat ini.
-            </p>
-          </div>
-        </AnimatedSection>
       </div>
     </section>
   )

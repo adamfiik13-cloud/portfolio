@@ -5,7 +5,7 @@ import Badge from "@/components/ui/Badge"
 
 const experiences = [
   {
-    period: "2024 – sekarang",
+    period: "2024 — Present",
     role: "Digital Marketing Specialist",
     company: "Freelance",
     type: "current",
@@ -21,48 +21,48 @@ const experiences = [
     company: "RevoU",
     type: "featured",
     highlights: [
-      "Membimbing 50+ student digital marketing",
-      "Mendampingi 10+ market test dengan Meta Ads & Google Ads",
-      "Memimpin tim selama 2 tahun",
+      "Mentored 50+ digital marketing students",
+      "Guided 10+ market tests across Meta and Google Ads",
+      "Led the team for two years",
     ],
   },
   {
-    period: "Agustus – Oktober 2022",
+    period: "Aug — Oct 2022",
     role: "Digital Marketing (Project)",
     company: "Katanya Bento by Sagala",
     type: "default",
     highlights: [
       "Meta Ads performance marketing",
-      "Reach meningkat +90%, CR +20%",
+      "Up to +90% reach and +20% conversion rate",
     ],
   },
   {
-    period: "Juli – November 2022",
+    period: "Jul — Nov 2022",
     role: "Content Writer Intern",
     company: "iPrice Group",
     type: "default",
     highlights: [
-      "Konten placement & SEO outreach",
-      "Riset 700–900 website per minggu",
+      "Content placement and SEO outreach",
+      "Researched 700–900 websites per week",
     ],
   },
   {
-    period: "Januari – April 2022",
+    period: "Jan — Apr 2022",
     role: "Full Stack Digital Marketing",
     company: "RevoU – Batch 8",
     type: "default",
     highlights: [
-      "Proyek CampingJam: 33 leads, 991 users/bulan",
+      "CampingJam project: 33 leads, 991 monthly users",
       "Performance marketing, SEO, CRM, analytics",
     ],
   },
   {
     period: "2019 – 2021",
-    role: "Chief / Ketua Himpunan",
+    role: "Association Chair",
     company: "HIMMATETA INSTIPER",
     type: "default",
     highlights: [
-      "Memimpin ~30 pengurus dan 100 anggota",
+      "Led ~30 committee members and 100 members",
       "Leadership & team management",
     ],
   },
@@ -73,7 +73,7 @@ export default function ExperienceSection() {
     <section
       id="pengalaman"
       className="py-24 lg:py-32 bg-[#151518] relative"
-      aria-label="Pengalaman"
+      aria-label="Experience"
     >
       <div className="max-w-[1200px] mx-auto px-6">
         <div className="grid lg:grid-cols-[1fr_2fr] gap-16 lg:gap-20">
@@ -84,20 +84,18 @@ export default function ExperienceSection() {
               <div className="inline-flex items-center gap-2 mb-4">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#d6232f]" />
                 <span className="text-sm font-medium text-[#a8a8ae] tracking-wide uppercase">
-                  Pengalaman
+                  Experience
                 </span>
               </div>
               <h2
                 className="text-3xl sm:text-4xl font-bold text-white leading-tight mb-6"
-                style={{ fontFamily: "var(--font-manrope)" }}
+                style={{ fontFamily: "var(--font-playfair)" }}
               >
-                Membangun keahlian melalui{" "}
-                <span className="text-[#d6232f]">praktik nyata</span>
+                Built through{" "}
+                <span className="text-[#d6232f]">real practice.</span>
               </h2>
               <p className="text-[#a8a8ae] leading-relaxed mb-8">
-                Dari menjalankan market test bersama student, mengelola kampanye klien,
-                hingga mengembangkan fondasi digital dari nol — setiap pengalaman membentuk
-                cara saya melihat masalah pemasaran.
+                From market tests to client campaigns, each role sharpened how I frame marketing problems.
               </p>
             </AnimatedSection>
 
@@ -117,12 +115,12 @@ export default function ExperienceSection() {
                 </div>
                 <div className="grid grid-cols-3 gap-3">
                   {[
-                    { v: "2", l: "tahun" },
-                    { v: "50+", l: "student" },
+                    { v: "2", l: "years" },
+                    { v: "50+", l: "students" },
                     { v: "10+", l: "market test" },
                   ].map((s) => (
                     <div key={s.l} className="text-center">
-                      <div className="text-xl font-bold text-white" style={{ fontFamily: "var(--font-manrope)" }}>{s.v}</div>
+                      <div className="text-xl font-bold text-white" style={{ fontFamily: "var(--font-playfair)" }}>{s.v}</div>
                       <div className="text-[10px] text-[#a8a8ae]">{s.l}</div>
                     </div>
                   ))}
@@ -171,7 +169,7 @@ export default function ExperienceSection() {
                         <div>
                           <h3
                             className="font-semibold text-white mb-0.5"
-                            style={{ fontFamily: "var(--font-manrope)" }}
+                            style={{ fontFamily: "var(--font-playfair)" }}
                           >
                             {exp.role}
                           </h3>
@@ -201,16 +199,16 @@ export default function ExperienceSection() {
         {/* Education */}
         <AnimatedSection delay={0.2} className="mt-16">
           <div className="pt-10 border-t border-[#29292e]">
-            <p className="text-xs font-semibold text-[#a8a8ae] uppercase tracking-widest mb-6">Pendidikan</p>
+            <p className="text-xs font-semibold text-[#a8a8ae] uppercase tracking-widest mb-6">Education</p>
             <div className="grid sm:grid-cols-2 gap-4">
               <div className="p-5 rounded-2xl bg-[#0b0b0d] border border-[#29292e]">
                 <p className="text-sm font-semibold text-white mb-1">RevoU</p>
                 <p className="text-xs text-[#a8a8ae] mb-2">Full Stack Digital Marketing · Batch 8</p>
-                <p className="text-xs text-[#a8a8ae]/60">Januari – April 2022</p>
+                <p className="text-xs text-[#a8a8ae]/60">Jan — Apr 2022</p>
               </div>
               <div className="p-5 rounded-2xl bg-[#0b0b0d] border border-[#29292e]">
                 <p className="text-sm font-semibold text-white mb-1">Institut Pertanian STIPER Yogyakarta</p>
-                <p className="text-xs text-[#a8a8ae] mb-2">S1 Teknologi Pertanian · IPK 3.24</p>
+                <p className="text-xs text-[#a8a8ae] mb-2">BSc Agricultural Technology · GPA 3.24</p>
                 <p className="text-xs text-[#a8a8ae]/60">2014 – 2021</p>
               </div>
             </div>

@@ -10,11 +10,11 @@ export default function Footer() {
           {/* Logo + name */}
           <div className="flex items-center gap-3">
             <Image
-              src="/assets/brand/fa-monogram.svg"
-              alt="FA"
+              src="/assets/avatar/avatar-circle-64.png"
+              alt="Fikri Adam"
               width={28}
               height={28}
-              className="w-7 h-7 opacity-60"
+              className="w-7 h-7 rounded-full opacity-80"
             />
             <span className="text-sm text-[#a8a8ae]">Fikri Adam</span>
           </div>

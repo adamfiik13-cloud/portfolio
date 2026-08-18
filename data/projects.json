@@ -3,9 +3,9 @@
     "slug": "groperti-seo",
     "title": "GroPerti - SEO & Organic Growth",
     "category": "SEO",
-    "period": "Januari 2025 - sekarang",
+    "period": "Jan 2025 — Present",
     "thumbnail": "/assets/projects/groperti-seo.svg",
-    "summary": "Membangun pertumbuhan organik melalui fondasi teknis, optimasi konten, dan monitoring berbasis data.",
+    "summary": "Built a stronger organic foundation through technical fixes, content, and measurement.",
     "metrics": ["+263% organic traffic YoY", "+159% search clicks YoY", "+144% search impressions YoY"],
     "featured": true
   },
@@ -13,30 +13,30 @@
     "slug": "fte-renon-meta-ads",
     "title": "FTE Renon - Meta Ads Performance",
     "category": "Performance Marketing",
-    "period": "Juni 2026 - sekarang",
+    "period": "Jun 2026 — Present",
     "thumbnail": "/assets/projects/fte-renon.svg",
-    "summary": "Meningkatkan efisiensi paid media melalui creative testing dan pesan yang menonjolkan pengalaman private gym.",
-    "metrics": ["CTR meningkat", "CPC menurun", "Cost per DM tetap efisien"],
+    "summary": "Improved paid media efficiency through focused creative testing.",
+    "metrics": ["Higher CTR", "Lower CPC", "Efficient cost per DM"],
     "featured": true
   },
   {
     "slug": "conscioustravel-digital-growth",
     "title": "ConsciousTravel - Website, Ads & SEO",
     "category": "Digital Growth",
-    "period": "2026 - sekarang",
+    "period": "2026 — Present",
     "thumbnail": "/assets/projects/conscioustravel.svg",
-    "summary": "Mengubah landing page menjadi ekosistem digital yang scalable untuk discovery, trust, dan conversion.",
-    "metrics": ["Multi-page website", "Bilingual experience", "Sekitar +70% impressions"],
+    "summary": "Turned one landing page into a scalable digital growth platform.",
+    "metrics": ["Multi-page platform", "Bilingual experience", "~70% more impressions"],
     "featured": true
   },
   {
     "slug": "katanya-bento-meta-ads",
     "title": "Katanya Bento - Meta Ads",
     "category": "Performance Marketing",
-    "period": "Agustus - Oktober 2022",
+    "period": "Aug — Oct 2022",
     "thumbnail": "/assets/projects/katanya-bento.svg",
-    "summary": "Mengubah penurunan order menjadi pembelajaran kampanye dan arah optimasi yang lebih jelas.",
-    "metrics": ["Reach hingga +90%", "Cost per reach turun 12%", "Conversion rate hingga +20%"],
+    "summary": "Turned declining orders into a clearer campaign direction.",
+    "metrics": ["Up to +90% reach", "12% lower cost per reach", "Up to +20% conversion rate"],
     "featured": true
   },
   {
@@ -45,8 +45,8 @@
     "category": "Lead Generation",
     "period": "",
     "thumbnail": "/assets/projects/groperti-ads.svg",
-    "summary": "Menemukan formula webinar dan creative untuk menarik calon agen serta mendukung penjualan properti.",
-    "metrics": ["Leads hingga +50%", "Webinar lead magnet", "Creative formula"],
+    "summary": "Found a webinar-led acquisition formula for prospective property agents.",
+    "metrics": ["Up to +50% leads", "Webinar lead magnet", "Repeatable creative"],
     "featured": false
   },
   {
@@ -55,9 +55,8 @@
     "category": "Market Validation",
     "period": "",
     "thumbnail": "/assets/projects/laundry-market-test.svg",
-    "summary": "Mengubah ide produk menjadi bukti minat pasar melalui Meta Ads dan Google Ads.",
-    "metrics": ["20+ calon pengguna", "Meta & Google Ads", "Market validation"],
+    "summary": "Turned a product idea into evidence of market interest.",
+    "metrics": ["20+ prospects", "Meta & Google Ads", "Market validation"],
     "featured": false
   }
 ]
-

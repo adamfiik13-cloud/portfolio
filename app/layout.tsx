@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { Inter, Manrope } from "next/font/google"
+import { Inter, Playfair_Display } from "next/font/google"
 import "./globals.css"
 
 const inter = Inter({
@@ -8,17 +8,17 @@ const inter = Inter({
   display: "swap",
 })
 
-const manrope = Manrope({
+const playfair = Playfair_Display({
   subsets: ["latin"],
-  variable: "--font-manrope",
+  variable: "--font-playfair",
   display: "swap",
 })
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://fikriadam.vercel.app"),
-  title: "Fikri Adam — Digital Marketing Specialist",
+  title: "Fikri Adam — Digital Marketing Strategist",
   description:
-    "Saya membantu bisnis menemukan audiens, pesan, dan jalur konversi yang paling relevan melalui strategi digital yang dapat diuji dan dievaluasi berdasarkan data.",
+    "Clear strategy, measurable execution, and practical insights for digital growth.",
   keywords: [
     "Digital Marketing Specialist",
     "Meta Ads",
@@ -38,23 +38,21 @@ export const metadata: Metadata = {
     locale: "id_ID",
     url: "https://fikriadam.vercel.app",
     title: "Fikri Adam — Digital Marketing Specialist",
-    description:
-      "Strategi yang jelas. Eksekusi yang terukur. Pembelajaran yang dapat ditindaklanjuti.",
+    description: "Clear strategy. Measured execution. Useful learning.",
     siteName: "Fikri Adam Portfolio",
     images: [
       {
         url: "/assets/brand/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Fikri Adam — Digital Marketing Specialist",
+        alt: "Fikri Adam — Digital Marketing Strategist",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Fikri Adam — Digital Marketing Specialist",
-    description:
-      "Strategi yang jelas. Eksekusi yang terukur. Pembelajaran yang dapat ditindaklanjuti.",
+    description: "Clear strategy. Measured execution. Useful learning.",
     images: ["/assets/brand/og-image.png"],
   },
   icons: {
@@ -83,7 +81,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="id" className={`${inter.variable} ${manrope.variable}`}>
+    <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
       <body className={inter.className}>{children}</body>
     </html>
   )
