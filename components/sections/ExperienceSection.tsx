@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import AnimatedSection from "@/components/ui/AnimatedSection"
 import Badge from "@/components/ui/Badge"
 
@@ -23,7 +24,7 @@ const experiences = [
     highlights: [
       "Mentored 50+ digital marketing students",
       "Guided 10+ market tests across Meta and Google Ads",
-      "Led the team for two years",
+      "Led learning teams for 2+ years",
     ],
   },
   {
@@ -69,31 +70,53 @@ export default function ExperienceSection() {
               </p>
             </AnimatedSection>
 
-            {/* RevoU highlight card */}
+            {/* RevoU editorial feature */}
             <AnimatedSection delay={0.15}>
-              <div className="p-5 rounded-2xl bg-[#0b0b0d] border border-[#d6232f]/20">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-8 h-8 rounded-lg bg-[#d6232f]/10 flex items-center justify-center">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#d6232f" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true">
-                      <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
-                    </svg>
-                  </div>
-                  <div>
-                    <p className="text-xs font-semibold text-[#d6232f] uppercase tracking-wide">Highlight</p>
-                    <p className="text-sm font-semibold text-white">RevoU — Team Lead</p>
+              <div className="overflow-hidden rounded-[1.5rem] bg-[#ffdf20] text-[#111113] shadow-[0_20px_70px_rgba(0,0,0,0.28)]">
+                <div className="relative aspect-[4/3] overflow-hidden">
+                  <Image
+                    src="/assets/revou/fikri-revou.png"
+                    alt="Fikri Adam in a RevoU branded portrait"
+                    fill
+                    sizes="(min-width: 1024px) 360px, 100vw"
+                    className="object-cover object-[50%_32%] transition-transform duration-700 hover:scale-[1.025]"
+                  />
+                  <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#ffdf20] to-transparent" aria-hidden="true" />
+                  <div className="absolute left-4 top-4 flex items-center gap-2 rounded-full bg-[#111113]/90 py-1.5 pl-1.5 pr-3 text-white backdrop-blur-sm">
+                    <Image src="/assets/revou/revou-logo.jpg" alt="" width={28} height={28} className="rounded-full" />
+                    <span className="text-[10px] font-bold uppercase tracking-[0.16em]">RevoU highlight</span>
                   </div>
                 </div>
-                <div className="grid grid-cols-3 gap-3">
+
+                <div className="relative -mt-8 px-5 pb-5">
+                  <p className="mb-1 text-xs font-bold uppercase tracking-[0.16em] text-[#111113]/55">Team Lead · Digital Marketing</p>
+                  <p className="mb-5 text-xl font-bold leading-tight" style={{ fontFamily: "var(--font-playfair)" }}>
+                    Turning lessons into confident action.
+                  </p>
+
+                  <div className="mb-5 grid grid-cols-3 gap-2 border-y border-[#111113]/15 py-4">
                   {[
-                    { v: "2", l: "years" },
+                    { v: "2+", l: "years at RevoU" },
                     { v: "50+", l: "students" },
-                    { v: "10+", l: "market test" },
+                    { v: "10+", l: "market tests" },
                   ].map((s) => (
                     <div key={s.l} className="text-center">
-                      <div className="text-xl font-bold text-white" style={{ fontFamily: "var(--font-playfair)" }}>{s.v}</div>
-                      <div className="text-[10px] text-[#a8a8ae]">{s.l}</div>
+                      <div className="text-xl font-bold" style={{ fontFamily: "var(--font-playfair)" }}>{s.v}</div>
+                      <div className="text-[10px] font-medium text-[#111113]/60">{s.l}</div>
                     </div>
                   ))}
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-2" aria-label="RevoU team moments">
+                    {[
+                      ["/assets/revou/team-orientation.png", "RevoU digital marketing orientation team"],
+                      ["/assets/revou/team-session.png", "RevoU team learning session"],
+                    ].map(([src, alt]) => (
+                      <div key={src} className="relative aspect-[16/10] overflow-hidden rounded-xl bg-[#111113]/10">
+                        <Image src={src} alt={alt} fill sizes="160px" className="object-cover" />
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </AnimatedSection>
