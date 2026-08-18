@@ -25,13 +25,13 @@ export default function Footer() {
               href="https://wa.me/6285155202123"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-white transition-colors"
+              className="min-h-11 inline-flex items-center hover:text-white transition-colors"
             >
               WhatsApp
             </a>
             <a
               href="mailto:adam.fikri13@gmail.com"
-              className="hover:text-white transition-colors"
+              className="min-h-11 inline-flex items-center hover:text-white transition-colors"
             >
               Email
             </a>
@@ -39,7 +39,7 @@ export default function Footer() {
               href="https://www.linkedin.com/in/fikri-adam/"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-white transition-colors"
+              className="min-h-11 inline-flex items-center hover:text-white transition-colors"
             >
               LinkedIn
             </a>
@@ -47,7 +47,7 @@ export default function Footer() {
               href="https://www.instagram.com/adamfiik/"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-white transition-colors"
+              className="min-h-11 inline-flex items-center hover:text-white transition-colors"
             >
               Instagram
             </a>

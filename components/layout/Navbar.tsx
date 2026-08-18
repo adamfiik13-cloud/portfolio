@@ -23,6 +23,20 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? "hidden" : ""
+
+    const handleKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMenuOpen(false)
+    }
+
+    window.addEventListener("keydown", handleKey)
+    return () => {
+      document.body.style.overflow = ""
+      window.removeEventListener("keydown", handleKey)
+    }
+  }, [menuOpen])
+
   const handleNavClick = (href: string) => {
     setMenuOpen(false)
     const el = document.querySelector(href)
@@ -44,7 +58,7 @@ export default function Navbar() {
           {/* Logo */}
           <a
             href="#"
-            className="group flex items-center gap-3"
+            className="group min-w-11 min-h-11 flex items-center gap-3"
             aria-label="Fikri Adam — Back to top"
           >
             <span className="relative block w-9 h-9 overflow-hidden rounded-full border border-white/15 group-hover:border-[#d6232f] transition-colors">

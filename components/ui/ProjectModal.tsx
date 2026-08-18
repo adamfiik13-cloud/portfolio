@@ -58,6 +58,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            onClick={onClose}
           >
             <motion.div
               className="relative w-full sm:max-w-2xl max-h-[90dvh] overflow-y-auto bg-[#151518] sm:rounded-2xl border border-[#29292e] shadow-2xl"
@@ -72,6 +73,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                 <Badge variant="red">{project.category}</Badge>
                 <button
                   onClick={onClose}
+                  autoFocus
                   className="w-8 h-8 flex items-center justify-center rounded-lg text-[#a8a8ae] hover:text-white hover:bg-[#202024] transition-colors"
                   aria-label="Close"
                 >

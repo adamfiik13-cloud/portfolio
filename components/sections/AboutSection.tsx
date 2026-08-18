@@ -58,7 +58,7 @@ export default function AboutSection() {
                 Curious by default.
               </div>
               {/* Floating badge */}
-              <div className="absolute -bottom-4 -right-4 bg-[#151518] border border-[#29292e] rounded-2xl px-4 py-3 shadow-xl">
+              <div className="absolute z-20 -bottom-5 right-2 sm:-right-4 bg-[#151518]/95 border border-white/10 rounded-2xl px-4 py-3 shadow-2xl backdrop-blur">
                 <div className="text-2xl font-bold text-white" style={{ fontFamily: "var(--font-playfair)" }}>4+</div>
                 <div className="text-xs text-[#a8a8ae]">years in practice</div>
               </div>
