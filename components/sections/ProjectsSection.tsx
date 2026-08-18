@@ -6,7 +6,6 @@ import { useRef } from "react"
 import { useInView } from "framer-motion"
 import Image from "next/image"
 import AnimatedSection from "@/components/ui/AnimatedSection"
-import Badge from "@/components/ui/Badge"
 import ProjectModal from "@/components/ui/ProjectModal"
 import projectsData from "@/data/projects.json"
 import { Project } from "@/lib/types"
@@ -23,7 +22,7 @@ export default function ProjectsSection() {
   return (
     <section
       id="studi-kasus"
-      className="py-24 lg:py-32 bg-[#0b0b0d] relative"
+      className="py-24 lg:py-32 bg-[#f3f0e9] text-[#111114] relative overflow-hidden"
       aria-label="Selected work"
     >
       <div className="max-w-[1200px] mx-auto px-6">
@@ -31,18 +30,18 @@ export default function ProjectsSection() {
         <AnimatedSection className="max-w-2xl mb-16">
           <div className="inline-flex items-center gap-2 mb-4">
             <span className="w-1.5 h-1.5 rounded-full bg-[#d6232f]" />
-            <span className="text-sm font-medium text-[#a8a8ae] tracking-wide uppercase">
+            <span className="text-sm font-semibold text-[#5d5a55] tracking-wide uppercase">
               Selected work
             </span>
           </div>
           <h2
-            className="text-3xl sm:text-4xl font-bold text-white leading-tight mb-4"
+            className="text-3xl sm:text-5xl font-bold text-[#111114] leading-tight mb-4"
             style={{ fontFamily: "var(--font-playfair)" }}
           >
             Evidence over{" "}
             <span className="text-[#d6232f]">assumption.</span>
           </h2>
-          <p className="text-[#a8a8ae] leading-relaxed">
+          <p className="text-[#625f59] leading-relaxed">
             Clear problems. Measured actions. Useful outcomes.
           </p>
         </AnimatedSection>
@@ -56,25 +55,27 @@ export default function ProjectsSection() {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: i * 0.1, ease: [0.21, 0.47, 0.32, 0.98] }}
               onClick={() => setActiveProject(project)}
-              className="group relative cursor-pointer rounded-2xl bg-[#151518] border border-[#29292e] hover:border-[#d6232f]/40 overflow-hidden transition-all duration-300"
+              className="group relative cursor-pointer rounded-3xl bg-white border border-[#d9d4ca] hover:border-[#d6232f]/40 hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(31,26,22,0.12)] overflow-hidden transition-all duration-300"
               aria-label={`Open details: ${project.title}`}
               role="button"
               tabIndex={0}
               onKeyDown={(e) => e.key === "Enter" && setActiveProject(project)}
             >
               {/* Thumbnail */}
-              <div className="relative aspect-[16/7] bg-[#202024] overflow-hidden">
+              <div className="relative aspect-[16/10] bg-[#111114] overflow-hidden">
                 <Image
                   src={project.thumbnail}
                   alt={project.title}
                   fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  sizes="(max-width: 640px) 100vw, 50vw"
+                  className="object-cover transition-transform duration-700 group-hover:scale-[1.025]"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#151518]/80 to-transparent" aria-hidden="true" />
 
                 {/* Category badge */}
                 <div className="absolute top-4 left-4">
-                  <Badge variant="red">{project.category}</Badge>
+                  <span className="inline-flex rounded-full bg-white/90 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.14em] text-[#111114] shadow-sm backdrop-blur">
+                    {project.category}
+                  </span>
                 </div>
 
                 {/* Expand icon */}
@@ -86,21 +87,26 @@ export default function ProjectsSection() {
               </div>
 
               {/* Content */}
-              <div className="p-6">
-                <div className="flex items-start justify-between gap-4 mb-2">
+              <div className="p-6 sm:p-7">
+                <div className="mb-4">
                   <h3
-                    className="font-bold text-white text-lg leading-snug group-hover:text-[#ff4b55] transition-colors"
+                    className="font-bold text-[#111114] text-2xl leading-none group-hover:text-[#d6232f] transition-colors"
                     style={{ fontFamily: "var(--font-playfair)" }}
                   >
-                    {project.title}
+                    {project.displayTitle ?? project.title}
                   </h3>
+                  {project.service && (
+                    <p className="mt-2 text-xs font-semibold uppercase tracking-[0.16em] text-[#8b302f]">
+                      {project.service}
+                    </p>
+                  )}
                 </div>
 
                 {project.period && (
-                  <p className="text-xs text-[#a8a8ae] mb-3">{project.period}</p>
+                  <p className="text-xs text-[#77736c] mb-3">{project.period}</p>
                 )}
 
-                <p className="text-sm text-[#a8a8ae] leading-relaxed mb-4">
+                <p className="text-sm text-[#625f59] leading-relaxed mb-5">
                   {project.summary}
                 </p>
 
@@ -109,7 +115,7 @@ export default function ProjectsSection() {
                   {project.metrics.slice(0, 3).map((metric, mi) => (
                     <span
                       key={mi}
-                      className="inline-flex items-center gap-1.5 text-xs font-medium text-[#f3f3f4] bg-[#202024] border border-[#29292e] rounded-full px-3 py-1"
+                      className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#34312d] bg-[#f3f0e9] border border-[#ded8ce] rounded-full px-3 py-1.5"
                     >
                       <span className="w-1 h-1 rounded-full bg-[#d6232f]" aria-hidden="true" />
                       {metric}
@@ -118,7 +124,7 @@ export default function ProjectsSection() {
                 </div>
 
                 {/* CTA */}
-                <div className="mt-4 flex items-center gap-1.5 text-sm font-medium text-[#a8a8ae] group-hover:text-[#ff4b55] transition-colors">
+                <div className="mt-5 flex items-center gap-1.5 text-sm font-semibold text-[#34312d] group-hover:text-[#d6232f] transition-colors">
                   View case study
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <path d="M5 12h14M12 5l7 7-7 7"/>
@@ -131,7 +137,7 @@ export default function ProjectsSection() {
 
         {/* Supporting projects */}
         <AnimatedSection delay={0.2}>
-          <p className="text-xs font-semibold text-[#a8a8ae] uppercase tracking-widest mb-4">
+          <p className="text-xs font-semibold text-[#625f59] uppercase tracking-widest mb-4">
             More work
           </p>
           <div className="grid sm:grid-cols-2 gap-4">
@@ -139,37 +145,35 @@ export default function ProjectsSection() {
               <article
                 key={project.slug}
                 onClick={() => setActiveProject(project)}
-                className="group cursor-pointer flex gap-4 p-5 rounded-2xl bg-[#151518] border border-[#29292e] hover:border-[#d6232f]/40 transition-all duration-300"
+                className="group cursor-pointer flex gap-5 p-5 rounded-2xl bg-white border border-[#d9d4ca] hover:border-[#d6232f]/40 hover:shadow-[0_16px_36px_rgba(31,26,22,0.08)] transition-all duration-300"
                 aria-label={`Open details: ${project.title}`}
                 role="button"
                 tabIndex={0}
                 onKeyDown={(e) => e.key === "Enter" && setActiveProject(project)}
               >
                 {/* Thumbnail small */}
-                <div className="w-16 h-16 rounded-xl bg-[#202024] overflow-hidden flex-shrink-0">
+                <div className="w-24 h-20 rounded-xl bg-[#111114] overflow-hidden flex-shrink-0">
                   <Image
                     src={project.thumbnail}
                     alt={project.title}
-                    width={64}
-                    height={64}
+                    width={192}
+                    height={120}
                     className="w-full h-full object-cover"
                   />
                 </div>
 
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 mb-1">
-                    <Badge variant="outline" className="text-[10px]">{project.category}</Badge>
-                  </div>
                   <h3
-                    className="font-semibold text-white text-sm leading-snug mb-1 group-hover:text-[#ff4b55] transition-colors"
+                    className="font-bold text-[#111114] text-lg leading-none mb-1 group-hover:text-[#d6232f] transition-colors"
                     style={{ fontFamily: "var(--font-playfair)" }}
                   >
-                    {project.title}
+                    {project.displayTitle ?? project.title}
                   </h3>
-                  <p className="text-xs text-[#a8a8ae] line-clamp-2">{project.summary}</p>
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.13em] text-[#8b302f] mb-2">{project.service}</p>
+                  <p className="text-xs text-[#625f59] line-clamp-2">{project.summary}</p>
                 </div>
 
-                <div className="flex-shrink-0 self-center text-[#a8a8ae] group-hover:text-[#d6232f] transition-colors" aria-hidden="true">
+                <div className="flex-shrink-0 self-center text-[#77736c] group-hover:text-[#d6232f] transition-colors" aria-hidden="true">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M5 12h14M12 5l7 7-7 7"/>
                   </svg>

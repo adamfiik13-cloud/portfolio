@@ -27,16 +27,6 @@ const experiences = [
     ],
   },
   {
-    period: "Aug — Oct 2022",
-    role: "Digital Marketing (Project)",
-    company: "Katanya Bento by Sagala",
-    type: "default",
-    highlights: [
-      "Meta Ads performance marketing",
-      "Up to +90% reach and +20% conversion rate",
-    ],
-  },
-  {
     period: "Jul — Nov 2022",
     role: "Content Writer Intern",
     company: "iPrice Group",
@@ -44,26 +34,6 @@ const experiences = [
     highlights: [
       "Content placement and SEO outreach",
       "Researched 700–900 websites per week",
-    ],
-  },
-  {
-    period: "Jan — Apr 2022",
-    role: "Full Stack Digital Marketing",
-    company: "RevoU – Batch 8",
-    type: "default",
-    highlights: [
-      "CampingJam project: 33 leads, 991 monthly users",
-      "Performance marketing, SEO, CRM, analytics",
-    ],
-  },
-  {
-    period: "2019 – 2021",
-    role: "Association Chair",
-    company: "HIMMATETA INSTIPER",
-    type: "default",
-    highlights: [
-      "Led ~30 committee members and 100 members",
-      "Leadership & team management",
     ],
   },
 ]
@@ -200,16 +170,11 @@ export default function ExperienceSection() {
         <AnimatedSection delay={0.2} className="mt-16">
           <div className="pt-10 border-t border-[#29292e]">
             <p className="text-xs font-semibold text-[#a8a8ae] uppercase tracking-widest mb-6">Education</p>
-            <div className="grid sm:grid-cols-2 gap-4">
+            <div className="max-w-xl">
               <div className="p-5 rounded-2xl bg-[#0b0b0d] border border-[#29292e]">
                 <p className="text-sm font-semibold text-white mb-1">RevoU</p>
                 <p className="text-xs text-[#a8a8ae] mb-2">Full Stack Digital Marketing · Batch 8</p>
                 <p className="text-xs text-[#a8a8ae]/60">Jan — Apr 2022</p>
-              </div>
-              <div className="p-5 rounded-2xl bg-[#0b0b0d] border border-[#29292e]">
-                <p className="text-sm font-semibold text-white mb-1">Institut Pertanian STIPER Yogyakarta</p>
-                <p className="text-xs text-[#a8a8ae] mb-2">BSc Agricultural Technology · GPA 3.24</p>
-                <p className="text-xs text-[#a8a8ae]/60">2014 – 2021</p>
               </div>
             </div>
           </div>

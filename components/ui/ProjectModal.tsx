@@ -84,12 +84,12 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
               {/* Content */}
               <div className="p-6 space-y-6">
                 {/* Thumbnail */}
-                <div className="rounded-xl overflow-hidden bg-[#202024] aspect-[16/7] flex items-center justify-center">
+                <div className="rounded-xl overflow-hidden bg-[#202024] aspect-[16/10] flex items-center justify-center">
                   <Image
                     src={project.thumbnail}
                     alt={project.title}
                     width={640}
-                    height={280}
+                    height={400}
                     className="w-full h-full object-cover"
                   />
                 </div>

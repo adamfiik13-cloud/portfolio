@@ -6,7 +6,6 @@ import AnimatedSection from "@/components/ui/AnimatedSection"
 
 const steps = [
   {
-    number: "01",
     title: "Frame",
     description: "Define the business question, audience, and constraint.",
     icon: (
@@ -16,7 +15,6 @@ const steps = [
     ),
   },
   {
-    number: "02",
     title: "Hypothesise",
     description: "Choose the message, channel, and signal worth testing.",
     icon: (
@@ -26,7 +24,6 @@ const steps = [
     ),
   },
   {
-    number: "03",
     title: "Test",
     description: "Run a focused experiment with reliable measurement.",
     icon: (
@@ -36,7 +33,6 @@ const steps = [
     ),
   },
   {
-    number: "04",
     title: "Decide",
     description: "Turn the signal into the next practical move.",
     icon: (
@@ -89,7 +85,7 @@ export default function ProcessSection() {
         <div ref={ref} className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {steps.map((step, i) => (
             <motion.div
-              key={step.number}
+              key={step.title}
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: i * 0.1, ease: [0.21, 0.47, 0.32, 0.98] }}
@@ -98,33 +94,26 @@ export default function ProcessSection() {
               {/* Connector */}
               {i < steps.length - 1 && (
                 <div
-                  className="hidden lg:block absolute top-7 left-full w-5 h-px bg-[#29292e] z-10"
+                  className="hidden lg:block absolute top-12 left-full w-5 h-px bg-[#29292e] z-10"
                   aria-hidden="true"
                 />
               )}
 
-              <div className="p-6 rounded-2xl bg-[#151518] border border-[#29292e] h-full">
-                {/* Number + Icon */}
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-9 h-9 rounded-xl bg-[#d6232f]/10 border border-[#d6232f]/20 flex items-center justify-center text-[#d6232f]">
+              <div className="p-7 lg:p-8 rounded-2xl bg-[#151518] border border-[#29292e] h-full">
+                {/* Icon */}
+                <div className="mb-6">
+                  <div className="w-12 h-12 rounded-2xl bg-[#d6232f]/10 border border-[#d6232f]/20 flex items-center justify-center text-[#ff4b55] [&_svg]:w-6 [&_svg]:h-6">
                     {step.icon}
                   </div>
-                  <span
-                    className="text-3xl font-black text-[#29292e]"
-                    style={{ fontFamily: "var(--font-playfair)" }}
-                    aria-hidden="true"
-                  >
-                    {step.number}
-                  </span>
                 </div>
 
                 <h3
-                  className="font-bold text-white mb-2"
+                  className="font-bold text-white text-xl mb-3"
                   style={{ fontFamily: "var(--font-playfair)" }}
                 >
                   {step.title}
                 </h3>
-                <p className="text-sm text-[#a8a8ae] leading-relaxed">{step.description}</p>
+                <p className="text-sm text-[#a8a8ae] leading-relaxed max-w-[22ch]">{step.description}</p>
               </div>
             </motion.div>
           ))}

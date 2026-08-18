@@ -52,30 +52,40 @@ export default function ContactSection() {
   return (
     <section
       id="kontak"
-      className="py-24 lg:py-32 bg-[#151518] relative overflow-hidden"
+      className="py-24 lg:py-36 bg-[#100b0d] relative overflow-hidden border-t border-[#d6232f]/20"
       aria-label="Contact"
     >
-      {/* Red glow */}
+      {/* Slow ambient glow */}
       <div
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[400px] pointer-events-none"
-        style={{ background: "radial-gradient(ellipse, rgba(214,35,47,0.12) 0%, transparent 60%)" }}
+        className="animate-contact-glow absolute -top-40 left-[5%] w-[680px] h-[680px] rounded-full pointer-events-none blur-2xl"
+        style={{ background: "radial-gradient(circle, rgba(214,35,47,0.26) 0%, rgba(214,35,47,0.06) 42%, transparent 70%)" }}
+        aria-hidden="true"
+      />
+      <div
+        className="absolute inset-0 pointer-events-none opacity-[0.16]"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px)",
+          backgroundSize: "88px 88px",
+          maskImage: "linear-gradient(to right, black, transparent 74%)",
+        }}
         aria-hidden="true"
       />
 
       <div className="max-w-[1200px] mx-auto px-6 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
 
           {/* Left — CTA */}
           <div>
             <AnimatedSection>
-              <div className="inline-flex items-center gap-2 mb-4">
+              <div className="inline-flex items-center gap-2 mb-5">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#d6232f]" />
                 <span className="text-sm font-medium text-[#a8a8ae] tracking-wide uppercase">
-                  Contact
+                  Your next move
                 </span>
               </div>
               <h2
-                className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight mb-6"
+                className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-[1.04] mb-6"
                 style={{ fontFamily: "var(--font-playfair)" }}
               >
                 Have a clear goal?{" "}
@@ -114,7 +124,7 @@ export default function ContactSection() {
           <div className="space-y-4">
             {/* Avatar card */}
             <AnimatedSection delay={0.1} direction="right">
-              <div className="flex items-center gap-4 p-5 rounded-2xl bg-[#0b0b0d] border border-[#29292e]">
+              <div className="flex items-center gap-4 p-5 rounded-2xl bg-[#0b0b0d]/90 border border-white/10 backdrop-blur">
                 <Image
                   src="/assets/avatar/avatar-circle-256.webp"
                   alt="Cartoon portrait of Fikri Adam"
@@ -142,7 +152,7 @@ export default function ContactSection() {
                   href={link.href}
                   target={link.href.startsWith("http") ? "_blank" : undefined}
                   rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                  className="group flex items-center gap-4 p-4 rounded-2xl bg-[#0b0b0d] border border-[#29292e] hover:border-[#d6232f]/40 transition-all duration-300"
+                  className="group flex items-center gap-4 p-4 rounded-2xl bg-[#0b0b0d]/90 border border-white/10 backdrop-blur hover:border-[#d6232f]/50 hover:translate-x-1 transition-all duration-300"
                   aria-label={`${link.label}: ${link.value}`}
                 >
                   <div className="w-9 h-9 rounded-xl bg-[#202024] border border-[#29292e] flex items-center justify-center text-[#a8a8ae] group-hover:text-[#d6232f] group-hover:bg-[#d6232f]/10 group-hover:border-[#d6232f]/20 transition-all flex-shrink-0">

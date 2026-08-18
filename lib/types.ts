@@ -1,6 +1,8 @@
 export interface Project {
   slug: string
   title: string
+  displayTitle?: string
+  service?: string
   category: string
   period: string
   thumbnail: string
