@@ -1,6 +1,8 @@
 import type { Metadata } from "next"
 import localFont from "next/font/local"
 import "./globals.css"
+import siteConfig from "@/data/site-config.json"
+import PublicMotion from "@/components/layout/PublicMotion"
 
 const displayFont = localFont({
   src: "./fonts/LeagueSpartan-Variable.woff2",
@@ -30,65 +32,24 @@ const interfaceFont = localFont({
   preload: false,
 })
 
+const title = siteConfig.name + " — " + siteConfig.role
+const description = "Studio website, SEO, dan digital growth untuk UMKM Indonesia, dipimpin Fikri Adam. Strategi yang jelas dan kolaborasi yang dekat."
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://fikriadam.vercel.app"),
-  title: "Fikri Adam — Digital Marketing Strategist",
-  description:
-    "Clear strategy, measurable execution, and practical insights for digital growth.",
-  keywords: [
-    "Digital Marketing Specialist",
-    "Meta Ads",
-    "Google Ads",
-    "SEO",
-    "GA4",
-    "Google Tag Manager",
-    "Landing Page",
-    "Marketing Consultation",
-    "Fikri Adam",
-    "Indonesia",
-  ],
-  authors: [{ name: "Fikri Adam" }],
-  creator: "Fikri Adam",
+  metadataBase: new URL(siteConfig.url),
+  title: { default: title, template: "%s | Adam’s Work" },
+  description,
+  alternates: { canonical: "/" },
+  authors: [{ name: siteConfig.founder }],
+  creator: siteConfig.name,
   openGraph: {
-    type: "website",
-    locale: "id_ID",
-    url: "https://fikriadam.vercel.app",
-    title: "Fikri Adam — Digital Marketing Specialist",
-    description: "Clear strategy. Measured execution. Useful learning.",
-    siteName: "Fikri Adam Portfolio",
-    images: [
-      {
-        url: "/assets/brand/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Fikri Adam — Digital Marketing Strategist",
-      },
-    ],
+    type: "website", locale: "id_ID", url: siteConfig.url,
+    title, description, siteName: siteConfig.name,
+    images: [{ url: "/assets/avatar/avatar-about-640.webp", width: 640, height: 640, alt: "Fikri Adam, pendiri Adam’s Work" }],
   },
-  twitter: {
-    card: "summary_large_image",
-    title: "Fikri Adam — Digital Marketing Specialist",
-    description: "Clear strategy. Measured execution. Useful learning.",
-    images: ["/assets/brand/og-image.png"],
-  },
-  icons: {
-    icon: [
-      { url: "/assets/brand/favicon.svg", type: "image/svg+xml" },
-      { url: "/assets/brand/favicon-32.png", sizes: "32x32", type: "image/png" },
-    ],
-    apple: "/assets/brand/apple-touch-icon.png",
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
-  },
+  twitter: { card: "summary", title, description, images: ["/assets/avatar/avatar-about-640.webp"] },
+  icons: { icon: { url: "/assets/brand/adams-work.svg", type: "image/svg+xml" }, apple: "/assets/avatar/avatar-circle-64.png" },
+  robots: { index: process.env.VERCEL_ENV !== "preview", follow: true },
 }
 
 export default function RootLayout({
@@ -97,8 +58,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${displayFont.variable} ${brandBodyFont.variable} ${interfaceFont.variable}`}>
-      <body>{children}</body>
+    <html lang={siteConfig.locale} className={`${displayFont.variable} ${brandBodyFont.variable} ${interfaceFont.variable}`}>
+      <body><PublicMotion>{children}</PublicMotion></body>
     </html>
   )
 }

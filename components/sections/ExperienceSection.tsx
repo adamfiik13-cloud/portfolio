@@ -46,7 +46,7 @@ export default function ExperienceSection() {
       className="py-24 lg:py-32 bg-[#151518] relative"
       aria-label="Experience"
     >
-      <div className="max-w-[1200px] mx-auto px-6">
+      <div className="public-container">
         <div className="grid lg:grid-cols-[1fr_2fr] gap-16 lg:gap-20">
 
           {/* Left — heading */}
@@ -54,19 +54,19 @@ export default function ExperienceSection() {
             <AnimatedSection>
               <div className="inline-flex items-center gap-2 mb-4">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#d6232f]" />
-                <span className="text-sm font-display font-medium text-[#a8a8ae] tracking-wide uppercase">
-                  Experience
+                <span className="text-sm font-display font-medium text-muted tracking-wide uppercase">
+                  Pengalaman pendiri
                 </span>
               </div>
               <h2
                 className="text-3xl sm:text-4xl font-display font-bold text-white leading-tight mb-6"
                 style={{ fontFamily: "var(--font-display)" }}
               >
-                Built through{" "}
-                <span className="text-[#d6232f]">real practice.</span>
+                Dibangun dari{" "}
+                <span className="text-[#d6232f]">praktik langsung.</span>
               </h2>
-              <p className="text-[#a8a8ae] leading-relaxed mb-8">
-                From market tests to client campaigns, each role sharpened how I frame marketing problems.
+              <p className="text-muted leading-relaxed mb-8">
+                Pengalaman Fikri Adam sebelum dan di balik Adam’s Work: dari pengujian pasar hingga kampanye klien.
               </p>
             </AnimatedSection>
 
@@ -95,7 +95,7 @@ export default function ExperienceSection() {
                 </div>
 
                 <div className="relative -mt-8 px-5 pb-5">
-                  <p className="mb-1 text-xs font-display font-bold uppercase tracking-[0.16em] text-[#111113]/55">Team Lead · Digital Marketing</p>
+                  <p className="mb-1 text-xs font-display font-bold uppercase tracking-[0.16em] text-[#111113]/80">Team Lead · Digital Marketing</p>
                   <p className="mb-5 text-xl font-display font-bold leading-tight" style={{ fontFamily: "var(--font-display)" }}>
                     Turning lessons into confident action.
                   </p>
@@ -108,7 +108,7 @@ export default function ExperienceSection() {
                   ].map((s) => (
                     <div key={s.l} className="text-center">
                       <div className="text-xl font-display font-bold" style={{ fontFamily: "var(--font-display)" }}>{s.v}</div>
-                      <div className="text-[10px] font-display font-medium text-[#111113]/60">{s.l}</div>
+                      <div className="text-[10px] font-display font-medium text-[#111113]/80">{s.l}</div>
                     </div>
                   ))}
                   </div>
@@ -172,7 +172,7 @@ export default function ExperienceSection() {
                           >
                             {exp.role}
                           </h3>
-                          <p className="text-sm text-[#a8a8ae]">{exp.company}</p>
+                          <p className="text-sm text-muted">{exp.company}</p>
                         </div>
                         <Badge variant={exp.type === "current" ? "red" : "outline"} className="flex-shrink-0">
                           {exp.period}
@@ -181,7 +181,7 @@ export default function ExperienceSection() {
 
                       <ul className="space-y-1.5">
                         {exp.highlights.map((h, hi) => (
-                          <li key={hi} className="flex items-start gap-2.5 text-sm text-[#a8a8ae]">
+                          <li key={hi} className="flex items-start gap-2.5 text-sm text-muted">
                             <span className="mt-2 w-1 h-1 rounded-full bg-[#d6232f]/60 flex-shrink-0" aria-hidden="true" />
                             {h}
                           </li>
@@ -198,12 +198,12 @@ export default function ExperienceSection() {
         {/* Education */}
         <AnimatedSection delay={0.2} className="mt-16">
           <div className="pt-10 border-t border-[#29292e]">
-            <p className="text-xs font-display font-semibold text-[#a8a8ae] uppercase tracking-widest mb-6">Education</p>
+            <p className="text-xs font-display font-semibold text-muted uppercase tracking-widest mb-6">Education</p>
             <div className="max-w-xl">
               <div className="p-5 rounded-2xl bg-[#0b0b0d] border border-[#29292e]">
                 <p className="text-sm font-display font-semibold text-white mb-1">RevoU</p>
-                <p className="text-xs text-[#a8a8ae] mb-2">Full Stack Digital Marketing · Batch 8</p>
-                <p className="text-xs text-[#a8a8ae]/60">Jan — Apr 2022</p>
+                <p className="text-xs text-muted mb-2">Full Stack Digital Marketing · Batch 8</p>
+                <p className="text-xs text-muted">Jan — Apr 2022</p>
               </div>
             </div>
           </div>

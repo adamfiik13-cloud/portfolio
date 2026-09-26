@@ -43,6 +43,6 @@ export interface SiteConfig {
   summary: string
   primaryCta: string
   secondaryCta: string
-  navigation: string[]
+  navigation: { label: string; href: string }[]
   stats: Stat[]
 }

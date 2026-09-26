@@ -21,7 +21,7 @@ export default function AboutSection() {
     <section
       id="tentang"
       className="py-24 lg:py-32 bg-[#0b0b0d] relative overflow-hidden"
-      aria-label="About Fikri Adam"
+      aria-label="Tentang Adam’s Work dan pendirinya"
     >
       {/* Subtle background accent */}
       <div
@@ -32,7 +32,7 @@ export default function AboutSection() {
         aria-hidden="true"
       />
 
-      <div className="max-w-[1200px] mx-auto px-6">
+      <div className="public-container">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
 
           {/* Left — Avatar */}
@@ -60,7 +60,7 @@ export default function AboutSection() {
               {/* Floating badge */}
               <div className="absolute z-20 -bottom-5 right-2 sm:-right-4 bg-[#151518]/95 border border-white/10 rounded-2xl px-4 py-3 shadow-2xl backdrop-blur">
                 <div className="text-2xl font-display font-bold text-white" style={{ fontFamily: "var(--font-display)" }}>4+</div>
-                <div className="text-xs text-[#a8a8ae]">years in practice</div>
+                <div className="text-xs text-muted">years in practice</div>
               </div>
             </div>
           </AnimatedSection>
@@ -71,8 +71,8 @@ export default function AboutSection() {
             <AnimatedSection delay={0.1}>
               <div className="inline-flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#d6232f]" />
-                <span className="text-sm font-display font-medium text-[#a8a8ae] tracking-wide uppercase">
-                  About
+                <span className="text-sm font-display font-medium text-muted tracking-wide uppercase">
+                  Tentang Adam’s Work
                 </span>
               </div>
             </AnimatedSection>
@@ -83,25 +83,25 @@ export default function AboutSection() {
                 className="text-3xl sm:text-4xl font-display font-bold text-white leading-tight"
                 style={{ fontFamily: "var(--font-display)" }}
               >
-                Read the{" "}
-                <span className="text-[#d6232f]">market signal</span>. Then decide.
+                Strategi yang jelas.{" "}
+                <span className="text-[#d6232f]">Kolaborasi yang dekat.</span>
               </h2>
             </AnimatedSection>
 
             {/* Body */}
             <AnimatedSection delay={0.2}>
-              <p className="text-[#a8a8ae] leading-relaxed">
-                I connect experiments, data, and business context to find the next useful move.
-                Four years across five industries, plus{" "}
-                <span className="text-white font-display font-medium">50+ digital marketing students</span> mentored at RevoU.
+              <p className="text-muted leading-relaxed">
+                Adam’s Work adalah studio yang dipimpin Fikri Adam sebagai founder, strategist, dan quality lead. Fikri mengarahkan strategi dan meninjau kualitas pekerjaan bersama tim internal. Anda bekerja langsung dengan studio, dari memahami kebutuhan hingga menentukan langkah berikutnya.
               </p>
             </AnimatedSection>
+
+            <p className="text-muted leading-relaxed">Fondasinya adalah pengalaman Fikri selama empat tahun di lima industri, serta mendampingi 50+ peserta digital marketing di RevoU.</p>
 
             {/* Industries */}
             <AnimatedSection delay={0.25}>
               <div>
-                <p className="text-xs font-display font-semibold text-[#a8a8ae] uppercase tracking-widest mb-3">
-                  Industries
+                <p className="text-xs font-display font-semibold text-muted uppercase tracking-widest mb-3">
+                  Pengalaman industri
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {industries.map((ind) => (
@@ -114,8 +114,8 @@ export default function AboutSection() {
             {/* Skills */}
             <AnimatedSection delay={0.3}>
               <div>
-                <p className="text-xs font-display font-semibold text-[#a8a8ae] uppercase tracking-widest mb-3">
-                  Core skills
+                <p className="text-xs font-display font-semibold text-muted uppercase tracking-widest mb-3">
+                  Keahlian
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {skills.map((skill) => (

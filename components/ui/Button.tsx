@@ -30,7 +30,7 @@ export default function Button({
     secondary:
       "bg-[#202024] text-[#f3f3f4] border border-[#29292e] hover:border-[#d6232f] hover:text-white active:scale-95",
     ghost:
-      "text-[#a8a8ae] hover:text-white underline-offset-4 hover:underline active:scale-95",
+      "text-muted hover:text-white underline-offset-4 hover:underline active:scale-95",
   }
 
   const classes = `${base} ${variants[variant]} ${className}`

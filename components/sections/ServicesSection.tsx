@@ -4,7 +4,9 @@ import { motion } from "framer-motion"
 import { useRef } from "react"
 import { useInView } from "framer-motion"
 import AnimatedSection from "@/components/ui/AnimatedSection"
-import services from "@/data/services.json"
+import { getPublicServices } from "@/data/public-content"
+
+const services = getPublicServices("id")
 
 const serviceIcons: Record<string, React.ReactNode> = {
   "meta-ads": (
@@ -48,26 +50,26 @@ export default function ServicesSection() {
     <section
       id="layanan"
       className="py-24 lg:py-32 bg-[#151518] relative overflow-hidden"
-      aria-label="Expertise"
+      aria-label="Layanan Adam’s Work"
     >
-      <div className="max-w-[1200px] mx-auto px-6">
+      <div className="public-container">
         {/* Header */}
         <AnimatedSection className="max-w-2xl mb-16">
           <div className="inline-flex items-center gap-2 mb-4">
             <span className="w-1.5 h-1.5 rounded-full bg-[#d6232f]" />
-            <span className="text-sm font-display font-medium text-[#a8a8ae] tracking-wide uppercase">
-              Expertise
+            <span className="text-sm font-display font-medium text-muted tracking-wide uppercase">
+              Layanan
             </span>
           </div>
           <h2
             className="text-3xl sm:text-4xl font-display font-bold text-white leading-tight mb-4"
             style={{ fontFamily: "var(--font-display)" }}
           >
-            Connected thinking.{" "}
-            <span className="text-[#d6232f]">Focused execution.</span>
+            Website, SEO,{" "}
+            <span className="text-[#d6232f]">dan digital growth.</span>
           </h2>
-          <p className="text-[#a8a8ae] leading-relaxed">
-            The right channels, aligned around one business goal.
+          <p className="text-muted leading-relaxed">
+            Mulai dari kebutuhan bisnis Anda. Kita menyepakati prioritas dan ruang lingkup sebelum pekerjaan dimulai.
           </p>
         </AnimatedSection>
 
@@ -105,7 +107,7 @@ export default function ServicesSection() {
               </h3>
 
               {/* Description */}
-              <p className="text-sm text-[#a8a8ae] leading-relaxed">
+              <p className="text-sm text-muted leading-relaxed">
                 {service.description}
               </p>
 

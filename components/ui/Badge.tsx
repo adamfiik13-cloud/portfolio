@@ -8,9 +8,9 @@ export default function Badge({ children, variant = "default", className = "" }:
   const base = "inline-flex max-w-full items-center px-3 py-1 rounded-full text-xs font-display font-medium tracking-wide [overflow-wrap:anywhere]"
 
   const variants = {
-    default: "bg-[#202024] text-[#a8a8ae]",
+    default: "bg-[#202024] text-muted",
     red: "bg-[#d6232f]/15 text-[#ff4b55]",
-    outline: "border border-[#29292e] text-[#a8a8ae]",
+    outline: "border border-[#29292e] text-muted",
   }
 
   return (

@@ -6,8 +6,8 @@ import AnimatedSection from "@/components/ui/AnimatedSection"
 
 const steps = [
   {
-    title: "Frame",
-    description: "Define the business question, audience, and constraint.",
+    title: "Pahami",
+    description: "Pahami tujuan bisnis, audiens, kebutuhan, dan batasannya.",
     icon: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v4l2 2"/>
@@ -15,8 +15,8 @@ const steps = [
     ),
   },
   {
-    title: "Hypothesise",
-    description: "Choose the message, channel, and signal worth testing.",
+    title: "Rencanakan",
+    description: "Sepakati prioritas, ruang lingkup, dan cara menilai hasil.",
     icon: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <path d="M9 3H5a2 2 0 0 0-2 2v4"/><path d="M9 3h6"/><path d="M15 3h4a2 2 0 0 1 2 2v4"/><path d="M3 9v6"/><path d="M21 9v6"/><path d="M3 15v4a2 2 0 0 0 2 2h4"/><path d="M15 21h4a2 2 0 0 0 2-2v-4"/><path d="M9 21h6"/>
@@ -24,8 +24,8 @@ const steps = [
     ),
   },
   {
-    title: "Test",
-    description: "Run a focused experiment with reliable measurement.",
+    title: "Kerjakan",
+    description: "Kerjakan prioritas yang disepakati dengan komunikasi yang jelas.",
     icon: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
@@ -33,8 +33,8 @@ const steps = [
     ),
   },
   {
-    title: "Decide",
-    description: "Turn the signal into the next practical move.",
+    title: "Tinjau",
+    description: "Bahas hasil dan pembelajaran untuk menentukan langkah berikutnya.",
     icon: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 16h5v5"/>
@@ -60,24 +60,24 @@ export default function ProcessSection() {
         aria-hidden="true"
       />
 
-      <div className="max-w-[1200px] mx-auto px-6">
+      <div className="public-container">
         {/* Header */}
         <AnimatedSection className="max-w-2xl mb-16">
           <div className="inline-flex items-center gap-2 mb-4">
             <span className="w-1.5 h-1.5 rounded-full bg-[#d6232f]" />
-            <span className="text-sm font-display font-medium text-[#a8a8ae] tracking-wide uppercase">
-              Approach
+            <span className="text-sm font-display font-medium text-muted tracking-wide uppercase">
+              Cara kerja
             </span>
           </div>
           <h2
             className="text-3xl sm:text-4xl font-display font-bold text-white leading-tight mb-4"
             style={{ fontFamily: "var(--font-display)" }}
           >
-            Think clearly.{" "}
-            <span className="text-[#d6232f]">Move deliberately.</span>
+            Clarity before execution.{" "}
+            <span className="text-[#d6232f]">Mulai dengan pemahaman.</span>
           </h2>
-          <p className="text-[#a8a8ae] leading-relaxed">
-            Every useful campaign starts with a better question.
+          <p className="text-muted leading-relaxed">
+            Pahami tujuan, sepakati arah, jalankan pekerjaan, lalu tinjau hasilnya bersama.
           </p>
         </AnimatedSection>
 
@@ -113,7 +113,7 @@ export default function ProcessSection() {
                 >
                   {step.title}
                 </h3>
-                <p className="text-sm text-[#a8a8ae] leading-relaxed max-w-[22ch]">{step.description}</p>
+                <p className="text-sm text-muted leading-relaxed max-w-[22ch]">{step.description}</p>
               </div>
             </motion.div>
           ))}
@@ -122,7 +122,7 @@ export default function ProcessSection() {
         {/* Quote */}
         <AnimatedSection delay={0.3} className="mt-12">
           <div className="max-w-2xl mx-auto text-center">
-            <p className="text-lg text-[#a8a8ae] leading-relaxed font-interface italic">
+            <p className="text-lg text-muted leading-relaxed font-interface italic">
               &ldquo;Data matters when it reveals{" "}
               <span className="text-white not-italic font-interface font-medium">
                 what to do next.
@@ -133,7 +133,7 @@ export default function ProcessSection() {
 
         {/* Tools marquee */}
         <AnimatedSection delay={0.2} className="mt-16">
-          <p className="text-xs font-display font-semibold text-[#a8a8ae] uppercase tracking-widest mb-5 text-center">
+          <p className="text-xs font-display font-semibold text-muted uppercase tracking-widest mb-5 text-center">
             Tools in practice
           </p>
           <div className="relative overflow-hidden">
@@ -149,7 +149,7 @@ export default function ProcessSection() {
               ].map((tool, i) => (
                 <span
                   key={i}
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs text-[#a8a8ae] bg-[#151518] border border-[#29292e] flex-shrink-0"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs text-muted bg-[#151518] border border-[#29292e] flex-shrink-0"
                 >
                   <span className="w-1 h-1 rounded-full bg-[#d6232f]" aria-hidden="true" />
                   {tool}

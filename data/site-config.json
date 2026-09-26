@@ -1,6 +1,6 @@
 {
-  "name": "Fikri Adam",
-  "role": "Digital Marketing Strategist",
+  "name": "Adam’s Work",
+  "role": "Web, SEO & Digital Growth Studio",
   "experience": "4+ years",
   "location": "Indonesia",
   "email": "adam.fikri13@gmail.com",
@@ -9,15 +9,55 @@
   "linkedinLabel": "Fikri Adam",
   "linkedinUrl": "https://www.linkedin.com/in/fikri-adam/",
   "instagramUrl": "https://www.instagram.com/adamfiik/",
-  "headline": "Clarity first. Measure what matters. Learn what works.",
-  "summary": "I turn business questions into focused digital experiments and practical growth decisions.",
-  "primaryCta": "Start a Conversation",
-  "secondaryCta": "View Selected Work",
-  "navigation": ["About", "Expertise", "Work", "Experience", "Contact"],
+  "headline": "Website yang terarah. Pertumbuhan yang dipahami.",
+  "summary": "Adam’s Work membantu UMKM Indonesia menyatukan website, SEO, dan pemasaran digital dengan tujuan bisnis yang jelas. Mulai dari kebutuhan Anda, lalu tentukan langkah yang masuk akal bersama.",
+  "primaryCta": "Diskusikan Proyek",
+  "secondaryCta": "Lihat Karya",
+  "navigation": [
+    {
+      "label": "Layanan",
+      "href": "#layanan"
+    },
+    {
+      "label": "Karya",
+      "href": "#studi-kasus"
+    },
+    {
+      "label": "Tentang",
+      "href": "#tentang"
+    },
+    {
+      "label": "Cara Kerja",
+      "href": "#proses"
+    },
+    {
+      "label": "Kontak",
+      "href": "#kontak"
+    }
+  ],
   "stats": [
-    { "value": "4+", "label": "years in practice" },
-    { "value": "50+", "label": "students mentored" },
-    { "value": "10+", "label": "market tests" },
-    { "value": "5+", "label": "industries" }
-  ]
+    {
+      "value": "4+",
+      "label": "years in practice"
+    },
+    {
+      "value": "50+",
+      "label": "students mentored"
+    },
+    {
+      "value": "10+",
+      "label": "market tests"
+    },
+    {
+      "value": "5+",
+      "label": "industries"
+    }
+  ],
+  "founder": "Fikri Adam",
+  "founderRole": "Founder, Strategist & Quality Lead",
+  "tagline": "Better digital work, built together.",
+  "principle": "Clarity before execution.",
+  "url": "https://adamswork.app",
+  "futureUrl": "https://adamswork.id",
+  "locale": "id"
 }

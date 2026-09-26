@@ -3,6 +3,7 @@
 import Image from "next/image"
 import AnimatedSection from "@/components/ui/AnimatedSection"
 import Button from "@/components/ui/Button"
+import siteConfig from "@/data/site-config.json"
 
 const contactLinks = [
   {
@@ -72,7 +73,7 @@ export default function ContactSection() {
         aria-hidden="true"
       />
 
-      <div className="max-w-[1200px] mx-auto px-6 relative z-10">
+      <div className="public-container relative z-10">
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
 
           {/* Left — CTA */}
@@ -80,19 +81,19 @@ export default function ContactSection() {
             <AnimatedSection>
               <div className="inline-flex items-center gap-2 mb-5">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#d6232f]" />
-                <span className="text-sm font-display font-medium text-[#a8a8ae] tracking-wide uppercase">
-                  Your next move
+                <span className="text-sm font-display font-medium text-muted tracking-wide uppercase">
+                  Mulai percakapan
                 </span>
               </div>
               <h2
                 className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-white leading-[1.04] mb-6"
                 style={{ fontFamily: "var(--font-display)" }}
               >
-                Have a clear goal?{" "}
-                <span className="text-[#d6232f]">Let’s find the next move.</span>
+                Apa yang ingin Anda bangun?{" "}
+                <span className="text-[#d6232f]">Kita cari arah bersama.</span>
               </h2>
-              <p className="text-[#a8a8ae] leading-relaxed mb-8 max-w-lg">
-                Strategy, paid media, SEO, analytics, or web.
+              <p className="text-muted leading-relaxed mb-8 max-w-lg">
+                Ceritakan bisnis, kebutuhan website atau pemasaran, dan tantangan Anda. Ruang lingkup pekerjaan dibicarakan sebelum kita mulai.
               </p>
             </AnimatedSection>
 
@@ -104,7 +105,7 @@ export default function ContactSection() {
                 variant="primary"
                 className="text-base px-7 py-3.5"
               >
-                Start a Conversation
+                {siteConfig.primaryCta}
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                   <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
                   <path d="M12 0C5.373 0 0 5.373 0 12c0 2.089.535 4.122 1.558 5.916L.057 23.882a.5.5 0 0 0 .61.61l5.966-1.501A11.943 11.943 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.854 0-3.634-.485-5.19-1.405l-.372-.219-3.853.97.99-3.774-.24-.391A10 10 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
@@ -115,7 +116,7 @@ export default function ContactSection() {
                 variant="secondary"
                 className="text-base px-7 py-3.5"
               >
-                Send an Email
+                Kirim Email
               </Button>
             </AnimatedSection>
           </div>
@@ -136,7 +137,7 @@ export default function ContactSection() {
                   <p className="font-display font-semibold text-white" style={{ fontFamily: "var(--font-display)" }}>
                     Fikri Adam
                   </p>
-                  <p className="text-sm text-[#a8a8ae]">Digital Marketing Strategist</p>
+                  <p className="text-sm text-muted">{siteConfig.founderRole} · Adam’s Work</p>
                   <div className="flex items-center gap-1.5 mt-1">
                     <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" aria-hidden="true" />
                     <span className="text-xs text-green-400">Open to selected projects</span>
@@ -155,11 +156,11 @@ export default function ContactSection() {
                   className="group flex items-center gap-4 p-4 rounded-2xl bg-[#0b0b0d]/90 border border-white/10 backdrop-blur hover:border-[#d6232f]/50 hover:translate-x-1 transition-all duration-300"
                   aria-label={`${link.label}: ${link.value}`}
                 >
-                  <div className="w-9 h-9 rounded-xl bg-[#202024] border border-[#29292e] flex items-center justify-center text-[#a8a8ae] group-hover:text-[#d6232f] group-hover:bg-[#d6232f]/10 group-hover:border-[#d6232f]/20 transition-all flex-shrink-0">
+                  <div className="w-9 h-9 rounded-xl bg-[#202024] border border-[#29292e] flex items-center justify-center text-muted group-hover:text-[#d6232f] group-hover:bg-[#d6232f]/10 group-hover:border-[#d6232f]/20 transition-all flex-shrink-0">
                     {link.icon}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-xs text-[#a8a8ae] mb-0.5">{link.label}</p>
+                    <p className="text-xs text-muted mb-0.5">{link.label}</p>
                     <p className="text-sm font-interface font-medium text-white [overflow-wrap:anywhere]">{link.value}</p>
                   </div>
                   <svg

@@ -11,14 +11,15 @@ import ContactSection from "@/components/sections/ContactSection"
 export default function Home() {
   return (
     <>
+      <a href="#main-content" className="skip-link">Lewati ke konten utama</a>
       <Navbar />
-      <main id="main-content">
+      <main id="main-content" tabIndex={-1}>
         <HeroSection />
-        <AboutSection />
         <ServicesSection />
         <ProjectsSection />
-        <ExperienceSection />
         <ProcessSection />
+        <AboutSection />
+        <ExperienceSection />
         <ContactSection />
       </main>
       <Footer />

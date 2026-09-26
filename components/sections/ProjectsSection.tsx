@@ -23,33 +23,33 @@ export default function ProjectsSection() {
     <section
       id="studi-kasus"
       className="py-24 lg:py-32 bg-[#f3f0e9] text-[#111114] relative overflow-hidden"
-      aria-label="Selected work"
+      aria-label="Karya pilihan"
     >
-      <div className="max-w-[1200px] mx-auto px-6">
+      <div className="public-container">
         {/* Header */}
         <AnimatedSection className="max-w-2xl mb-16">
           <div className="inline-flex items-center gap-2 mb-4">
             <span className="w-1.5 h-1.5 rounded-full bg-[#d6232f]" />
             <span className="text-sm font-display font-semibold text-[#5d5a55] tracking-wide uppercase">
-              Selected work
+              Karya pilihan
             </span>
           </div>
           <h2
             className="text-3xl sm:text-5xl font-display font-bold text-[#111114] leading-tight mb-4"
             style={{ fontFamily: "var(--font-display)" }}
           >
-            Evidence over{" "}
-            <span className="text-[#d6232f]">assumption.</span>
+            Pekerjaan nyata.{" "}
+            <span className="text-[#d6232f]">Pembelajaran nyata.</span>
           </h2>
-          <p className="text-[#625f59] leading-relaxed">
-            Clear problems. Measured actions. Useful outcomes.
+          <p className="text-ink-muted leading-relaxed">
+            Pilihan pekerjaan Fikri Adam yang menjadi fondasi pengalaman studio. Konteks, kontribusi, dan hasil setiap proyek tetap disajikan apa adanya.
           </p>
         </AnimatedSection>
 
         {/* Featured projects */}
         <div ref={ref} className="grid sm:grid-cols-2 gap-5 mb-5">
           {featured.map((project, i) => (
-            <motion.article
+            <motion.article lang="en"
               key={project.slug}
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -103,10 +103,10 @@ export default function ProjectsSection() {
                 </div>
 
                 {project.period && (
-                  <p className="text-xs text-[#77736c] mb-3">{project.period}</p>
+                  <p className="text-xs text-ink-muted mb-3">{project.period}</p>
                 )}
 
-                <p className="text-sm text-[#625f59] leading-relaxed mb-5">
+                <p className="text-sm text-ink-muted leading-relaxed mb-5">
                   {project.summary}
                 </p>
 
@@ -125,7 +125,7 @@ export default function ProjectsSection() {
 
                 {/* CTA */}
                 <div className="mt-5 flex items-center gap-1.5 text-sm font-display font-semibold text-[#34312d] group-hover:text-[#d6232f] transition-colors">
-                  View case study
+                  Lihat studi kasus
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <path d="M5 12h14M12 5l7 7-7 7"/>
                   </svg>
@@ -137,8 +137,8 @@ export default function ProjectsSection() {
 
         {/* Supporting projects */}
         <AnimatedSection delay={0.2}>
-          <p className="text-xs font-display font-semibold text-[#625f59] uppercase tracking-widest mb-4">
-            More work
+          <p className="text-xs font-display font-semibold text-ink-muted uppercase tracking-widest mb-4">
+            Karya lainnya
           </p>
           <div className="grid sm:grid-cols-2 gap-4">
             {supporting.map((project) => (
@@ -170,10 +170,10 @@ export default function ProjectsSection() {
                     {project.displayTitle ?? project.title}
                   </h3>
                   <p className="text-[10px] font-display font-semibold uppercase tracking-[0.13em] text-[#8b302f] mb-2">{project.service}</p>
-                  <p className="text-xs text-[#625f59] line-clamp-2">{project.summary}</p>
+                  <p className="text-xs text-ink-muted line-clamp-2">{project.summary}</p>
                 </div>
 
-                <div className="flex-shrink-0 self-center text-[#77736c] group-hover:text-[#d6232f] transition-colors" aria-hidden="true">
+                <div className="flex-shrink-0 self-center text-ink-muted group-hover:text-[#d6232f] transition-colors" aria-hidden="true">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M5 12h14M12 5l7 7-7 7"/>
                   </svg>

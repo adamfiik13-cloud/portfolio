@@ -33,13 +33,13 @@ export default function HeroSection() {
         aria-hidden="true"
       />
 
-      <div className="relative z-10 max-w-[1200px] mx-auto px-6 w-full pt-24 pb-16 lg:pt-0 lg:pb-0">
+      <div className="relative z-10 public-container w-full pt-24 pb-16 lg:pt-0 lg:pb-0">
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-8 items-center lg:py-32">
 
           {/* Left — Text */}
           <div className="order-1 relative">
             <div
-              className="absolute -left-6 top-24 hidden xl:block text-[11px] font-display font-semibold uppercase tracking-[0.22em] text-[#a8a8ae]/40 [writing-mode:vertical-rl] rotate-180"
+              className="absolute -left-6 top-24 hidden xl:block text-[11px] font-display font-semibold uppercase tracking-[0.22em] text-muted/40 [writing-mode:vertical-rl] rotate-180"
               aria-hidden="true"
             >
               Think · Test · Learn
@@ -52,7 +52,7 @@ export default function HeroSection() {
               className="inline-flex items-center gap-2 mb-6"
             >
               <span className="w-1.5 h-1.5 rounded-full bg-[#d6232f]" />
-              <span className="text-sm font-display font-medium text-[#a8a8ae] tracking-wide uppercase">
+              <span className="text-sm font-display font-medium text-muted tracking-wide uppercase">
                 {siteConfig.role}
               </span>
             </motion.div>
@@ -82,10 +82,14 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.35 }}
-              className="text-base sm:text-lg text-[#a8a8ae] leading-relaxed max-w-xl mb-8"
+              className="text-base sm:text-lg text-muted leading-relaxed max-w-xl mb-8"
             >
               {siteConfig.summary}
             </motion.p>
+
+            <p className="font-display text-lg text-white mb-3" lang="en">{siteConfig.tagline}</p>
+            <p className="font-interface text-sm text-muted mb-6" lang="en">For global businesses entering Indonesia: let’s discuss your website and digital growth needs.</p>
+            <p className="text-xs text-muted mb-6">Dipimpin Fikri Adam · Strategi dan kualitas pekerjaan</p>
 
             {/* CTAs */}
             <motion.div
@@ -95,12 +99,12 @@ export default function HeroSection() {
               className="flex flex-wrap gap-3 mb-12"
             >
               <Button
-                href="https://wa.me/6285155202123"
+                href={siteConfig.whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 variant="primary"
               >
-              Start a Conversation
+              {siteConfig.primaryCta}
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                   <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
                   <path d="M12 0C5.373 0 0 5.373 0 12c0 2.089.535 4.122 1.558 5.916L.057 23.882a.5.5 0 0 0 .61.61l5.966-1.501A11.943 11.943 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.854 0-3.634-.485-5.19-1.405l-.372-.219-3.853.97.99-3.774-.24-.391A10 10 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
@@ -114,13 +118,14 @@ export default function HeroSection() {
                   document.querySelector("#studi-kasus")?.scrollIntoView({ behavior: "smooth" })
                 }}
               >
-                View Selected Work
+                {siteConfig.secondaryCta}
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M5 12h14M12 5l7 7-7 7"/>
                 </svg>
               </Button>
             </motion.div>
 
+            <p className="text-xs text-muted mb-4">Pengalaman Fikri Adam, pendiri Adam’s Work</p>
             {/* Stats */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -136,7 +141,7 @@ export default function HeroSection() {
                   >
                     {stat.value}
                   </div>
-                  <div className="text-xs text-[#a8a8ae] leading-tight">{stat.label}</div>
+                  <div className="text-xs text-muted leading-tight">{stat.label}</div>
                 </div>
               ))}
             </motion.div>
@@ -169,10 +174,10 @@ export default function HeroSection() {
                 quality={90}
               />
               <div className="absolute z-20 -left-3 sm:-left-8 bottom-12 -rotate-3 rounded-xl border border-[#d6232f]/40 bg-[#151518]/95 px-4 py-3 shadow-2xl backdrop-blur">
-                <p className="text-[10px] font-display font-semibold uppercase tracking-[0.2em] text-[#ff4b55]">Currently</p>
-                <p className="mt-1 text-xs font-display font-medium text-white">Turning signals into decisions.</p>
+                <p className="text-[10px] font-display font-semibold uppercase tracking-[0.2em] text-[#ff4b55]">Adam’s Work</p>
+                <p className="mt-1 text-xs font-display font-medium text-white">Clarity before execution.</p>
               </div>
-              <div className="absolute z-20 right-0 top-12 rotate-3 rounded-full border border-white/10 bg-[#0b0b0d]/80 px-3 py-2 text-[10px] font-interface font-medium text-[#a8a8ae] backdrop-blur">
+              <div className="absolute z-20 right-0 top-12 rotate-3 rounded-full border border-white/10 bg-[#0b0b0d]/80 px-3 py-2 text-[10px] font-interface font-medium text-muted backdrop-blur">
                 Bali, Indonesia ↗
               </div>
             </div>
@@ -188,7 +193,7 @@ export default function HeroSection() {
         transition={{ delay: 1.2 }}
         aria-hidden="true"
       >
-        <span className="text-xs text-[#a8a8ae] tracking-widest uppercase">Scroll</span>
+        <span className="text-xs text-muted tracking-widest uppercase">Scroll</span>
         <motion.div
           className="w-0.5 h-8 bg-gradient-to-b from-[#d6232f] to-transparent"
           animate={{ scaleY: [0, 1, 0], originY: 0 }}

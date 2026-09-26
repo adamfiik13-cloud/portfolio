@@ -7,6 +7,7 @@ import { Project } from "@/lib/types"
 import { projectsDetail } from "@/lib/projects-detail"
 import Badge from "./Badge"
 import Button from "./Button"
+import siteConfig from "@/data/site-config.json"
 
 interface ProjectModalProps {
   project: Project | null
@@ -52,6 +53,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
           {/* Modal */}
           <motion.div
             role="dialog"
+            lang="en"
             aria-modal="true"
             aria-label={project.title}
             className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4"
@@ -74,7 +76,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                 <button
                   onClick={onClose}
                   autoFocus
-                  className="w-11 h-11 shrink-0 flex items-center justify-center rounded-lg text-[#a8a8ae] hover:text-white hover:bg-[#202024] transition-colors"
+                  className="w-11 h-11 shrink-0 flex items-center justify-center rounded-lg text-muted hover:text-white hover:bg-[#202024] transition-colors"
                   aria-label="Close"
                 >
                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -102,19 +104,19 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                     {project.title}
                   </h2>
                   {project.period && (
-                    <p className="mt-1 text-sm text-[#a8a8ae]">{project.period} · {detail?.industry}</p>
+                    <p className="mt-1 text-sm text-muted">{project.period} · {detail?.industry}</p>
                   )}
                   {!project.period && detail?.industry && (
-                    <p className="mt-1 text-sm text-[#a8a8ae]">{detail.industry}</p>
+                    <p className="mt-1 text-sm text-muted">{detail.industry}</p>
                   )}
                 </div>
 
                 {/* Summary */}
-                <p className="text-[#a8a8ae] leading-relaxed">{project.summary}</p>
+                <p className="text-muted leading-relaxed">{project.summary}</p>
 
                 {/* Metrics */}
                 <div>
-                  <h3 className="text-xs font-display font-semibold text-[#a8a8ae] uppercase tracking-widest mb-3">
+                  <h3 className="text-xs font-display font-semibold text-muted uppercase tracking-widest mb-3">
                     Key outcomes
                   </h3>
                   <div className="grid grid-cols-1 gap-2">
@@ -133,22 +135,22 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                 {/* Challenge */}
                 {detail?.challenge && (
                   <div>
-                    <h3 className="text-xs font-display font-semibold text-[#a8a8ae] uppercase tracking-widest mb-2">
+                    <h3 className="text-xs font-display font-semibold text-muted uppercase tracking-widest mb-2">
                       Challenge
                     </h3>
-                    <p className="text-[#a8a8ae] text-sm leading-relaxed">{detail.challenge}</p>
+                    <p className="text-muted text-sm leading-relaxed">{detail.challenge}</p>
                   </div>
                 )}
 
                 {/* Contributions */}
                 {detail?.contributions && detail.contributions.length > 0 && (
                   <div>
-                    <h3 className="text-xs font-display font-semibold text-[#a8a8ae] uppercase tracking-widest mb-3">
+                    <h3 className="text-xs font-display font-semibold text-muted uppercase tracking-widest mb-3">
                       Contribution
                     </h3>
                     <ul className="space-y-2">
                       {detail.contributions.map((c, i) => (
-                        <li key={i} className="flex items-start gap-3 text-sm text-[#a8a8ae]">
+                        <li key={i} className="flex items-start gap-3 text-sm text-muted">
                           <span className="mt-2 w-1 h-1 rounded-full bg-[#d6232f] flex-shrink-0" />
                           {c}
                         </li>
@@ -169,17 +171,17 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                 {/* Business Impact */}
                 {detail?.businessImpact && (
                   <div>
-                    <h3 className="text-xs font-display font-semibold text-[#a8a8ae] uppercase tracking-widest mb-2">
+                    <h3 className="text-xs font-display font-semibold text-muted uppercase tracking-widest mb-2">
                       Business impact
                     </h3>
-                    <p className="text-sm text-[#a8a8ae] leading-relaxed">{detail.businessImpact}</p>
+                    <p className="text-sm text-muted leading-relaxed">{detail.businessImpact}</p>
                   </div>
                 )}
 
                 {/* CTA */}
                 <div className="pt-2 border-t border-[#29292e]">
                   <Button
-                    href="https://wa.me/6285155202123"
+                    href={siteConfig.whatsappUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     variant="primary"

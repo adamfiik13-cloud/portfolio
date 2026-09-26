@@ -2,16 +2,11 @@
 
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import Image from "next/image"
+import BrandSignature from "@/components/ui/BrandSignature"
 import Button from "@/components/ui/Button"
+import siteConfig from "@/data/site-config.json"
 
-const navLinks = [
-  { label: "About", href: "#tentang" },
-  { label: "Expertise", href: "#layanan" },
-  { label: "Work", href: "#studi-kasus" },
-  { label: "Experience", href: "#pengalaman" },
-  { label: "Contact", href: "#kontak" },
-]
+const navLinks = siteConfig.navigation
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -54,33 +49,17 @@ export default function Navbar() {
             : "bg-transparent"
         }`}
       >
-        <div className="max-w-[1200px] mx-auto px-6 h-16 flex items-center justify-between">
+        <div className="public-container h-16 flex items-center justify-between">
           {/* Logo */}
-          <a
-            href="#"
-            className="group min-w-11 min-h-11 flex items-center gap-3"
-            aria-label="Fikri Adam — Back to top"
-          >
-            <span className="relative block w-9 h-9 overflow-hidden rounded-full border border-white/15 group-hover:border-[#d6232f] transition-colors">
-              <Image
-                src="/assets/avatar/avatar-circle-64.png"
-                alt="Fikri Adam"
-                fill
-                sizes="36px"
-                className="object-cover"
-                priority
-              />
-            </span>
-            <span className="hidden sm:block text-sm font-display font-semibold text-white">Fikri Adam</span>
-          </a>
+          <BrandSignature />
 
           {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-1" aria-label="Main navigation">
+          <nav className="hidden lg:flex items-center gap-1" aria-label="Navigasi utama">
             {navLinks.map((link) => (
               <button
                 key={link.href}
                 onClick={() => handleNavClick(link.href)}
-                className="px-4 py-2 text-sm text-[#a8a8ae] hover:text-white transition-colors rounded-lg hover:bg-white/5 cursor-pointer"
+                className="min-h-11 px-4 py-2 text-sm text-muted hover:text-white transition-colors rounded-lg hover:bg-white/5 cursor-pointer"
               >
                 {link.label}
               </button>
@@ -88,21 +67,21 @@ export default function Navbar() {
           </nav>
 
           {/* Desktop CTA */}
-          <div className="hidden md:block">
+          <div className="hidden lg:block">
             <Button
-              href="https://wa.me/6285155202123"
+              href={siteConfig.whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
               variant="primary"
               className="text-sm px-5 py-2.5"
             >
-              Start a Conversation
+              {siteConfig.primaryCta}
             </Button>
           </div>
 
           {/* Mobile Hamburger */}
           <button
-            className="md:hidden w-11 h-11 shrink-0 flex items-center justify-center text-[#a8a8ae] hover:text-white transition-colors"
+            className="lg:hidden w-11 h-11 shrink-0 flex items-center justify-center text-muted hover:text-white transition-colors"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label={menuOpen ? "Close menu" : "Open menu"}
             aria-expanded={menuOpen}
@@ -138,12 +117,12 @@ export default function Navbar() {
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
           >
-            <nav className="flex flex-col gap-1 flex-1 shrink-0" aria-label="Mobile navigation">
+            <nav className="flex flex-col gap-1 flex-1 shrink-0" aria-label="Navigasi mobile">
               {navLinks.map((link, i) => (
                 <motion.button
                   key={link.href}
                   onClick={() => handleNavClick(link.href)}
-                  className="text-left px-4 py-4 text-lg font-brand-body text-[#a8a8ae] hover:text-white transition-colors border-b border-[#29292e] cursor-pointer"
+                  className="text-left px-4 py-4 text-lg font-brand-body text-muted hover:text-white transition-colors border-b border-[#29292e] cursor-pointer"
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.05 }}
@@ -155,20 +134,20 @@ export default function Navbar() {
 
             <div className="mt-8 space-y-3">
               <Button
-                href="https://wa.me/6285155202123"
+                href={siteConfig.whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 variant="primary"
                 className="w-full justify-center"
               >
-                Start a Conversation
+                {siteConfig.primaryCta}
               </Button>
               <Button
                 href="#studi-kasus"
                 variant="secondary"
                 className="w-full justify-center"
                 onClick={() => handleNavClick("#studi-kasus")}              >
-                View Selected Work
+                {siteConfig.secondaryCta}
               </Button>
             </div>
           </motion.div>
