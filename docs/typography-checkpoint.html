@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Adam’s Work — Typography checkpoint</title>
+  <style>
+    @font-face{font-family:Display;src:url('/app/fonts/LeagueSpartan-Variable.woff2') format('woff2');font-weight:100 900;font-style:normal;font-display:swap}
+    @font-face{font-family:BrandBody;src:url('/app/fonts/Alata-Regular.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+    @font-face{font-family:Interface;src:url('/app/fonts/SourceSans3-Variable.woff2') format('woff2');font-weight:200 900;font-style:normal;font-display:swap}
+    @font-face{font-family:Interface;src:url('/app/fonts/SourceSans3-Italic-Variable.woff2') format('woff2');font-weight:200 900;font-style:italic;font-display:swap}
+    :root{--font-display:Display,Arial,sans-serif;--font-brand-body:BrandBody,Arial,sans-serif;--font-ui:Interface,Arial,sans-serif;--red:#d6232f;--surface:#151518;--text:#f3f3f4;--muted:#a8a8ae;--line:#29292e;font-synthesis:none;color-scheme:dark}
+    *{box-sizing:border-box}body{margin:0;background:#0b0b0d;color:var(--text);font:400 16px/1.65 var(--font-brand-body)}main{max-width:1100px;margin:auto;padding:48px 24px}h1,h2,h3,.display,.badge,.action{font-family:var(--font-display)}h1{font-size:clamp(36px,6vw,64px);line-height:1.08;letter-spacing:-.025em;margin:20px 0}h2{font-size:32px;line-height:1.15;margin:0 0 16px}h3{font-size:24px;line-height:1.2;margin:0 0 12px}p{max-width:62ch;margin:12px 0}.muted{color:var(--muted)}.label{font:600 13px/1.5 var(--font-display);letter-spacing:.12em;text-transform:uppercase;color:#ff4b55}.grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}section{margin-top:48px}.panel{border:1px solid var(--line);background:var(--surface);padding:28px;border-radius:20px;min-width:0}.badge{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-weight:600;font-size:14px;line-height:1.4;max-width:100%;overflow-wrap:anywhere}.action{border:0;border-radius:12px;background:var(--red);color:white;padding:12px 24px;font-weight:600;font-size:16px;cursor:pointer}.actions{display:flex;flex-wrap:wrap;gap:12px;margin:24px 0}.secondary{background:#202024;border:1px solid var(--line)}.ui{font:400 17px/1.55 var(--font-ui)}.ui h2,.ui h3{font-family:var(--font-ui);font-weight:650}.ui label,.ui th{font-weight:600}.ui label{display:block;margin:16px 0 6px}.ui input{width:100%;font:inherit;color:inherit;background:#0b0b0d;border:1px solid var(--line);border-radius:8px;padding:12px}.ui input[aria-invalid=true]{border-color:#ff4b55}.validation{font-size:15px;color:#ff4b55}.ui .badge{font:600 14px/1.4 var(--font-ui)}table{width:100%;border-collapse:collapse;margin-top:16px;table-layout:fixed}th,td{text-align:left;padding:12px 8px;border-bottom:1px solid var(--line);overflow-wrap:anywhere}th{font-size:15px}.small{font-size:14px}.warm{background:#f3f0e9;color:#111114}.warm p{color:#625f59}a{color:inherit}:focus-visible{outline:2px solid #ff4b55;outline-offset:4px}blockquote{font:italic 400 20px/1.6 var(--font-ui);margin:24px 0;padding-left:20px;border-left:2px solid var(--red)}@media(max-width:700px){.grid{grid-template-columns:1fr}.panel{padding:22px}main{padding:28px 20px}}
+    body{overflow-wrap:anywhere}.action{max-width:100%;min-height:44px}input{min-width:0}
+    @media(max-width:359px){main{padding:24px 12px}.panel{padding:16px}h1{font-size:32px}h2{font-size:28px}th,td{padding:8px 4px}}
+  </style>
+</head>
+<body>
+<main>
+  <p class="label">Typography checkpoint · specimen only</p>
+  <p class="muted small">Halaman review tipografi. Semua field, status, dan tabel di bawah adalah contoh tipografi, bukan fitur atau pesanan nyata.</p>
+  <h1>Adam’s Work<br><span style="color:#ff4b55">Clarity before execution.</span></h1>
+  <p lang="en">Better digital work, built together.</p>
+  <p class="small muted">League Spartan · display 100–900 / Alata · regular 400 / Source Sans 3 · UI 200–900</p>
+  <section class="grid" aria-label="Bilingual marketing specimens">
+    <article class="panel" lang="id">
+      <p class="label">Bahasa Indonesia · Alata</p>
+      <h2>Pahami kebutuhan.<br>Tentukan langkah.</h2>
+      <p>Sebelum mulai bekerja, kita menyamakan tujuan dan memahami kebutuhan bisnis. Setiap keputusan perlu punya alasan yang jelas dan dapat dibicarakan bersama.</p>
+      <div class="actions"><button class="action" type="button">Diskusikan Proyek</button><button class="action secondary" type="button">Lihat Karya</button></div>
+      <span class="badge">Website Development</span> <span class="badge">SEO</span>
+    </article>
+    <article class="panel" lang="en">
+      <p class="label">English · Alata</p>
+      <h2>Clarity first.<br>Measure what matters.</h2>
+      <p>I turn business questions into focused digital experiments and practical growth decisions.</p>
+      <div class="actions"><button class="action" type="button">Start a Conversation</button><button class="action secondary" type="button">View Selected Work</button></div>
+      <span class="badge">Marketing Strategy</span> <span class="badge">GA4 &amp; GTM</span>
+    </article>
+  </section>
+  <section class="panel warm">
+    <h2>Display and project-title specimen</h2>
+    <h3>GroPerti — SEO &amp; Organic Growth</h3>
+    <p lang="en">Built a stronger organic foundation through technical fixes, content, and measurement.</p>
+    <p class="display" style="font-size:36px;font-weight:700">+263% organic traffic YoY</p>
+    <p class="small">Existing portfolio claim, reproduced unchanged for this specimen.</p>
+  </section>
+  <section class="grid ui" aria-label="Functional typography specimens">
+    <div class="panel">
+      <h2>Informasi proyek</h2>
+      <p class="muted small">Source Sans 3 · contoh form nonfungsional</p>
+      <label for="project-name">Nama proyek / Project name</label>
+      <input id="project-name" placeholder="Contoh: Website bisnis" aria-describedby="project-help">
+      <p id="project-help" class="small muted">Gunakan nama yang mudah dikenali oleh tim.</p>
+      <label for="project-email">Email kontak / Contact email</label>
+      <input id="project-email" type="email" value="contoh" aria-invalid="true" aria-describedby="email-error">
+      <p id="email-error" class="validation">Contoh validasi: masukkan alamat email yang lengkap.</p>
+      <p class="small" lang="en">Validation specimen: enter a complete email address.</p>
+    </div>
+    <div class="panel">
+      <h2>Ringkasan contoh</h2>
+      <span class="badge">Menunggu informasi</span>
+      <table><caption class="small muted">Tabel specimen — bukan data pesanan</caption><thead><tr><th scope="col">Item</th><th scope="col">Status</th></tr></thead><tbody><tr><td>Materi website</td><td>Contoh: ditinjau</td></tr><tr><td>Referensi visual</td><td>Contoh: tersedia</td></tr><tr lang="en"><td>Project notes</td><td>Example: draft</td></tr></tbody></table>
+      <p class="small muted">Small UI text · 14px. Angka: 0123456789. Tanda baca: “kutipan”, café, Indonesia, Adam’s Work.</p>
+    </div>
+  </section>
+  <section class="panel ui" lang="en">
+    <h2>Long-form and genuine italic</h2>
+    <p>Build a stronger search foundation and reduce reliance on paid acquisition. Priority pages became easier to discover, creating a more durable organic acquisition channel.</p>
+    <blockquote>Systematic technical fixes created measurable visibility gains before new content was published.</blockquote>
+    <p class="small muted">Existing GroPerti case-study copy. The quotation uses the genuine Source Sans 3 italic file; no synthetic styles.</p>
+  </section>
+  <section class="panel ui" aria-label="Legal typography specimen">
+    <h2>Contoh teks legal / Legal copy specimen</h2>
+    <p class="small">Contoh tipografi saja, bukan kebijakan yang berlaku. Ketentuan layanan yang sebenarnya akan menjelaskan ruang lingkup pekerjaan, tanggung jawab masing-masing pihak, dan cara menghubungi tim untuk pertanyaan terkait layanan.</p>
+    <p class="small" lang="en">Typography sample only, not an active policy. The final terms will describe the scope of work, each party’s responsibilities, and how to contact the team with questions about the service.</p>
+  </section>
+</main>
+</body>
+</html>

@@ -54,12 +54,12 @@ export default function AboutSection() {
                 className="relative z-10 w-full max-w-sm lg:max-w-md rounded-3xl object-cover"
                 quality={85}
               />
-              <div className="absolute -left-5 top-8 z-20 -rotate-6 rounded-lg bg-[#f3f3f4] px-3 py-2 text-xs font-bold text-[#0b0b0d] shadow-xl">
+              <div className="absolute -left-5 top-8 z-20 -rotate-6 rounded-lg bg-[#f3f3f4] px-3 py-2 text-xs font-display font-bold text-[#0b0b0d] shadow-xl">
                 Curious by default.
               </div>
               {/* Floating badge */}
               <div className="absolute z-20 -bottom-5 right-2 sm:-right-4 bg-[#151518]/95 border border-white/10 rounded-2xl px-4 py-3 shadow-2xl backdrop-blur">
-                <div className="text-2xl font-bold text-white" style={{ fontFamily: "var(--font-playfair)" }}>4+</div>
+                <div className="text-2xl font-display font-bold text-white" style={{ fontFamily: "var(--font-display)" }}>4+</div>
                 <div className="text-xs text-[#a8a8ae]">years in practice</div>
               </div>
             </div>
@@ -71,7 +71,7 @@ export default function AboutSection() {
             <AnimatedSection delay={0.1}>
               <div className="inline-flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#d6232f]" />
-                <span className="text-sm font-medium text-[#a8a8ae] tracking-wide uppercase">
+                <span className="text-sm font-display font-medium text-[#a8a8ae] tracking-wide uppercase">
                   About
                 </span>
               </div>
@@ -80,8 +80,8 @@ export default function AboutSection() {
             {/* Heading */}
             <AnimatedSection delay={0.15}>
               <h2
-                className="text-3xl sm:text-4xl font-bold text-white leading-tight"
-                style={{ fontFamily: "var(--font-playfair)" }}
+                className="text-3xl sm:text-4xl font-display font-bold text-white leading-tight"
+                style={{ fontFamily: "var(--font-display)" }}
               >
                 Read the{" "}
                 <span className="text-[#d6232f]">market signal</span>. Then decide.
@@ -93,14 +93,14 @@ export default function AboutSection() {
               <p className="text-[#a8a8ae] leading-relaxed">
                 I connect experiments, data, and business context to find the next useful move.
                 Four years across five industries, plus{" "}
-                <span className="text-white font-medium">50+ digital marketing students</span> mentored at RevoU.
+                <span className="text-white font-display font-medium">50+ digital marketing students</span> mentored at RevoU.
               </p>
             </AnimatedSection>
 
             {/* Industries */}
             <AnimatedSection delay={0.25}>
               <div>
-                <p className="text-xs font-semibold text-[#a8a8ae] uppercase tracking-widest mb-3">
+                <p className="text-xs font-display font-semibold text-[#a8a8ae] uppercase tracking-widest mb-3">
                   Industries
                 </p>
                 <div className="flex flex-wrap gap-2">
@@ -114,7 +114,7 @@ export default function AboutSection() {
             {/* Skills */}
             <AnimatedSection delay={0.3}>
               <div>
-                <p className="text-xs font-semibold text-[#a8a8ae] uppercase tracking-widest mb-3">
+                <p className="text-xs font-display font-semibold text-[#a8a8ae] uppercase tracking-widest mb-3">
                   Core skills
                 </p>
                 <div className="flex flex-wrap gap-2">

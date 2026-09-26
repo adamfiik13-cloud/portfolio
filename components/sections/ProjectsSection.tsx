@@ -30,13 +30,13 @@ export default function ProjectsSection() {
         <AnimatedSection className="max-w-2xl mb-16">
           <div className="inline-flex items-center gap-2 mb-4">
             <span className="w-1.5 h-1.5 rounded-full bg-[#d6232f]" />
-            <span className="text-sm font-semibold text-[#5d5a55] tracking-wide uppercase">
+            <span className="text-sm font-display font-semibold text-[#5d5a55] tracking-wide uppercase">
               Selected work
             </span>
           </div>
           <h2
-            className="text-3xl sm:text-5xl font-bold text-[#111114] leading-tight mb-4"
-            style={{ fontFamily: "var(--font-playfair)" }}
+            className="text-3xl sm:text-5xl font-display font-bold text-[#111114] leading-tight mb-4"
+            style={{ fontFamily: "var(--font-display)" }}
           >
             Evidence over{" "}
             <span className="text-[#d6232f]">assumption.</span>
@@ -73,7 +73,7 @@ export default function ProjectsSection() {
 
                 {/* Category badge */}
                 <div className="absolute top-4 left-4">
-                  <span className="inline-flex rounded-full bg-white/90 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.14em] text-[#111114] shadow-sm backdrop-blur">
+                  <span className="inline-flex rounded-full bg-white/90 px-3 py-1.5 text-[10px] font-display font-bold uppercase tracking-[0.14em] text-[#111114] shadow-sm backdrop-blur">
                     {project.category}
                   </span>
                 </div>
@@ -90,13 +90,13 @@ export default function ProjectsSection() {
               <div className="p-6 sm:p-7">
                 <div className="mb-4">
                   <h3
-                    className="font-bold text-[#111114] text-2xl leading-none group-hover:text-[#d6232f] transition-colors"
-                    style={{ fontFamily: "var(--font-playfair)" }}
+                    className="font-display font-bold text-[#111114] text-2xl leading-none group-hover:text-[#d6232f] transition-colors"
+                    style={{ fontFamily: "var(--font-display)" }}
                   >
                     {project.displayTitle ?? project.title}
                   </h3>
                   {project.service && (
-                    <p className="mt-2 text-xs font-semibold uppercase tracking-[0.16em] text-[#8b302f]">
+                    <p className="mt-2 text-xs font-display font-semibold uppercase tracking-[0.16em] text-[#8b302f]">
                       {project.service}
                     </p>
                   )}
@@ -115,7 +115,7 @@ export default function ProjectsSection() {
                   {project.metrics.slice(0, 3).map((metric, mi) => (
                     <span
                       key={mi}
-                      className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#34312d] bg-[#f3f0e9] border border-[#ded8ce] rounded-full px-3 py-1.5"
+                      className="inline-flex items-center gap-1.5 text-xs font-display font-semibold text-[#34312d] bg-[#f3f0e9] border border-[#ded8ce] rounded-full px-3 py-1.5"
                     >
                       <span className="w-1 h-1 rounded-full bg-[#d6232f]" aria-hidden="true" />
                       {metric}
@@ -124,7 +124,7 @@ export default function ProjectsSection() {
                 </div>
 
                 {/* CTA */}
-                <div className="mt-5 flex items-center gap-1.5 text-sm font-semibold text-[#34312d] group-hover:text-[#d6232f] transition-colors">
+                <div className="mt-5 flex items-center gap-1.5 text-sm font-display font-semibold text-[#34312d] group-hover:text-[#d6232f] transition-colors">
                   View case study
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <path d="M5 12h14M12 5l7 7-7 7"/>
@@ -137,7 +137,7 @@ export default function ProjectsSection() {
 
         {/* Supporting projects */}
         <AnimatedSection delay={0.2}>
-          <p className="text-xs font-semibold text-[#625f59] uppercase tracking-widest mb-4">
+          <p className="text-xs font-display font-semibold text-[#625f59] uppercase tracking-widest mb-4">
             More work
           </p>
           <div className="grid sm:grid-cols-2 gap-4">
@@ -164,12 +164,12 @@ export default function ProjectsSection() {
 
                 <div className="flex-1 min-w-0">
                   <h3
-                    className="font-bold text-[#111114] text-lg leading-none mb-1 group-hover:text-[#d6232f] transition-colors"
-                    style={{ fontFamily: "var(--font-playfair)" }}
+                    className="font-display font-bold text-[#111114] text-lg leading-none mb-1 group-hover:text-[#d6232f] transition-colors"
+                    style={{ fontFamily: "var(--font-display)" }}
                   >
                     {project.displayTitle ?? project.title}
                   </h3>
-                  <p className="text-[10px] font-semibold uppercase tracking-[0.13em] text-[#8b302f] mb-2">{project.service}</p>
+                  <p className="text-[10px] font-display font-semibold uppercase tracking-[0.13em] text-[#8b302f] mb-2">{project.service}</p>
                   <p className="text-xs text-[#625f59] line-clamp-2">{project.summary}</p>
                 </div>
 

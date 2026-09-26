@@ -54,13 +54,13 @@ export default function ExperienceSection() {
             <AnimatedSection>
               <div className="inline-flex items-center gap-2 mb-4">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#d6232f]" />
-                <span className="text-sm font-medium text-[#a8a8ae] tracking-wide uppercase">
+                <span className="text-sm font-display font-medium text-[#a8a8ae] tracking-wide uppercase">
                   Experience
                 </span>
               </div>
               <h2
-                className="text-3xl sm:text-4xl font-bold text-white leading-tight mb-6"
-                style={{ fontFamily: "var(--font-playfair)" }}
+                className="text-3xl sm:text-4xl font-display font-bold text-white leading-tight mb-6"
+                style={{ fontFamily: "var(--font-display)" }}
               >
                 Built through{" "}
                 <span className="text-[#d6232f]">real practice.</span>
@@ -76,7 +76,7 @@ export default function ExperienceSection() {
                 <div className="flex px-4 pt-4 sm:hidden">
                   <div className="flex items-center gap-2 rounded-full bg-[#111113]/90 py-1.5 pl-1.5 pr-3 text-white">
                     <Image src="/assets/revou/revou-logo.jpg" alt="" width={28} height={28} className="rounded-full" />
-                    <span className="text-[10px] font-bold uppercase tracking-[0.16em]">RevoU highlight</span>
+                    <span className="text-[10px] font-display font-bold uppercase tracking-[0.16em]">RevoU highlight</span>
                   </div>
                 </div>
                 <div className="relative aspect-[4/3] overflow-hidden">
@@ -90,13 +90,13 @@ export default function ExperienceSection() {
                   <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#ffdf20] to-transparent" aria-hidden="true" />
                   <div className="absolute left-4 top-4 hidden items-center gap-2 rounded-full bg-[#111113]/90 py-1.5 pl-1.5 pr-3 text-white backdrop-blur-sm sm:flex">
                     <Image src="/assets/revou/revou-logo.jpg" alt="" width={28} height={28} className="rounded-full" />
-                    <span className="text-[10px] font-bold uppercase tracking-[0.16em]">RevoU highlight</span>
+                    <span className="text-[10px] font-display font-bold uppercase tracking-[0.16em]">RevoU highlight</span>
                   </div>
                 </div>
 
                 <div className="relative -mt-8 px-5 pb-5">
-                  <p className="mb-1 text-xs font-bold uppercase tracking-[0.16em] text-[#111113]/55">Team Lead · Digital Marketing</p>
-                  <p className="mb-5 text-xl font-bold leading-tight" style={{ fontFamily: "var(--font-playfair)" }}>
+                  <p className="mb-1 text-xs font-display font-bold uppercase tracking-[0.16em] text-[#111113]/55">Team Lead · Digital Marketing</p>
+                  <p className="mb-5 text-xl font-display font-bold leading-tight" style={{ fontFamily: "var(--font-display)" }}>
                     Turning lessons into confident action.
                   </p>
 
@@ -107,8 +107,8 @@ export default function ExperienceSection() {
                     { v: "10+", l: "market tests" },
                   ].map((s) => (
                     <div key={s.l} className="text-center">
-                      <div className="text-xl font-bold" style={{ fontFamily: "var(--font-playfair)" }}>{s.v}</div>
-                      <div className="text-[10px] font-medium text-[#111113]/60">{s.l}</div>
+                      <div className="text-xl font-display font-bold" style={{ fontFamily: "var(--font-display)" }}>{s.v}</div>
+                      <div className="text-[10px] font-display font-medium text-[#111113]/60">{s.l}</div>
                     </div>
                   ))}
                   </div>
@@ -167,8 +167,8 @@ export default function ExperienceSection() {
                       <div className="flex flex-wrap items-start gap-3 justify-between mb-3">
                         <div>
                           <h3
-                            className="font-semibold text-white mb-0.5"
-                            style={{ fontFamily: "var(--font-playfair)" }}
+                            className="font-display font-semibold text-white mb-0.5"
+                            style={{ fontFamily: "var(--font-display)" }}
                           >
                             {exp.role}
                           </h3>
@@ -198,10 +198,10 @@ export default function ExperienceSection() {
         {/* Education */}
         <AnimatedSection delay={0.2} className="mt-16">
           <div className="pt-10 border-t border-[#29292e]">
-            <p className="text-xs font-semibold text-[#a8a8ae] uppercase tracking-widest mb-6">Education</p>
+            <p className="text-xs font-display font-semibold text-[#a8a8ae] uppercase tracking-widest mb-6">Education</p>
             <div className="max-w-xl">
               <div className="p-5 rounded-2xl bg-[#0b0b0d] border border-[#29292e]">
-                <p className="text-sm font-semibold text-white mb-1">RevoU</p>
+                <p className="text-sm font-display font-semibold text-white mb-1">RevoU</p>
                 <p className="text-xs text-[#a8a8ae] mb-2">Full Stack Digital Marketing · Batch 8</p>
                 <p className="text-xs text-[#a8a8ae]/60">Jan — Apr 2022</p>
               </div>

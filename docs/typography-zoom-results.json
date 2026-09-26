@@ -1,0 +1,122 @@
+[
+  {
+    "page": "specimen",
+    "requestedWidth": 360,
+    "documentWidth": 172,
+    "dpr": 2.0000000298023224,
+    "height": 600,
+    "overflow": false,
+    "textOverflow": [],
+    "width": 180
+  },
+  {
+    "page": "specimen",
+    "requestedWidth": 768,
+    "documentWidth": 376,
+    "dpr": 2.0000000298023224,
+    "height": 600,
+    "overflow": false,
+    "textOverflow": [],
+    "width": 384
+  },
+  {
+    "page": "specimen",
+    "requestedWidth": 1440,
+    "documentWidth": 712,
+    "dpr": 2.0000000298023224,
+    "height": 600,
+    "overflow": false,
+    "textOverflow": [],
+    "width": 720
+  },
+  {
+    "page": "specimen",
+    "requestedWidth": 720,
+    "documentWidth": 352,
+    "dpr": 2.0000000298023224,
+    "height": 600,
+    "overflow": false,
+    "textOverflow": [],
+    "width": 360
+  },
+  {
+    "page": "specimen",
+    "requestedWidth": 1536,
+    "documentWidth": 760,
+    "dpr": 2.0000000298023224,
+    "height": 600,
+    "overflow": false,
+    "textOverflow": [],
+    "width": 768
+  },
+  {
+    "page": "specimen",
+    "requestedWidth": 2880,
+    "documentWidth": 1432,
+    "dpr": 2.0000000298023224,
+    "height": 600,
+    "overflow": false,
+    "textOverflow": [],
+    "width": 1440
+  },
+  {
+    "page": "home",
+    "requestedWidth": 360,
+    "documentWidth": 176,
+    "dpr": 2.0000000298023224,
+    "height": 600,
+    "overflow": false,
+    "textOverflow": [],
+    "width": 180
+  },
+  {
+    "page": "home",
+    "requestedWidth": 768,
+    "documentWidth": 380,
+    "dpr": 2.0000000298023224,
+    "height": 600,
+    "overflow": false,
+    "textOverflow": [],
+    "width": 384
+  },
+  {
+    "page": "home",
+    "requestedWidth": 1440,
+    "documentWidth": 716,
+    "dpr": 2.0000000298023224,
+    "height": 600,
+    "overflow": false,
+    "textOverflow": [],
+    "width": 720
+  },
+  {
+    "page": "home",
+    "requestedWidth": 720,
+    "documentWidth": 356,
+    "dpr": 2.0000000298023224,
+    "height": 600,
+    "overflow": false,
+    "textOverflow": [],
+    "width": 360
+  },
+  {
+    "page": "home",
+    "requestedWidth": 1536,
+    "documentWidth": 764,
+    "dpr": 2.0000000298023224,
+    "height": 600,
+    "overflow": false,
+    "textOverflow": [],
+    "width": 768
+  },
+  {
+    "page": "home",
+    "requestedWidth": 2880,
+    "documentWidth": 1436,
+    "dpr": 2.0000000298023224,
+    "height": 600,
+    "overflow": false,
+    "textOverflow": [],
+    "width": 1440
+  }
+]

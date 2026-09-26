@@ -80,13 +80,13 @@ export default function ContactSection() {
             <AnimatedSection>
               <div className="inline-flex items-center gap-2 mb-5">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#d6232f]" />
-                <span className="text-sm font-medium text-[#a8a8ae] tracking-wide uppercase">
+                <span className="text-sm font-display font-medium text-[#a8a8ae] tracking-wide uppercase">
                   Your next move
                 </span>
               </div>
               <h2
-                className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-[1.04] mb-6"
-                style={{ fontFamily: "var(--font-playfair)" }}
+                className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-white leading-[1.04] mb-6"
+                style={{ fontFamily: "var(--font-display)" }}
               >
                 Have a clear goal?{" "}
                 <span className="text-[#d6232f]">Let’s find the next move.</span>
@@ -133,7 +133,7 @@ export default function ContactSection() {
                   className="w-14 h-14 rounded-full object-cover border-2 border-[#29292e]"
                 />
                 <div>
-                  <p className="font-semibold text-white" style={{ fontFamily: "var(--font-playfair)" }}>
+                  <p className="font-display font-semibold text-white" style={{ fontFamily: "var(--font-display)" }}>
                     Fikri Adam
                   </p>
                   <p className="text-sm text-[#a8a8ae]">Digital Marketing Strategist</p>
@@ -160,7 +160,7 @@ export default function ContactSection() {
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-xs text-[#a8a8ae] mb-0.5">{link.label}</p>
-                    <p className="text-sm font-medium text-white truncate">{link.value}</p>
+                    <p className="text-sm font-interface font-medium text-white [overflow-wrap:anywhere]">{link.value}</p>
                   </div>
                   <svg
                     width="14" height="14" viewBox="0 0 24 24" fill="none"

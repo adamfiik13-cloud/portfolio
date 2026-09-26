@@ -74,7 +74,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                 <button
                   onClick={onClose}
                   autoFocus
-                  className="w-8 h-8 flex items-center justify-center rounded-lg text-[#a8a8ae] hover:text-white hover:bg-[#202024] transition-colors"
+                  className="w-11 h-11 shrink-0 flex items-center justify-center rounded-lg text-[#a8a8ae] hover:text-white hover:bg-[#202024] transition-colors"
                   aria-label="Close"
                 >
                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -84,7 +84,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
               </div>
 
               {/* Content */}
-              <div className="p-6 space-y-6">
+              <div className="p-6 space-y-6 font-longform">
                 {/* Thumbnail */}
                 <div className="rounded-xl overflow-hidden bg-[#202024] aspect-[16/10] flex items-center justify-center">
                   <Image
@@ -98,7 +98,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
 
                 {/* Title & Period */}
                 <div>
-                  <h2 className="text-2xl font-bold text-white" style={{ fontFamily: "var(--font-playfair)" }}>
+                  <h2 className="text-2xl font-display font-bold text-white" style={{ fontFamily: "var(--font-display)" }}>
                     {project.title}
                   </h2>
                   {project.period && (
@@ -114,7 +114,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
 
                 {/* Metrics */}
                 <div>
-                  <h3 className="text-xs font-semibold text-[#a8a8ae] uppercase tracking-widest mb-3">
+                  <h3 className="text-xs font-display font-semibold text-[#a8a8ae] uppercase tracking-widest mb-3">
                     Key outcomes
                   </h3>
                   <div className="grid grid-cols-1 gap-2">
@@ -124,7 +124,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                         className="flex items-center gap-3 px-4 py-3 rounded-xl bg-[#202024] border border-[#29292e]"
                       >
                         <span className="w-1.5 h-1.5 rounded-full bg-[#d6232f] flex-shrink-0" />
-                        <span className="text-sm text-[#f3f3f4] font-medium">{m}</span>
+                        <span className="text-sm text-[#f3f3f4] font-interface font-medium">{m}</span>
                       </div>
                     ))}
                   </div>
@@ -133,7 +133,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                 {/* Challenge */}
                 {detail?.challenge && (
                   <div>
-                    <h3 className="text-xs font-semibold text-[#a8a8ae] uppercase tracking-widest mb-2">
+                    <h3 className="text-xs font-display font-semibold text-[#a8a8ae] uppercase tracking-widest mb-2">
                       Challenge
                     </h3>
                     <p className="text-[#a8a8ae] text-sm leading-relaxed">{detail.challenge}</p>
@@ -143,7 +143,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                 {/* Contributions */}
                 {detail?.contributions && detail.contributions.length > 0 && (
                   <div>
-                    <h3 className="text-xs font-semibold text-[#a8a8ae] uppercase tracking-widest mb-3">
+                    <h3 className="text-xs font-display font-semibold text-[#a8a8ae] uppercase tracking-widest mb-3">
                       Contribution
                     </h3>
                     <ul className="space-y-2">
@@ -160,7 +160,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                 {/* Insight */}
                 {detail?.insight && (
                   <div className="px-4 py-4 rounded-xl border-l-2 border-[#d6232f] bg-[#d6232f]/5">
-                    <p className="text-sm text-[#f3f3f4] italic leading-relaxed">
+                    <p className="text-sm text-[#f3f3f4] font-interface italic leading-relaxed">
                       &ldquo;{detail.insight}&rdquo;
                     </p>
                   </div>
@@ -169,7 +169,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                 {/* Business Impact */}
                 {detail?.businessImpact && (
                   <div>
-                    <h3 className="text-xs font-semibold text-[#a8a8ae] uppercase tracking-widest mb-2">
+                    <h3 className="text-xs font-display font-semibold text-[#a8a8ae] uppercase tracking-widest mb-2">
                       Business impact
                     </h3>
                     <p className="text-sm text-[#a8a8ae] leading-relaxed">{detail.businessImpact}</p>

@@ -55,13 +55,13 @@ export default function ServicesSection() {
         <AnimatedSection className="max-w-2xl mb-16">
           <div className="inline-flex items-center gap-2 mb-4">
             <span className="w-1.5 h-1.5 rounded-full bg-[#d6232f]" />
-            <span className="text-sm font-medium text-[#a8a8ae] tracking-wide uppercase">
+            <span className="text-sm font-display font-medium text-[#a8a8ae] tracking-wide uppercase">
               Expertise
             </span>
           </div>
           <h2
-            className="text-3xl sm:text-4xl font-bold text-white leading-tight mb-4"
-            style={{ fontFamily: "var(--font-playfair)" }}
+            className="text-3xl sm:text-4xl font-display font-bold text-white leading-tight mb-4"
+            style={{ fontFamily: "var(--font-display)" }}
           >
             Connected thinking.{" "}
             <span className="text-[#d6232f]">Focused execution.</span>
@@ -98,8 +98,8 @@ export default function ServicesSection() {
 
               {/* Title */}
               <h3
-                className="font-semibold text-white mb-2 text-base"
-                style={{ fontFamily: "var(--font-playfair)" }}
+                className="font-display font-semibold text-white mb-2 text-base"
+                style={{ fontFamily: "var(--font-display)" }}
               >
                 {service.title}
               </h3>

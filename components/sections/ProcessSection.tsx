@@ -65,13 +65,13 @@ export default function ProcessSection() {
         <AnimatedSection className="max-w-2xl mb-16">
           <div className="inline-flex items-center gap-2 mb-4">
             <span className="w-1.5 h-1.5 rounded-full bg-[#d6232f]" />
-            <span className="text-sm font-medium text-[#a8a8ae] tracking-wide uppercase">
+            <span className="text-sm font-display font-medium text-[#a8a8ae] tracking-wide uppercase">
               Approach
             </span>
           </div>
           <h2
-            className="text-3xl sm:text-4xl font-bold text-white leading-tight mb-4"
-            style={{ fontFamily: "var(--font-playfair)" }}
+            className="text-3xl sm:text-4xl font-display font-bold text-white leading-tight mb-4"
+            style={{ fontFamily: "var(--font-display)" }}
           >
             Think clearly.{" "}
             <span className="text-[#d6232f]">Move deliberately.</span>
@@ -108,8 +108,8 @@ export default function ProcessSection() {
                 </div>
 
                 <h3
-                  className="font-bold text-white text-xl mb-3"
-                  style={{ fontFamily: "var(--font-playfair)" }}
+                  className="font-display font-bold text-white text-xl mb-3"
+                  style={{ fontFamily: "var(--font-display)" }}
                 >
                   {step.title}
                 </h3>
@@ -122,9 +122,9 @@ export default function ProcessSection() {
         {/* Quote */}
         <AnimatedSection delay={0.3} className="mt-12">
           <div className="max-w-2xl mx-auto text-center">
-            <p className="text-lg text-[#a8a8ae] leading-relaxed italic">
+            <p className="text-lg text-[#a8a8ae] leading-relaxed font-interface italic">
               &ldquo;Data matters when it reveals{" "}
-              <span className="text-white not-italic font-medium">
+              <span className="text-white not-italic font-interface font-medium">
                 what to do next.
               </span>&rdquo;
             </p>
@@ -133,7 +133,7 @@ export default function ProcessSection() {
 
         {/* Tools marquee */}
         <AnimatedSection delay={0.2} className="mt-16">
-          <p className="text-xs font-semibold text-[#a8a8ae] uppercase tracking-widest mb-5 text-center">
+          <p className="text-xs font-display font-semibold text-[#a8a8ae] uppercase tracking-widest mb-5 text-center">
             Tools in practice
           </p>
           <div className="relative overflow-hidden">

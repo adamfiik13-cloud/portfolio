@@ -22,7 +22,7 @@ export default function Button({
   rel,
 }: ButtonProps) {
   const base =
-    "inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm transition-all duration-200 cursor-pointer select-none"
+    "inline-flex max-w-full min-h-11 items-center justify-center gap-2 px-6 py-3 rounded-xl font-display font-semibold text-sm transition-all duration-200 cursor-pointer select-none [overflow-wrap:anywhere]"
 
   const variants = {
     primary:
@@ -41,6 +41,7 @@ export default function Button({
         href={href}
         target={target}
         rel={rel}
+        onClick={onClick}
         className={classes}
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.97 }}

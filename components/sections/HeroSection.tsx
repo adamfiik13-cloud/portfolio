@@ -39,7 +39,7 @@ export default function HeroSection() {
           {/* Left — Text */}
           <div className="order-1 relative">
             <div
-              className="absolute -left-6 top-24 hidden xl:block text-[11px] font-semibold uppercase tracking-[0.22em] text-[#a8a8ae]/40 [writing-mode:vertical-rl] rotate-180"
+              className="absolute -left-6 top-24 hidden xl:block text-[11px] font-display font-semibold uppercase tracking-[0.22em] text-[#a8a8ae]/40 [writing-mode:vertical-rl] rotate-180"
               aria-hidden="true"
             >
               Think · Test · Learn
@@ -52,7 +52,7 @@ export default function HeroSection() {
               className="inline-flex items-center gap-2 mb-6"
             >
               <span className="w-1.5 h-1.5 rounded-full bg-[#d6232f]" />
-              <span className="text-sm font-medium text-[#a8a8ae] tracking-wide uppercase">
+              <span className="text-sm font-display font-medium text-[#a8a8ae] tracking-wide uppercase">
                 {siteConfig.role}
               </span>
             </motion.div>
@@ -62,8 +62,8 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-[1.1] tracking-tight mb-6"
-              style={{ fontFamily: "var(--font-playfair)" }}
+              className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-white leading-[1.1] tracking-tight mb-6"
+              style={{ fontFamily: "var(--font-display)" }}
             >
               {siteConfig.headline.replace(/\.$/, "").split(". ").map((part, i, arr) => (
                 <span key={i}>
@@ -131,8 +131,8 @@ export default function HeroSection() {
               {siteConfig.stats.map((stat, i) => (
                 <div key={i} className="group">
                   <div
-                    className="text-3xl font-bold text-white mb-1"
-                    style={{ fontFamily: "var(--font-playfair)" }}
+                    className="text-3xl font-display font-bold text-white mb-1"
+                    style={{ fontFamily: "var(--font-display)" }}
                   >
                     {stat.value}
                   </div>
@@ -169,10 +169,10 @@ export default function HeroSection() {
                 quality={90}
               />
               <div className="absolute z-20 -left-3 sm:-left-8 bottom-12 -rotate-3 rounded-xl border border-[#d6232f]/40 bg-[#151518]/95 px-4 py-3 shadow-2xl backdrop-blur">
-                <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#ff4b55]">Currently</p>
-                <p className="mt-1 text-xs font-medium text-white">Turning signals into decisions.</p>
+                <p className="text-[10px] font-display font-semibold uppercase tracking-[0.2em] text-[#ff4b55]">Currently</p>
+                <p className="mt-1 text-xs font-display font-medium text-white">Turning signals into decisions.</p>
               </div>
-              <div className="absolute z-20 right-0 top-12 rotate-3 rounded-full border border-white/10 bg-[#0b0b0d]/80 px-3 py-2 text-[10px] font-medium text-[#a8a8ae] backdrop-blur">
+              <div className="absolute z-20 right-0 top-12 rotate-3 rounded-full border border-white/10 bg-[#0b0b0d]/80 px-3 py-2 text-[10px] font-interface font-medium text-[#a8a8ae] backdrop-blur">
                 Bali, Indonesia ↗
               </div>
             </div>

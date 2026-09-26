@@ -71,7 +71,7 @@ export default function Navbar() {
                 priority
               />
             </span>
-            <span className="hidden sm:block text-sm font-semibold text-white">Fikri Adam</span>
+            <span className="hidden sm:block text-sm font-display font-semibold text-white">Fikri Adam</span>
           </a>
 
           {/* Desktop Nav */}
@@ -102,7 +102,7 @@ export default function Navbar() {
 
           {/* Mobile Hamburger */}
           <button
-            className="md:hidden w-10 h-10 flex items-center justify-center text-[#a8a8ae] hover:text-white transition-colors"
+            className="md:hidden w-11 h-11 shrink-0 flex items-center justify-center text-[#a8a8ae] hover:text-white transition-colors"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label={menuOpen ? "Close menu" : "Open menu"}
             aria-expanded={menuOpen}
@@ -132,18 +132,18 @@ export default function Navbar() {
       <AnimatePresence>
         {menuOpen && (
           <motion.div
-            className="fixed inset-0 z-30 bg-[#0b0b0d]/98 backdrop-blur-md flex flex-col pt-20 px-6 pb-8"
+            className="fixed inset-0 z-30 bg-[#0b0b0d]/98 backdrop-blur-md flex flex-col overflow-y-auto pt-20 px-6 pb-8"
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
           >
-            <nav className="flex flex-col gap-1 flex-1" aria-label="Mobile navigation">
+            <nav className="flex flex-col gap-1 flex-1 shrink-0" aria-label="Mobile navigation">
               {navLinks.map((link, i) => (
                 <motion.button
                   key={link.href}
                   onClick={() => handleNavClick(link.href)}
-                  className="text-left px-4 py-4 text-lg font-medium text-[#a8a8ae] hover:text-white transition-colors border-b border-[#29292e] cursor-pointer"
+                  className="text-left px-4 py-4 text-lg font-brand-body text-[#a8a8ae] hover:text-white transition-colors border-b border-[#29292e] cursor-pointer"
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.05 }}

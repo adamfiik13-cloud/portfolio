@@ -5,7 +5,7 @@ interface BadgeProps {
 }
 
 export default function Badge({ children, variant = "default", className = "" }: BadgeProps) {
-  const base = "inline-flex items-center px-3 py-1 rounded-full text-xs font-medium tracking-wide"
+  const base = "inline-flex max-w-full items-center px-3 py-1 rounded-full text-xs font-display font-medium tracking-wide [overflow-wrap:anywhere]"
 
   const variants = {
     default: "bg-[#202024] text-[#a8a8ae]",

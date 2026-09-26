@@ -12,12 +12,15 @@
   --color-muted: #a8a8ae;
   --color-line: #29292e;
 
-  /* Fonts */
-  --font-heading: "Playfair Display", Georgia, serif;
-  --font-body: "Inter", sans-serif;
-
   /* Spacing */
   --spacing-section: clamp(5rem, 10vw, 9rem);
+}
+
+@theme inline {
+  --font-heading: var(--font-display);
+  --font-body: var(--font-brand-body);
+  --font-interface: var(--font-ui);
+  --font-longform: var(--font-ui);
 }
 
 :root {
@@ -31,13 +34,15 @@
 
 html {
   scroll-behavior: smooth;
+  font-synthesis: none;
 }
 
 body {
   margin: 0;
   background: var(--background);
   color: var(--foreground);
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-brand-body), Arial, sans-serif;
+  font-weight: 400;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
@@ -45,6 +50,26 @@ body {
 
 section[id] {
   scroll-margin-top: 5rem;
+}
+
+:focus-visible {
+  outline: 2px solid #ff4b55;
+  outline-offset: 4px;
+}
+
+/* Very narrow layouts can occur at 200% browser zoom on small screens. */
+@media (max-width: 359px) {
+  body { overflow-wrap: anywhere; }
+  main *, [role="dialog"] * { min-width: 0; }
+  #hero .grid-cols-2 { grid-template-columns: 1fr; }
+  #kontak a.group, #kontak .flex.p-5 { flex-direction: column; align-items: flex-start; }
+  #hero .order-2 > div { max-width: 100%; }
+  #hero .order-2 > div > div:not([aria-hidden]) {
+    position: relative;
+    inset: auto;
+    transform: none;
+    margin-top: 8px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -79,9 +104,21 @@ section[id] {
   color: #ffffff;
 }
 
-/* Font variables for components */
+/* Semantic roles. Alata has only a genuine regular face. */
+.font-display,
 .font-heading {
-  font-family: var(--font-playfair), Georgia, serif;
+  font-family: var(--font-display), Arial, sans-serif;
+}
+
+.font-brand-body {
+  font-family: var(--font-brand-body), Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.font-interface,
+.font-longform {
+  font-family: var(--font-ui), Arial, sans-serif;
 }
 
 /* Marquee animation */

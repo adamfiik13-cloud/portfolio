@@ -1,17 +1,33 @@
 import type { Metadata } from "next"
-import { Inter, Playfair_Display } from "next/font/google"
+import localFont from "next/font/local"
 import "./globals.css"
 
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
+const displayFont = localFont({
+  src: "./fonts/LeagueSpartan-Variable.woff2",
+  weight: "100 900",
+  style: "normal",
+  variable: "--font-display",
   display: "swap",
+  preload: true,
 })
 
-const playfair = Playfair_Display({
-  subsets: ["latin"],
-  variable: "--font-playfair",
+const brandBodyFont = localFont({
+  src: "./fonts/Alata-Regular.woff2",
+  weight: "400",
+  style: "normal",
+  variable: "--font-brand-body",
   display: "swap",
+  preload: true,
+})
+
+const interfaceFont = localFont({
+  src: [
+    { path: "./fonts/SourceSans3-Variable.woff2", weight: "200 900", style: "normal" },
+    { path: "./fonts/SourceSans3-Italic-Variable.woff2", weight: "200 900", style: "italic" },
+  ],
+  variable: "--font-ui",
+  display: "swap",
+  preload: false,
 })
 
 export const metadata: Metadata = {
@@ -81,8 +97,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
-      <body className={inter.className}>{children}</body>
+    <html lang="en" className={`${displayFont.variable} ${brandBodyFont.variable} ${interfaceFont.variable}`}>
+      <body>{children}</body>
     </html>
   )
 }
