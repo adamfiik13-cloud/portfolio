@@ -121,6 +121,13 @@ Rules:
 - Server-only modules must be clearly separated from client code.
 - Avoid premature abstraction; introduce adapters when external integration begins.
 
+### Phase 2B public catalog
+
+- Typed offers, shared IDR prices, inquiry types, and explicit EN/ID slugs live in `data/service-catalog.ts`; interface copy lives in `data/service-copy.ts`.
+- Shared server templates serve `/services`, `/id/layanan`, and their detail routes. Unknown slugs return 404.
+- Each page maps its equivalent locale URL for navigation and canonical/hreflang metadata. Production sitemap includes both versions; staging SEO protection is inherited unchanged.
+- CTAs prepare WhatsApp inquiries only. Price metadata is not a checkout implementation or authorization to take payment.
+
 ## 5. Core domain entities
 
 ### User

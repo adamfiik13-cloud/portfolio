@@ -173,6 +173,13 @@ Requirements:
 - Service card: intended outcome, fit, starting context if approved, link to full scope.
 - Operational card: compact functional layout using Source Sans 3.
 
+### Public service catalog
+
+- Use editorial category sections and comparable service rows rather than a marketplace grid.
+- Separate Career Services as additional support for individuals; keep business services prominent.
+- Detail pages emphasize scope, exclusions, client inputs, and confirmed versus starting prices.
+- Use “Choose This Service”, “Book a Consultation”, or “Request a Quote” with equivalent Indonesian labels; clarify that Phase 2B opens WhatsApp and does not complete booking or payment.
+
 ### Form
 
 - Persistent label above control; placeholder is not the label.

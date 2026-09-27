@@ -6,6 +6,8 @@ import { motion } from "framer-motion"
 import { useRef } from "react"
 import { useInView } from "framer-motion"
 import AnimatedSection from "@/components/ui/AnimatedSection"
+import Link from "next/link"
+import { getServiceCopy } from "@/data/service-copy"
 import { getPublicServices } from "@/data/public-content"
 
 
@@ -119,6 +121,7 @@ export default function ServicesSection() {
             </motion.div>
           ))}
         </div>
+        <Link href={locale === "en" ? "/services" : "/id/layanan"} className="mt-8 inline-flex min-h-11 items-center font-display font-semibold text-white hover:text-red-bright">{getServiceCopy(locale)("browse")} <span aria-hidden="true" className="ml-2">→</span></Link>
 
       </div>
     </section>

@@ -9,8 +9,8 @@ import { usePublicLocale } from "./PublicLocaleProvider"
 
 
 export default function Navbar() {
-  const { siteConfig, t } = usePublicLocale()
-  const navLinks = siteConfig.navigation
+  const { siteConfig, t, locale, isHome, homePath } = usePublicLocale()
+  const navLinks = siteConfig.navigation.map(link => ({ ...link, href: link.href === "#layanan" ? (locale === "en" ? "/services" : "/id/layanan") : isHome ? link.href : homePath + link.href }))
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
 
@@ -59,13 +59,14 @@ export default function Navbar() {
           {/* Desktop Nav */}
           <nav className="hidden lg:flex items-center gap-1" aria-label={t("nav.main")}>
             {navLinks.map((link) => (
-              <button
+              <a
                 key={link.href}
-                onClick={() => handleNavClick(link.href)}
+                href={link.href}
+                onClick={event => { setMenuOpen(false); if (link.href.startsWith("#")) { event.preventDefault(); handleNavClick(link.href) } }}
                 className="min-h-11 px-4 py-2 text-sm text-muted hover:text-white transition-colors rounded-lg hover:bg-white/5 cursor-pointer"
               >
                 {link.label}
-              </button>
+              </a>
             ))}
           </nav>
 
@@ -124,7 +125,7 @@ export default function Navbar() {
           >
             <nav className="flex flex-col gap-1 flex-1 shrink-0" aria-label={t("nav.mobile")}>
               {navLinks.map((link, i) => (
-                <motion.button
+                <motion.a
                   key={link.href}
                   onClick={() => handleNavClick(link.href)}
                   className="text-left px-4 py-4 text-lg font-brand-body text-muted hover:text-white transition-colors border-b border-[#29292e] cursor-pointer"
@@ -133,7 +134,7 @@ export default function Navbar() {
                   transition={{ delay: i * 0.05 }}
                 >
                   {link.label}
-                </motion.button>
+                </motion.a>
               ))}
             </nav>
 
@@ -148,10 +149,10 @@ export default function Navbar() {
                 {siteConfig.primaryCta}
               </Button>
               <Button
-                href="#studi-kasus"
+                href={isHome ? "#studi-kasus" : homePath + "#studi-kasus"}
                 variant="secondary"
                 className="w-full justify-center"
-                onClick={() => handleNavClick("#studi-kasus")}              >
+                onClick={event => { if (isHome) { event?.preventDefault(); handleNavClick("#studi-kasus") } }}              >
                 {siteConfig.secondaryCta}
               </Button>
             </div>

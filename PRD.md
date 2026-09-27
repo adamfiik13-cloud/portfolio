@@ -77,12 +77,9 @@ The website must communicate:
 
 ## 7. Launch service strategy
 
-The first commercial categories are:
+Phase 2B publishes 19 approved offers across Websites, SEO, Tracking & Analytics, Paid Advertising, Strategy & Marketplace, and separately presented Career Services. Websites, SEO, tracking, and growth strategy remain the primary business positioning.
 
-1. **Website Development**
-2. **SEO**
-
-Supporting capabilities such as paid media, analytics, landing pages, and digital strategy remain visible as expertise and portfolio evidence. They must not be presented as purchasable launch packages until scope, price, duration, and revision rules are approved.
+Approved prices and scope are maintained in `data/service-catalog.ts`. Standardized services may later support checkout; variable-scope “Starts from” services require a quote; consultations may later support booking and payment. In Phase 2B all CTAs open a prepared WhatsApp inquiry. Final scope and price are confirmed after discovery. Unspecified delivery timelines and revision arrangements require confirmation; no checkout or booking is implemented.
 
 ## 8. Information architecture
 
@@ -332,8 +329,8 @@ Midtrans onboarding begins only when the staging website is publicly accessible 
 
 ## 17. Open decisions
 
-- Final Website Development packages, prices, timelines, revisions, and exclusions.
-- Final SEO packages and whether billing is one-time or recurring.
+- Delivery timelines and any revision or scope terms not specified in the approved Phase 2B catalog.
+- Future recurring billing mechanics for monthly services; no automatic subscription is implemented.
 - Cancellation, refund, review-period, and automatic completion rules.
 - Database, authentication, private storage, transactional email, and monitoring vendors.
 - Legal entity and merchant identity used for payment onboarding.
