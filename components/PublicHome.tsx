@@ -1,3 +1,7 @@
+"use client"
+
+import { PublicLocaleProvider, usePublicLocale } from "@/components/layout/PublicLocaleProvider"
+import type { PublicLocale } from "@/data/public-content"
 import Navbar from "@/components/layout/Navbar"
 import Footer from "@/components/layout/Footer"
 import HeroSection from "@/components/sections/HeroSection"
@@ -8,10 +12,11 @@ import ExperienceSection from "@/components/sections/ExperienceSection"
 import ProcessSection from "@/components/sections/ProcessSection"
 import ContactSection from "@/components/sections/ContactSection"
 
-export default function Home() {
+function HomeSections() {
+  const { t } = usePublicLocale()
   return (
     <>
-      <a href="#main-content" className="skip-link">Lewati ke konten utama</a>
+      <a href="#main-content" className="skip-link">{t("nav.skip")}</a>
       <Navbar />
       <main id="main-content" tabIndex={-1}>
         <HeroSection />
@@ -25,4 +30,8 @@ export default function Home() {
       <Footer />
     </>
   )
+}
+
+export default function PublicHome({ locale }: { locale: PublicLocale }) {
+  return <PublicLocaleProvider locale={locale}><HomeSections /></PublicLocaleProvider>
 }

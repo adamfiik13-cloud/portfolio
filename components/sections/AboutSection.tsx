@@ -1,27 +1,30 @@
 "use client"
 
+import { usePublicLocale } from "@/components/layout/PublicLocaleProvider"
+
 import Image from "next/image"
 import AnimatedSection from "@/components/ui/AnimatedSection"
 import Badge from "@/components/ui/Badge"
 
-const skills = [
-  "Meta Ads",
-  "Google Ads",
-  "SEO",
-  "GA4 & GTM",
-  "Landing Page",
-  "Marketing Consultation",
-  "Creative Testing",
-]
-
-const industries = ["F&B", "Property", "Laundry", "Travel", "Fitness"]
-
 export default function AboutSection() {
+  const { t } = usePublicLocale()
+  const skills = [
+    "Meta Ads",
+    "Google Ads",
+    "SEO",
+    "GA4 & GTM",
+    t("skill.landing"),
+    t("skill.consultation"),
+    t("skill.testing"),
+  ]
+
+  const industries = ["F&B", t("industry.property"), t("industry.laundry"), t("industry.travel"), t("industry.fitness")]
+
   return (
     <section
       id="tentang"
       className="py-24 lg:py-32 bg-[#0b0b0d] relative overflow-hidden"
-      aria-label="Tentang Adam’s Work dan pendirinya"
+      aria-label={t("about.aria")}
     >
       {/* Subtle background accent */}
       <div
@@ -48,19 +51,19 @@ export default function AboutSection() {
               />
               <Image
                 src="/assets/avatar/avatar-about-640.webp"
-                alt="Cartoon portrait of Fikri Adam, Digital Marketing Strategist"
+                alt={t("hero.avatar")}
                 width={480}
                 height={480}
                 className="relative z-10 w-full max-w-sm lg:max-w-md rounded-3xl object-cover"
                 quality={85}
               />
               <div className="absolute -left-5 top-8 z-20 -rotate-6 rounded-lg bg-[#f3f3f4] px-3 py-2 text-xs font-display font-bold text-[#0b0b0d] shadow-xl">
-                Curious by default.
+                {t("about.curious")}
               </div>
               {/* Floating badge */}
               <div className="absolute z-20 -bottom-5 right-2 sm:-right-4 bg-[#151518]/95 border border-white/10 rounded-2xl px-4 py-3 shadow-2xl backdrop-blur">
                 <div className="text-2xl font-display font-bold text-white" style={{ fontFamily: "var(--font-display)" }}>4+</div>
-                <div className="text-xs text-muted">years in practice</div>
+                <div className="text-xs text-muted">{t("about.years")}</div>
               </div>
             </div>
           </AnimatedSection>
@@ -72,7 +75,7 @@ export default function AboutSection() {
               <div className="inline-flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#d6232f]" />
                 <span className="text-sm font-display font-medium text-muted tracking-wide uppercase">
-                  Tentang Adam’s Work
+                  {t("about.label")}
                 </span>
               </div>
             </AnimatedSection>
@@ -83,25 +86,25 @@ export default function AboutSection() {
                 className="text-3xl sm:text-4xl font-display font-bold text-white leading-tight"
                 style={{ fontFamily: "var(--font-display)" }}
               >
-                Strategi yang jelas.{" "}
-                <span className="text-[#d6232f]">Kolaborasi yang dekat.</span>
+                {t("about.heading")}{" "}
+                <span className="text-[#d6232f]">{t("about.accent")}</span>
               </h2>
             </AnimatedSection>
 
             {/* Body */}
             <AnimatedSection delay={0.2}>
               <p className="text-muted leading-relaxed">
-                Adam’s Work adalah studio yang dipimpin Fikri Adam sebagai founder, strategist, dan quality lead. Fikri mengarahkan strategi dan meninjau kualitas pekerjaan bersama tim internal. Anda bekerja langsung dengan studio, dari memahami kebutuhan hingga menentukan langkah berikutnya.
+                {t("about.body")}
               </p>
             </AnimatedSection>
 
-            <p className="text-muted leading-relaxed">Fondasinya adalah pengalaman Fikri selama empat tahun di lima industri, serta mendampingi 50+ peserta digital marketing di RevoU.</p>
+            <p className="text-muted leading-relaxed">{t("about.proof")}</p>
 
             {/* Industries */}
             <AnimatedSection delay={0.25}>
               <div>
                 <p className="text-xs font-display font-semibold text-muted uppercase tracking-widest mb-3">
-                  Pengalaman industri
+                  {t("about.industries")}
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {industries.map((ind) => (
@@ -115,7 +118,7 @@ export default function AboutSection() {
             <AnimatedSection delay={0.3}>
               <div>
                 <p className="text-xs font-display font-semibold text-muted uppercase tracking-widest mb-3">
-                  Keahlian
+                  {t("about.skills")}
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {skills.map((skill) => (

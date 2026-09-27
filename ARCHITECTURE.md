@@ -298,7 +298,7 @@ Short-lived Vercel deployments for phase review. No production secrets or live p
 Created after Phase 1B and before Phase 2. Recommended characteristics:
 
 - Stable URL such as `staging.adamswork.app`.
-- Separate project or environment configuration where practical.
+- One Vercel project: `main` tracks Production; `staging` tracks the Custom Environment `staging`.
 - Non-production database and storage.
 - Sandbox payment credentials only.
 - Public enough for Midtrans onboarding when the Phase 4 readiness gate is met.

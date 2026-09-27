@@ -1,16 +1,18 @@
 "use client"
 
+import { usePublicLocale } from "@/components/layout/PublicLocaleProvider"
+
 import { motion } from "framer-motion"
 import Image from "next/image"
 import Button from "@/components/ui/Button"
-import siteConfig from "@/data/site-config.json"
 
 export default function HeroSection() {
+  const { t, siteConfig } = usePublicLocale()
   return (
     <section
       id="hero"
       className="relative min-h-screen flex items-center overflow-hidden bg-[#0b0b0d]"
-      aria-label="Hero"
+      aria-label={t("hero.label")}
     >
       {/* Background grid */}
       <div className="absolute inset-0 opacity-30 pointer-events-none">
@@ -42,7 +44,7 @@ export default function HeroSection() {
               className="absolute -left-6 top-24 hidden xl:block text-[11px] font-display font-semibold uppercase tracking-[0.22em] text-muted/40 [writing-mode:vertical-rl] rotate-180"
               aria-hidden="true"
             >
-              Think · Test · Learn
+              {t("hero.think")}
             </div>
             {/* Label */}
             <motion.div
@@ -52,7 +54,7 @@ export default function HeroSection() {
               className="inline-flex items-center gap-2 mb-6"
             >
               <span className="w-1.5 h-1.5 rounded-full bg-[#d6232f]" />
-              <span className="text-sm font-display font-medium text-muted tracking-wide uppercase">
+              <span lang="en" className="text-sm font-display font-medium text-muted tracking-wide uppercase">
                 {siteConfig.role}
               </span>
             </motion.div>
@@ -88,8 +90,8 @@ export default function HeroSection() {
             </motion.p>
 
             <p className="font-display text-lg text-white mb-3" lang="en">{siteConfig.tagline}</p>
-            <p className="font-interface text-sm text-muted mb-6" lang="en">For global businesses entering Indonesia: let’s discuss your website and digital growth needs.</p>
-            <p className="text-xs text-muted mb-6">Dipimpin Fikri Adam · Strategi dan kualitas pekerjaan</p>
+            <p className="font-interface text-sm text-muted mb-6" >{t("hero.global")}</p>
+            <p className="text-xs text-muted mb-6">{t("hero.founder")}</p>
 
             {/* CTAs */}
             <motion.div
@@ -115,7 +117,8 @@ export default function HeroSection() {
                 variant="secondary"
               onClick={(e) => {
                   e?.preventDefault()
-                  document.querySelector("#studi-kasus")?.scrollIntoView({ behavior: "smooth" })
+                  window.history.replaceState(null, "", "#studi-kasus")
+                  document.querySelector("#studi-kasus")?.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" })
                 }}
               >
                 {siteConfig.secondaryCta}
@@ -125,7 +128,7 @@ export default function HeroSection() {
               </Button>
             </motion.div>
 
-            <p className="text-xs text-muted mb-4">Pengalaman Fikri Adam, pendiri Adam’s Work</p>
+            <p className="text-xs text-muted mb-4">{t("hero.experience")}</p>
             {/* Stats */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -166,7 +169,7 @@ export default function HeroSection() {
               />
               <Image
                 src="/assets/avatar/avatar-hero-768.webp"
-                alt="Cartoon portrait of Fikri Adam, Digital Marketing Strategist"
+                alt={t("hero.avatar")}
                 width={440}
                 height={660}
                 className="relative z-10 w-full h-auto object-contain drop-shadow-2xl"
@@ -175,7 +178,7 @@ export default function HeroSection() {
               />
               <div className="absolute z-20 -left-3 sm:-left-8 bottom-12 -rotate-3 rounded-xl border border-[#d6232f]/40 bg-[#151518]/95 px-4 py-3 shadow-2xl backdrop-blur">
                 <p className="text-[10px] font-display font-semibold uppercase tracking-[0.2em] text-[#ff4b55]">Adam’s Work</p>
-                <p className="mt-1 text-xs font-display font-medium text-white">Clarity before execution.</p>
+                <p lang="en" className="mt-1 text-xs font-display font-medium text-white">{siteConfig.principle}</p>
               </div>
               <div className="absolute z-20 right-0 top-12 rotate-3 rounded-full border border-white/10 bg-[#0b0b0d]/80 px-3 py-2 text-[10px] font-interface font-medium text-muted backdrop-blur">
                 Bali, Indonesia ↗
@@ -193,7 +196,7 @@ export default function HeroSection() {
         transition={{ delay: 1.2 }}
         aria-hidden="true"
       >
-        <span className="text-xs text-muted tracking-widest uppercase">Scroll</span>
+        <span className="text-xs text-muted tracking-widest uppercase">{t("hero.scroll")}</span>
         <motion.div
           className="w-0.5 h-8 bg-gradient-to-b from-[#d6232f] to-transparent"
           animate={{ scaleY: [0, 1, 0], originY: 0 }}

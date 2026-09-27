@@ -1,9 +1,10 @@
 "use client"
 
+import { usePublicLocale } from "@/components/layout/PublicLocaleProvider"
+
 import Image from "next/image"
 import AnimatedSection from "@/components/ui/AnimatedSection"
 import Button from "@/components/ui/Button"
-import siteConfig from "@/data/site-config.json"
 
 const contactLinks = [
   {
@@ -50,11 +51,12 @@ const contactLinks = [
 ]
 
 export default function ContactSection() {
+  const { t, siteConfig } = usePublicLocale()
   return (
     <section
       id="kontak"
       className="py-24 lg:py-36 bg-[#100b0d] relative overflow-hidden border-t border-[#d6232f]/20"
-      aria-label="Contact"
+      aria-label={t("contact.aria")}
     >
       {/* Slow ambient glow */}
       <div
@@ -82,18 +84,18 @@ export default function ContactSection() {
               <div className="inline-flex items-center gap-2 mb-5">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#d6232f]" />
                 <span className="text-sm font-display font-medium text-muted tracking-wide uppercase">
-                  Mulai percakapan
+                  {t("contact.label")}
                 </span>
               </div>
               <h2
                 className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-white leading-[1.04] mb-6"
                 style={{ fontFamily: "var(--font-display)" }}
               >
-                Apa yang ingin Anda bangun?{" "}
-                <span className="text-[#d6232f]">Kita cari arah bersama.</span>
+                {t("contact.heading")}{" "}
+                <span className="text-[#d6232f]">{t("contact.accent")}</span>
               </h2>
               <p className="text-muted leading-relaxed mb-8 max-w-lg">
-                Ceritakan bisnis, kebutuhan website atau pemasaran, dan tantangan Anda. Ruang lingkup pekerjaan dibicarakan sebelum kita mulai.
+                {t("contact.body")}
               </p>
             </AnimatedSection>
 
@@ -116,7 +118,7 @@ export default function ContactSection() {
                 variant="secondary"
                 className="text-base px-7 py-3.5"
               >
-                Kirim Email
+                {t("contact.email")}
               </Button>
             </AnimatedSection>
           </div>
@@ -128,7 +130,7 @@ export default function ContactSection() {
               <div className="flex items-center gap-4 p-5 rounded-2xl bg-[#0b0b0d]/90 border border-white/10 backdrop-blur">
                 <Image
                   src="/assets/avatar/avatar-circle-256.webp"
-                  alt="Cartoon portrait of Fikri Adam"
+                  alt={t("contact.avatar")}
                   width={56}
                   height={56}
                   className="w-14 h-14 rounded-full object-cover border-2 border-[#29292e]"
@@ -140,7 +142,7 @@ export default function ContactSection() {
                   <p className="text-sm text-muted">{siteConfig.founderRole} · Adam’s Work</p>
                   <div className="flex items-center gap-1.5 mt-1">
                     <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" aria-hidden="true" />
-                    <span className="text-xs text-green-400">Open to selected projects</span>
+                    <span className="text-xs text-green-400">{t("contact.availability")}</span>
                   </div>
                 </div>
               </div>

@@ -1,13 +1,13 @@
 "use client"
 
+import { usePublicLocale } from "@/components/layout/PublicLocaleProvider"
+
 import { useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import Image from "next/image"
 import { Project } from "@/lib/types"
-import { projectsDetail } from "@/lib/projects-detail"
 import Badge from "./Badge"
 import Button from "./Button"
-import siteConfig from "@/data/site-config.json"
 
 interface ProjectModalProps {
   project: Project | null
@@ -15,7 +15,8 @@ interface ProjectModalProps {
 }
 
 export default function ProjectModal({ project, onClose }: ProjectModalProps) {
-  const detail = project ? projectsDetail[project.slug] : null
+  const { t, siteConfig, locale } = usePublicLocale()
+  const detail = project
 
   useEffect(() => {
     if (project) {
@@ -53,7 +54,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
           {/* Modal */}
           <motion.div
             role="dialog"
-            lang="en"
+            lang={locale}
             aria-modal="true"
             aria-label={project.title}
             className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4"
@@ -77,7 +78,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                   onClick={onClose}
                   autoFocus
                   className="w-11 h-11 shrink-0 flex items-center justify-center rounded-lg text-muted hover:text-white hover:bg-[#202024] transition-colors"
-                  aria-label="Close"
+                  aria-label={t("modal.close")}
                 >
                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                     <path d="M1 1L13 13M13 1L1 13" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
@@ -117,7 +118,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                 {/* Metrics */}
                 <div>
                   <h3 className="text-xs font-display font-semibold text-muted uppercase tracking-widest mb-3">
-                    Key outcomes
+                    {t("modal.outcomes")}
                   </h3>
                   <div className="grid grid-cols-1 gap-2">
                     {project.metrics.map((m, i) => (
@@ -136,7 +137,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                 {detail?.challenge && (
                   <div>
                     <h3 className="text-xs font-display font-semibold text-muted uppercase tracking-widest mb-2">
-                      Challenge
+                      {t("modal.challenge")}
                     </h3>
                     <p className="text-muted text-sm leading-relaxed">{detail.challenge}</p>
                   </div>
@@ -146,7 +147,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                 {detail?.contributions && detail.contributions.length > 0 && (
                   <div>
                     <h3 className="text-xs font-display font-semibold text-muted uppercase tracking-widest mb-3">
-                      Contribution
+                      {t("modal.contribution")}
                     </h3>
                     <ul className="space-y-2">
                       {detail.contributions.map((c, i) => (
@@ -172,7 +173,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                 {detail?.businessImpact && (
                   <div>
                     <h3 className="text-xs font-display font-semibold text-muted uppercase tracking-widest mb-2">
-                      Business impact
+                      {t("modal.impact")}
                     </h3>
                     <p className="text-sm text-muted leading-relaxed">{detail.businessImpact}</p>
                   </div>
@@ -187,7 +188,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                     variant="primary"
                     className="w-full justify-center"
                   >
-                    Discuss a Similar Project
+                    {t("modal.cta")}
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
                       <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
                       <path d="M12 0C5.373 0 0 5.373 0 12c0 2.089.535 4.122 1.558 5.916L.057 23.882a.5.5 0 0 0 .61.61l5.966-1.501A11.943 11.943 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.854 0-3.634-.485-5.19-1.405l-.372-.219-3.853.97.99-3.774-.24-.391A10 10 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>

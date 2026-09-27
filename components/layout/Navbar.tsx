@@ -4,11 +4,13 @@ import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import BrandSignature from "@/components/ui/BrandSignature"
 import Button from "@/components/ui/Button"
-import siteConfig from "@/data/site-config.json"
+import LanguageSwitcher from "./LanguageSwitcher"
+import { usePublicLocale } from "./PublicLocaleProvider"
 
-const navLinks = siteConfig.navigation
 
 export default function Navbar() {
+  const { siteConfig, t } = usePublicLocale()
+  const navLinks = siteConfig.navigation
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
 
@@ -36,7 +38,8 @@ export default function Navbar() {
     setMenuOpen(false)
     const el = document.querySelector(href)
     if (el) {
-      el.scrollIntoView({ behavior: "smooth" })
+      window.history.replaceState(null, "", href)
+      el.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" })
     }
   }
 
@@ -54,7 +57,7 @@ export default function Navbar() {
           <BrandSignature />
 
           {/* Desktop Nav */}
-          <nav className="hidden lg:flex items-center gap-1" aria-label="Navigasi utama">
+          <nav className="hidden lg:flex items-center gap-1" aria-label={t("nav.main")}>
             {navLinks.map((link) => (
               <button
                 key={link.href}
@@ -79,11 +82,13 @@ export default function Navbar() {
             </Button>
           </div>
 
+          <LanguageSwitcher />
+
           {/* Mobile Hamburger */}
           <button
             className="lg:hidden w-11 h-11 shrink-0 flex items-center justify-center text-muted hover:text-white transition-colors"
             onClick={() => setMenuOpen(!menuOpen)}
-            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            aria-label={menuOpen ? t("nav.close") : t("nav.open")}
             aria-expanded={menuOpen}
           >
             <div className="w-5 space-y-1.5">
@@ -117,7 +122,7 @@ export default function Navbar() {
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
           >
-            <nav className="flex flex-col gap-1 flex-1 shrink-0" aria-label="Navigasi mobile">
+            <nav className="flex flex-col gap-1 flex-1 shrink-0" aria-label={t("nav.mobile")}>
               {navLinks.map((link, i) => (
                 <motion.button
                   key={link.href}

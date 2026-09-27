@@ -14,9 +14,18 @@ export const publicContent = {
 } as const
 
 export type PublicLocale = keyof typeof publicContent
+const serviceTitles: Record<string, string> = {
+  website: "Website & Halaman Arahan", seo: "SEO", analytics: "GA4 & GTM",
+  consultation: "Strategi Pemasaran", "meta-ads": "Meta Ads", "google-ads": "Google Ads",
+}
 export const serviceOrder = ["website", "seo", "analytics", "consultation", "meta-ads", "google-ads"]
 export function getPublicServices(locale: PublicLocale) {
   const descriptions: Record<string, string> = publicContent[locale].serviceDescriptions
   return [...services].sort((a, b) => serviceOrder.indexOf(a.id) - serviceOrder.indexOf(b.id))
-    .map(service => ({ ...service, description: descriptions[service.id] ?? service.description }))
+    .map(service => {
+      const description = descriptions[service.id]
+      const title = locale === "id" ? serviceTitles[service.id] : service.title
+      if (!description || !title) throw new Error("Missing service translation: " + service.id)
+      return { ...service, title, description }
+    })
 }

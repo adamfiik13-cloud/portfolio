@@ -1,5 +1,7 @@
 "use client"
 
+import { usePublicLocale } from "@/components/layout/PublicLocaleProvider"
+
 import { useState } from "react"
 import { motion } from "framer-motion"
 import { useRef } from "react"
@@ -7,14 +9,15 @@ import { useInView } from "framer-motion"
 import Image from "next/image"
 import AnimatedSection from "@/components/ui/AnimatedSection"
 import ProjectModal from "@/components/ui/ProjectModal"
-import projectsData from "@/data/projects.json"
+import { getPublicProjects } from "@/data/project-content"
 import { Project } from "@/lib/types"
 
-const projects = projectsData as Project[]
-const featured = projects.filter((p) => p.featured)
-const supporting = projects.filter((p) => !p.featured)
 
 export default function ProjectsSection() {
+  const { t, locale } = usePublicLocale()
+  const projects = getPublicProjects(locale)
+  const featured = projects.filter(p => p.featured)
+  const supporting = projects.filter(p => !p.featured)
   const [activeProject, setActiveProject] = useState<Project | null>(null)
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-80px" })
@@ -23,7 +26,7 @@ export default function ProjectsSection() {
     <section
       id="studi-kasus"
       className="py-24 lg:py-32 bg-[#f3f0e9] text-[#111114] relative overflow-hidden"
-      aria-label="Karya pilihan"
+      aria-label={t("projects.label")}
     >
       <div className="public-container">
         {/* Header */}
@@ -31,32 +34,32 @@ export default function ProjectsSection() {
           <div className="inline-flex items-center gap-2 mb-4">
             <span className="w-1.5 h-1.5 rounded-full bg-[#d6232f]" />
             <span className="text-sm font-display font-semibold text-[#5d5a55] tracking-wide uppercase">
-              Karya pilihan
+              {t("projects.label")}
             </span>
           </div>
           <h2
             className="text-3xl sm:text-5xl font-display font-bold text-[#111114] leading-tight mb-4"
             style={{ fontFamily: "var(--font-display)" }}
           >
-            Pekerjaan nyata.{" "}
-            <span className="text-[#d6232f]">Pembelajaran nyata.</span>
+            {t("projects.heading")}{" "}
+            <span className="text-[#d6232f]">{t("projects.accent")}</span>
           </h2>
           <p className="text-ink-muted leading-relaxed">
-            Pilihan pekerjaan Fikri Adam yang menjadi fondasi pengalaman studio. Konteks, kontribusi, dan hasil setiap proyek tetap disajikan apa adanya.
+            {t("projects.body")}
           </p>
         </AnimatedSection>
 
         {/* Featured projects */}
         <div ref={ref} className="grid sm:grid-cols-2 gap-5 mb-5">
           {featured.map((project, i) => (
-            <motion.article lang="en"
+            <motion.article lang={locale}
               key={project.slug}
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: i * 0.1, ease: [0.21, 0.47, 0.32, 0.98] }}
               onClick={() => setActiveProject(project)}
               className="group relative cursor-pointer rounded-3xl bg-white border border-[#d9d4ca] hover:border-[#d6232f]/40 hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(31,26,22,0.12)] overflow-hidden transition-all duration-300"
-              aria-label={`Open details: ${project.title}`}
+              aria-label={`${t("projects.open")}: ${project.title}`}
               role="button"
               tabIndex={0}
               onKeyDown={(e) => e.key === "Enter" && setActiveProject(project)}
@@ -125,7 +128,7 @@ export default function ProjectsSection() {
 
                 {/* CTA */}
                 <div className="mt-5 flex items-center gap-1.5 text-sm font-display font-semibold text-[#34312d] group-hover:text-[#d6232f] transition-colors">
-                  Lihat studi kasus
+                  {t("projects.view")}
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <path d="M5 12h14M12 5l7 7-7 7"/>
                   </svg>
@@ -138,7 +141,7 @@ export default function ProjectsSection() {
         {/* Supporting projects */}
         <AnimatedSection delay={0.2}>
           <p className="text-xs font-display font-semibold text-ink-muted uppercase tracking-widest mb-4">
-            Karya lainnya
+            {t("projects.more")}
           </p>
           <div className="grid sm:grid-cols-2 gap-4">
             {supporting.map((project) => (

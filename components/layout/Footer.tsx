@@ -1,7 +1,11 @@
+"use client"
+
+import { usePublicLocale } from "@/components/layout/PublicLocaleProvider"
+
 import BrandSignature from "@/components/ui/BrandSignature"
-import siteConfig from "@/data/site-config.json"
 
 export default function Footer() {
+  const { t, siteConfig } = usePublicLocale()
   return (
     <footer className="border-t border-line bg-black">
       <div className="public-container py-10 space-y-6">
@@ -10,9 +14,9 @@ export default function Footer() {
             <BrandSignature />
             <p className="text-sm text-muted" lang="en">{siteConfig.role}</p>
             <p className="text-sm text-muted" lang="en">{siteConfig.tagline}</p>
-            <p className="text-xs text-muted">Dipimpin {siteConfig.founder} · Strategi dan kualitas pekerjaan</p>
+            <p className="text-xs text-muted">{t("hero.founder")}</p>
           </div>
-          <nav aria-label="Kontak studio" className="flex flex-wrap gap-x-6 text-sm text-muted">
+          <nav aria-label={t("footer.contact")} className="flex flex-wrap gap-x-6 text-sm text-muted">
             <a className="min-h-11 min-w-11 inline-flex items-center hover:text-white" href={siteConfig.whatsappUrl} target="_blank" rel="noopener noreferrer">WhatsApp</a>
             <a className="min-h-11 min-w-11 inline-flex items-center hover:text-white" href={"mailto:" + siteConfig.email}>Email</a>
             <a className="min-h-11 min-w-11 inline-flex items-center hover:text-white" href={siteConfig.linkedinUrl} target="_blank" rel="noopener noreferrer">LinkedIn Fikri</a>

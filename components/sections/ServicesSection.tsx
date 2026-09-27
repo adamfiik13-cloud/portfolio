@@ -1,12 +1,13 @@
 "use client"
 
+import { usePublicLocale } from "@/components/layout/PublicLocaleProvider"
+
 import { motion } from "framer-motion"
 import { useRef } from "react"
 import { useInView } from "framer-motion"
 import AnimatedSection from "@/components/ui/AnimatedSection"
 import { getPublicServices } from "@/data/public-content"
 
-const services = getPublicServices("id")
 
 const serviceIcons: Record<string, React.ReactNode> = {
   "meta-ads": (
@@ -43,6 +44,8 @@ const serviceIcons: Record<string, React.ReactNode> = {
 }
 
 export default function ServicesSection() {
+  const { t, locale } = usePublicLocale()
+  const services = getPublicServices(locale)
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-80px" })
 
@@ -50,7 +53,7 @@ export default function ServicesSection() {
     <section
       id="layanan"
       className="py-24 lg:py-32 bg-[#151518] relative overflow-hidden"
-      aria-label="Layanan Adam’s Work"
+      aria-label={t("services.aria")}
     >
       <div className="public-container">
         {/* Header */}
@@ -58,18 +61,18 @@ export default function ServicesSection() {
           <div className="inline-flex items-center gap-2 mb-4">
             <span className="w-1.5 h-1.5 rounded-full bg-[#d6232f]" />
             <span className="text-sm font-display font-medium text-muted tracking-wide uppercase">
-              Layanan
+              {t("services.label")}
             </span>
           </div>
           <h2
             className="text-3xl sm:text-4xl font-display font-bold text-white leading-tight mb-4"
             style={{ fontFamily: "var(--font-display)" }}
           >
-            Website, SEO,{" "}
-            <span className="text-[#d6232f]">dan digital growth.</span>
+            {t("services.heading")}{" "}
+            <span className="text-[#d6232f]">{t("services.accent")}</span>
           </h2>
           <p className="text-muted leading-relaxed">
-            Mulai dari kebutuhan bisnis Anda. Kita menyepakati prioritas dan ruang lingkup sebelum pekerjaan dimulai.
+            {t("services.body")}
           </p>
         </AnimatedSection>
 
