@@ -11,7 +11,7 @@
 
 Adam's Work is an Indonesia-based, personal-brand-led Web, SEO & Digital Growth Studio and digital services platform. English is the default communication language. It combines a credible portfolio, a service catalogue, ordering and payment, and a private workspace where clients and the internal team can complete projects.
 
-All services belong to Adam's Work and are delivered by Fikri Adam with an internal team. The platform is not a public freelancer marketplace. Fiverr is only a reference for the ordering workflow.
+All services belong to Adam's Work and are delivered through a founder-led studio with specialist collaborators, with strategy, communication, and quality accountability remaining with Fikri Adam. The platform is not a public freelancer marketplace. Fiverr is only a reference for the ordering workflow.
 
 ## 2. Brand foundation
 

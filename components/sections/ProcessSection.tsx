@@ -7,7 +7,7 @@ import { useRef } from "react"
 import AnimatedSection from "@/components/ui/AnimatedSection"
 
 export default function ProcessSection() {
-  const { t, siteConfig } = usePublicLocale()
+  const { t } = usePublicLocale()
   const steps = [
     {
       id: "understand",
@@ -80,7 +80,7 @@ export default function ProcessSection() {
             className="text-3xl sm:text-4xl font-display font-bold text-white leading-tight mb-4"
             style={{ fontFamily: "var(--font-display)" }}
           >
-            <span lang="en">{siteConfig.principle}</span>{" "}
+            {t("process.heading")}{" "}
             <span className="text-[#d6232f]">{t("process.accent")}</span>
           </h2>
           <p className="text-muted leading-relaxed">
@@ -125,18 +125,6 @@ export default function ProcessSection() {
             </motion.div>
           ))}
         </div>
-
-        {/* Quote */}
-        <AnimatedSection delay={0.3} className="mt-12">
-          <div className="max-w-2xl mx-auto text-center">
-            <p className="text-lg text-muted leading-relaxed font-interface italic">
-              &ldquo;{t("process.quote")}{" "}
-              <span className="text-white not-italic font-interface font-medium">
-                {t("process.quoteAccent")}
-              </span>&rdquo;
-            </p>
-          </div>
-        </AnimatedSection>
 
         {/* Tools marquee */}
         <AnimatedSection delay={0.2} className="mt-16">

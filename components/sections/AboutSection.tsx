@@ -62,7 +62,7 @@ export default function AboutSection() {
               </div>
               {/* Floating badge */}
               <div className="absolute z-20 -bottom-5 right-2 sm:-right-4 bg-[#151518]/95 border border-white/10 rounded-2xl px-4 py-3 shadow-2xl backdrop-blur">
-                <div className="text-2xl font-display font-bold text-white" style={{ fontFamily: "var(--font-display)" }}>4+</div>
+                <div className="text-2xl font-display font-bold text-white" style={{ fontFamily: "var(--font-display)" }}>2+</div>
                 <div className="text-xs text-muted">{t("about.years")}</div>
               </div>
             </div>
@@ -99,6 +99,7 @@ export default function AboutSection() {
             </AnimatedSection>
 
             <p className="text-muted leading-relaxed">{t("about.proof")}</p>
+            <p className="text-muted leading-relaxed">{t("about.access")}</p>
 
             {/* Industries */}
             <AnimatedSection delay={0.25}>

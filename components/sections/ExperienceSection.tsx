@@ -108,7 +108,7 @@ export default function ExperienceSection() {
 
                   <div className="mb-5 grid grid-cols-3 gap-2 border-y border-[#111113]/15 py-4">
                   {[
-                    { v: "2+", l: t("experience.years") },
+                    { v: "2", l: t("experience.years") },
                     { v: "50+", l: t("experience.students") },
                     { v: "10+", l: t("experience.tests") },
                   ].map((s) => (

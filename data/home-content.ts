@@ -3,7 +3,10 @@ import type { PublicLocale } from "./public-content"
 
 // Stable message IDs are shared across locales; edit copy here, not in visual components.
 export const messages = {
-  "hero.label": { "en": "Introduction", "id": "Pengantar" },
+  "hero.label": {
+    "en": "Introduction",
+    "id": "Pengantar"
+  },
   "nav.skip": {
     "en": "Skip to main content",
     "id": "Lewati ke konten utama"
@@ -37,8 +40,8 @@ export const messages = {
     "id": "Pikirkan · Uji · Pelajari"
   },
   "hero.global": {
-    "en": "For global businesses entering Indonesia: let’s discuss your website and digital growth needs.",
-    "id": "Untuk bisnis global yang memasuki Indonesia: mari diskusikan kebutuhan website dan pertumbuhan digital Anda."
+    "en": "Also working with international teams entering or growing in Indonesia.",
+    "id": "Kami juga terbuka untuk bekerja bersama tim internasional yang ingin masuk atau berkembang di Indonesia."
   },
   "hero.founder": {
     "en": "Led by Fikri Adam · Strategy and quality of work",
@@ -65,8 +68,8 @@ export const messages = {
     "id": "Selalu ingin tahu."
   },
   "about.years": {
-    "en": "years in practice",
-    "id": "tahun pengalaman"
+    "en": "years delivering client projects",
+    "id": "tahun mengerjakan proyek klien"
   },
   "about.label": {
     "en": "About Adam’s Work",
@@ -81,12 +84,12 @@ export const messages = {
     "id": "Kolaborasi yang dekat."
   },
   "about.body": {
-    "en": "Adam’s Work is a studio led by Fikri Adam as founder, strategist, and quality lead. Fikri directs strategy and reviews the quality of work with the internal team. You work directly with the studio, from understanding your needs to deciding the next steps.",
-    "id": "Adam’s Work adalah studio yang dipimpin Fikri Adam sebagai founder, strategist, dan quality lead. Fikri mengarahkan strategi dan meninjau kualitas pekerjaan bersama tim internal. Anda bekerja langsung dengan studio, dari memahami kebutuhan hingga menentukan langkah berikutnya."
+    "en": "Adam’s Work is led by Fikri Adam, who remains directly involved in every project — from defining the strategy to reviewing the final work. Specialist collaborators may support delivery when the scope requires it, but strategy, communication, and quality accountability stay with Fikri.",
+    "id": "Adam’s Work dipimpin oleh Fikri Adam, yang tetap terlibat langsung dalam setiap proyek — mulai dari menyusun strategi hingga meninjau hasil akhir. Kolaborator spesialis dapat mendukung proses pengerjaan sesuai kebutuhan, tetapi strategi, komunikasi, dan tanggung jawab kualitas tetap berada pada Fikri."
   },
   "about.proof": {
-    "en": "Its foundation is Fikri’s four years of experience across five industries, alongside mentoring 50+ digital marketing students at RevoU.",
-    "id": "Fondasinya adalah pengalaman Fikri selama empat tahun di lima industri, serta mendampingi 50+ peserta digital marketing di RevoU."
+    "en": "Fikri spent two years as a Team Lead at RevoU, mentoring more than 50 digital marketing students and guiding 10+ paid-media market tests. He has applied that structured, test-and-learn approach across client projects in property, travel, F&B, laundry, and fitness.",
+    "id": "Selama dua tahun sebagai Team Lead di RevoU, Fikri membimbing lebih dari 50 student digital marketing dan mendampingi 10+ market test paid media. Pendekatan yang terstruktur dan berbasis pengujian tersebut kemudian diterapkan dalam proyek klien di industri properti, travel, F&B, laundry, dan fitness."
   },
   "about.industries": {
     "en": "Industry experience",
@@ -133,16 +136,16 @@ export const messages = {
     "id": "Layanan"
   },
   "services.heading": {
-    "en": "Websites, SEO,",
-    "id": "Website, SEO,"
+    "en": "Build the foundation. Strengthen how people find you.",
+    "id": "Bangun fondasinya. Perkuat cara pelanggan menemukan bisnis Anda."
   },
   "services.accent": {
-    "en": "and digital growth.",
-    "id": "dan digital growth."
+    "en": "Improve what happens next.",
+    "id": "Tingkatkan apa yang terjadi setelahnya."
   },
   "services.body": {
-    "en": "Start with your business needs. We agree on priorities and scope before work begins.",
-    "id": "Mulai dari kebutuhan bisnis Anda. Kita menyepakati prioritas dan ruang lingkup sebelum pekerjaan dimulai."
+    "en": "Our strongest published results are in website and organic growth. We also support paid campaigns, analytics, marketplace strategy, and practical consulting when they contribute to the same measurable business goal.",
+    "id": "Bukti terkuat kami saat ini berasal dari pengembangan website dan pertumbuhan organik. Kami juga mendukung paid campaign, analytics, strategi marketplace, dan konsultasi praktis ketika semuanya berkontribusi pada tujuan bisnis yang sama."
   },
   "process.aria": {
     "en": "Approach",
@@ -153,8 +156,8 @@ export const messages = {
     "id": "Cara kerja"
   },
   "process.accent": {
-    "en": "Start with understanding.",
-    "id": "Mulai dengan pemahaman."
+    "en": "scope, and success measures.",
+    "id": "ruang lingkup, dan ukuran keberhasilan."
   },
   "process.body": {
     "en": "Understand the goals, agree on a direction, do the work, then review the results together.",
@@ -193,12 +196,12 @@ export const messages = {
     "id": "Bahas hasil dan pembelajaran untuk menentukan langkah berikutnya."
   },
   "process.quote": {
-    "en": "Data matters when it reveals",
-    "id": "Data berarti ketika menunjukkan"
+    "en": "",
+    "id": ""
   },
   "process.quoteAccent": {
-    "en": "what to do next.",
-    "id": "langkah berikutnya."
+    "en": "",
+    "id": ""
   },
   "process.tools": {
     "en": "Tools in practice",
@@ -213,19 +216,19 @@ export const messages = {
     "id": "Mulai percakapan"
   },
   "contact.heading": {
-    "en": "What would you like to build?",
-    "id": "Apa yang ingin Anda bangun?"
+    "en": "Tell us what you’re trying to grow.",
+    "id": "Ceritakan apa yang ingin Anda kembangkan."
   },
   "contact.accent": {
-    "en": "Let’s find a direction together.",
-    "id": "Kita cari arah bersama."
+    "en": "We’ll tell you honestly if we’re a fit.",
+    "id": "Kami akan menyampaikan dengan jujur apakah kami adalah partner yang tepat."
   },
   "contact.body": {
-    "en": "Tell us about your business, website or marketing needs, and challenges. We discuss the scope before getting started.",
-    "id": "Ceritakan bisnis, kebutuhan website atau pemasaran, dan tantangan Anda. Ruang lingkup pekerjaan dibicarakan sebelum kita mulai."
+    "en": "Message us on WhatsApp for a quick conversation, or use email for a more formal enquiry. We aim to respond within one business day.",
+    "id": "Hubungi kami melalui WhatsApp untuk percakapan singkat, atau gunakan email untuk kebutuhan yang lebih formal. Kami berusaha merespons dalam satu hari kerja."
   },
   "contact.email": {
-    "en": "Send Email",
+    "en": "Send an Email",
     "id": "Kirim Email"
   },
   "contact.avatar": {
@@ -325,16 +328,16 @@ export const messages = {
     "id": "Mengubah pembelajaran menjadi tindakan yang percaya diri."
   },
   "experience.years": {
-    "en": "years at RevoU",
-    "id": "tahun di RevoU"
+    "en": "years as a RevoU Team Lead",
+    "id": "tahun sebagai Team Lead RevoU"
   },
   "experience.students": {
-    "en": "students",
-    "id": "peserta"
+    "en": "students mentored",
+    "id": "student dibimbing"
   },
   "experience.tests": {
-    "en": "market tests",
-    "id": "uji pasar"
+    "en": "paid-media market tests guided",
+    "id": "market test paid media didampingi"
   },
   "experience.moments": {
     "en": "RevoU team moments",
@@ -393,8 +396,8 @@ export const messages = {
     "id": "Membimbing 10+ uji pasar melalui Meta dan Google Ads"
   },
   "experience.led": {
-    "en": "Led learning teams for 2+ years",
-    "id": "Memimpin tim belajar selama 2+ tahun"
+    "en": "Led learning teams for 2 years",
+    "id": "Memimpin tim belajar selama 2 tahun"
   },
   "experience.intern": {
     "en": "Content Writer Intern",
@@ -407,26 +410,43 @@ export const messages = {
   "experience.research": {
     "en": "Researched 700–900 websites per week",
     "id": "Meriset 700–900 website per minggu"
+  },
+  "hero.eyebrow": {
+    "en": "Founder-led digital growth studio",
+    "id": "Founder-led digital growth studio"
+  },
+  "about.access": {
+    "en": "You get direct access to the person responsible for the strategy, supported by the right specialists when the project requires them.",
+    "id": "Anda mendapatkan akses langsung kepada orang yang bertanggung jawab atas strategi, dengan dukungan spesialis yang tepat ketika proyek membutuhkannya."
+  },
+  "process.heading": {
+    "en": "Execution starts only after we agree on the goal,",
+    "id": "Eksekusi dimulai setelah kita menyepakati tujuan,"
+  },
+  "contact.whatsapp": {
+    "en": "Message on WhatsApp",
+    "id": "Hubungi via WhatsApp"
   }
 } as const
 export type MessageId = keyof typeof messages
 
 const siteCopy = {
   en: {
-    headline: "Purposeful websites. Growth understood.",
-    summary: "Adam’s Work helps growing businesses and global companies entering or operating in Indonesia connect websites, SEO, and digital marketing to clear business goals. Start with your needs, then decide on practical next steps together.",
-    primaryCta: "Discuss Your Project", secondaryCta: "View Work",
+    headline: "Your website should do more than look good. It should help your business grow.",
+    summary: "Adam’s Work helps growing businesses in Indonesia connect websites, search, analytics, and practical marketing strategy around clear, measurable goals.",
+    primaryCta: "Discuss Your Project", secondaryCta: "View Our Work",
     founderRole: base.founderRole,
     navigation: ["Services", "Work", "About", "How We Work", "Contact"],
-    statLabels: base.stats.map(stat => stat.label),
+    statLabels: ["years delivering client projects", "years as a RevoU Team Lead", "students mentored", "paid-media market tests guided", "industries served"],
     description: "Indonesia-based web, SEO and digital growth studio for growing businesses and global companies entering or operating in Indonesia. Led by Fikri Adam.",
   },
   id: {
-    headline: base.headline, summary: base.summary,
-    primaryCta: base.primaryCta, secondaryCta: base.secondaryCta,
+    headline: "Website Anda seharusnya bukan hanya terlihat bagus. Website harus membantu bisnis berkembang.",
+    summary: "Adam’s Work membantu bisnis berkembang di Indonesia menghubungkan website, pencarian organik, analytics, dan strategi marketing praktis dengan tujuan yang jelas dan terukur.",
+    primaryCta: base.primaryCta, secondaryCta: "Lihat Hasil Kerja",
     founderRole: "Pendiri, Ahli Strategi & Penanggung Jawab Kualitas",
     navigation: base.navigation.map(item => item.label),
-    statLabels: ["tahun pengalaman", "peserta didampingi", "uji pasar", "industri"],
+    statLabels: ["tahun mengerjakan proyek klien", "tahun sebagai Team Lead RevoU", "student dibimbing", "market test paid media didampingi", "industri dilayani"],
     description: "Studio website, SEO, dan digital growth untuk UMKM Indonesia, dipimpin Fikri Adam. Strategi yang jelas dan kolaborasi yang dekat.",
   },
 } as const
@@ -435,6 +455,6 @@ export function getSiteContent(locale: PublicLocale) {
   const copy = siteCopy[locale]
   return { ...base, ...copy, locale,
     navigation: base.navigation.map((item, index) => ({ ...item, label: copy.navigation[index] })),
-    stats: base.stats.map((stat, index) => ({ ...stat, label: copy.statLabels[index] })),
+    stats: ["2+", "2", "50+", "10+", "5"].map((value, index) => ({ value, label: copy.statLabels[index] })),
   }
 }

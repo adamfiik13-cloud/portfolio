@@ -6,7 +6,7 @@ These instructions apply to automated coding agents working in this repository. 
 
 Adam's Work is an Indonesia-based, personal-brand-led Web, SEO & Digital Growth Studio owned by Fikri Adam. It will combine a public portfolio and service catalogue with ordering, payment, a client workspace, and internal delivery tools.
 
-It is **not** a public freelancer marketplace. Services are owned by Adam's Work and delivered by Fikri with an internal team. Public users may register only as clients.
+It is **not** a public freelancer marketplace. Services are owned by Adam's Work and delivered through a founder-led studio with specialist collaborators, with strategy, communication, and quality accountability remaining with Fikri. Public users may register only as clients.
 
 Canonical product documents:
 
