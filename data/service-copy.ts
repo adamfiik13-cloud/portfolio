@@ -7,39 +7,39 @@ export const serviceCopy = {
   },
   "title": {
     "en": "Clear scope. Practical digital work.",
-    "id": "Scope jelas. Pekerjaan digital yang praktis."
+    "id": "Cakupan jelas. Solusi digital yang praktis."
   },
   "intro": {
     "en": "Websites, SEO, tracking, and growth strategy form our core offer. Compare the scope, then discuss the right next step with Fikri.",
-    "id": "Website, SEO, tracking, dan strategi pertumbuhan menjadi penawaran utama kami. Bandingkan scope, lalu diskusikan langkah yang tepat bersama Fikri."
+    "id": "Website, SEO, tracking, dan strategi pertumbuhan adalah layanan utama kami. Bandingkan cakupan pekerjaannya, lalu bahas langkah yang tepat bersama Fikri."
   },
   "founder": {
     "en": "A founder-led studio with specialist collaborators.",
-    "id": "Studio yang dipimpin pendiri dengan kolaborator spesialis."
+    "id": "Studio yang dipimpin pendiri dan didukung kolaborator spesialis."
   },
   "confirmation": {
     "en": "Final scope and price are confirmed after discovery.",
-    "id": "Scope dan harga akhir dikonfirmasi setelah diskusi kebutuhan."
+    "id": "Cakupan pekerjaan dan harga akhir dikonfirmasi setelah kebutuhan dibahas."
   },
   "inquiryNote": {
     "en": "This opens a WhatsApp inquiry. Online checkout and booking are not available yet.",
-    "id": "Tombol ini membuka pertanyaan melalui WhatsApp. Checkout dan pemesanan daring belum tersedia."
+    "id": "Tombol ini membuka percakapan WhatsApp. Pembayaran dan pemesanan online belum tersedia."
   },
   "career": {
     "en": "Additional services for individual professionals",
-    "id": "Layanan tambahan untuk profesional individu"
+    "id": "Layanan tambahan untuk kebutuhan karier profesional"
   },
   "details": {
-    "en": "View scope",
-    "id": "Lihat scope"
+    "en": "View Details",
+    "id": "Lihat Detail"
   },
   "back": {
     "en": "All services",
-    "id": "Semua layanan"
+    "id": "Semua Layanan"
   },
   "who": {
     "en": "Who it is for",
-    "id": "Untuk siapa"
+    "id": "Cocok untuk"
   },
   "problem": {
     "en": "Problems it helps solve",
@@ -47,7 +47,7 @@ export const serviceCopy = {
   },
   "scope": {
     "en": "Scope & deliverables",
-    "id": "Scope & hasil kerja"
+    "id": "Cakupan pekerjaan"
   },
   "inputs": {
     "en": "What you provide",
@@ -59,7 +59,7 @@ export const serviceCopy = {
   },
   "unlisted": {
     "en": "Work outside the confirmed scope is not included; discuss additional requirements before proceeding.",
-    "id": "Pekerjaan di luar scope yang dikonfirmasi tidak termasuk; diskusikan kebutuhan tambahan sebelum melanjutkan."
+    "id": "Pekerjaan di luar cakupan yang disepakati tidak termasuk. Bahas kebutuhan tambahan sebelum melanjutkan."
   },
   "timeline": {
     "en": "Timing",
@@ -67,11 +67,11 @@ export const serviceCopy = {
   },
   "timingUnknown": {
     "en": "The delivery timeline is confirmed after reviewing your requirements and availability.",
-    "id": "Waktu penyelesaian dikonfirmasi setelah meninjau kebutuhan dan ketersediaan."
+    "id": "Waktu penyelesaian dikonfirmasi setelah kebutuhan dan ketersediaan jadwal dibahas."
   },
   "sessionSuffix": {
     "en": "minutes per session; scheduling and any written deliverables are confirmed in discussion.",
-    "id": "menit per sesi; jadwal dan waktu penyerahan hasil tertulis dikonfirmasi dalam diskusi."
+    "id": "menit per sesi. Jadwal sesi dan penyerahan hasil tertulis, jika termasuk, dikonfirmasi saat diskusi."
   },
   "revisions": {
     "en": "Revisions",
@@ -79,7 +79,7 @@ export const serviceCopy = {
   },
   "revisionUnknown": {
     "en": "Revision arrangements are confirmed with the scope before work begins.",
-    "id": "Ketentuan revisi dikonfirmasi bersama scope sebelum pekerjaan dimulai."
+    "id": "Ketentuan revisi disepakati bersama cakupan pekerjaan sebelum mulai."
   },
   "revisionSuffix": {
     "en": "revision round(s), maximum",
@@ -87,7 +87,7 @@ export const serviceCopy = {
   },
   "process": {
     "en": "How we proceed",
-    "id": "Langkah pengerjaan"
+    "id": "Cara kerja"
   },
   "steps": {
     "en": [
@@ -96,9 +96,9 @@ export const serviceCopy = {
       "Proceed with the agreed work and review the deliverables."
     ],
     "id": [
-      "Sampaikan kebutuhan dan konteks yang relevan.",
-      "Konfirmasikan scope, harga, waktu, dan kebutuhan akses bersama Fikri.",
-      "Lanjutkan pekerjaan sesuai kesepakatan dan tinjau hasilnya."
+      "Sampaikan kebutuhan dan informasi yang relevan.",
+      "Sepakati cakupan pekerjaan, harga, waktu, dan kebutuhan akses bersama Fikri.",
+      "Jalankan pekerjaan sesuai kesepakatan, lalu tinjau hasilnya."
     ]
   },
   "faq": {
@@ -111,7 +111,7 @@ export const serviceCopy = {
   },
   "faqPriceAnswer": {
     "en": "Fixed prices apply to the listed scope. “Starts from” prices are starting points for variable scope. Final scope and price are confirmed after discovery.",
-    "id": "Harga tetap berlaku untuk scope yang tercantum. Harga “Mulai dari” adalah titik awal untuk scope yang bervariasi. Scope dan harga akhir dikonfirmasi setelah diskusi kebutuhan."
+    "id": "Harga tetap berlaku untuk cakupan yang tercantum. Harga “Mulai dari” merupakan harga awal untuk kebutuhan yang bervariasi. Cakupan pekerjaan dan harga akhir dikonfirmasi setelah kebutuhan dibahas."
   },
   "faqStart": {
     "en": "How do I get started?",
@@ -119,19 +119,19 @@ export const serviceCopy = {
   },
   "faqStartAnswer": {
     "en": "Use the WhatsApp button to discuss this service. It includes the service name; you can add your context before sending. No online payment or booking is made on this page.",
-    "id": "Gunakan tombol WhatsApp untuk mendiskusikan layanan ini. Nama layanan sudah disertakan; Anda dapat menambahkan konteks sebelum mengirim. Tidak ada pembayaran atau pemesanan daring yang dilakukan di halaman ini."
+    "id": "Klik tombol WhatsApp untuk membahas layanan ini. Nama layanan sudah tercantum dalam pesan; tambahkan kebutuhan Anda sebelum mengirim. Halaman ini belum melayani pembayaran atau pemesanan online."
   },
   "faqExtra": {
     "en": "What if I need something outside this scope?",
-    "id": "Bagaimana jika kebutuhan saya di luar scope ini?"
+    "id": "Bagaimana jika kebutuhan saya di luar cakupan ini?"
   },
   "faqExtraAnswer": {
     "en": "Describe the additional requirements during discovery so scope and any additional cost can be agreed before work begins.",
-    "id": "Jelaskan kebutuhan tambahan saat diskusi agar scope dan biaya tambahan dapat disepakati sebelum pekerjaan dimulai."
+    "id": "Sampaikan kebutuhan tambahan saat diskusi agar cakupan pekerjaan dan biaya tambahannya bisa disepakati sebelum mulai."
   },
   "service": {
     "en": "Choose This Service",
-    "id": "Pilih Layanan Ini"
+    "id": "Pilih Layanan"
   },
   "consultation": {
     "en": "Book a Consultation",
@@ -148,6 +148,54 @@ export const serviceCopy = {
   "price": {
     "en": "Price",
     "id": "Harga"
+  },
+  "featured": {
+    "en": "Featured Services",
+    "id": "Layanan Pilihan"
+  },
+  "all": {
+    "en": "All Services",
+    "id": "Semua Layanan"
+  },
+  "search": {
+    "en": "Search services",
+    "id": "Cari layanan"
+  },
+  "categories": {
+    "en": "Filter by category",
+    "id": "Filter berdasarkan kategori"
+  },
+  "empty": {
+    "en": "No services found",
+    "id": "Layanan tidak ditemukan"
+  },
+  "emptyHint": {
+    "en": "Try another search or clear the filters.",
+    "id": "Coba kata kunci lain atau hapus filter."
+  },
+  "reset": {
+    "en": "Clear filters",
+    "id": "Hapus Filter"
+  },
+  "results": {
+    "en": "services found",
+    "id": "layanan ditemukan"
+  },
+  "once": {
+    "en": "One-time",
+    "id": "Sekali Bayar"
+  },
+  "monthly": {
+    "en": "Monthly",
+    "id": "Bulanan"
+  },
+  "consultationModel": {
+    "en": "Consultation",
+    "id": "Konsultasi"
+  },
+  "outputs": {
+    "en": "What you’ll receive",
+    "id": "Hasil yang Anda terima"
   }
 } as const
 

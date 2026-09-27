@@ -125,6 +125,7 @@ Rules:
 
 - Typed offers, shared IDR prices, inquiry types, and explicit EN/ID slugs live in `data/service-catalog.ts`; interface copy lives in `data/service-copy.ts`.
 - Shared server templates serve `/services`, `/id/layanan`, and their detail routes. Unknown slugs return 404.
+- The catalog adds a shared client-side search/category filter with all services in the initial rendered HTML. Reusable category thumbnails use inline decorative SVG; bilingual output expectations remain attached to stable service IDs.
 - Each page maps its equivalent locale URL for navigation and canonical/hreflang metadata. Production sitemap includes both versions; staging SEO protection is inherited unchanged.
 - CTAs prepare WhatsApp inquiries only. Price metadata is not a checkout implementation or authorization to take payment.
 

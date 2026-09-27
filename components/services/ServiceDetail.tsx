@@ -12,7 +12,7 @@ export default function ServiceDetail({ locale, service }: { locale: PublicLocal
   return <ServiceShell locale={locale} paths={paths}>
     <Link href={catalogPaths[locale]} className="inline-flex items-center min-h-11 text-muted hover:text-white mb-8">← {t("back")}</Link>
     <div className="grid lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)] gap-12 lg:gap-20">
-      <div>
+      <div className="min-w-0 break-words">
         <header className="mb-12">
           <p className="font-display text-red-bright uppercase text-sm tracking-widest mb-4">{category.name[locale]}</p>
           <h1 className="font-display font-bold text-4xl sm:text-5xl leading-tight mb-6">{service.name[locale]}</h1>
@@ -22,6 +22,7 @@ export default function ServiceDetail({ locale, service }: { locale: PublicLocal
           <Section title={t("who")}><p>{category.audience[locale]}</p></Section>
           <Section title={t("problem")}><p>{category.problem[locale]}</p></Section>
           <Section title={t("scope")}><ul className="list-disc pl-5 space-y-2">{service.scope[locale].map(item => <li key={item}>{item}</li>)}</ul></Section>
+          <Section title={t("outputs")}><ul className="list-disc pl-5 space-y-2">{service.outputs[locale].map(item => <li key={item}>{item}</li>)}</ul></Section>
           <Section title={t("inputs")}><p>{category.inputs[locale]}</p></Section>
           <Section title={t("excluded")}><ul className="list-disc pl-5 space-y-2">{service.exclusions[locale].map(item => <li key={item}>{item}</li>)}<li>{t("unlisted")}</li></ul></Section>
           <Section title={t("timeline")}><p>{service.sessionMinutes ? service.sessionMinutes + " " + t("sessionSuffix") : t("timingUnknown")}</p></Section>

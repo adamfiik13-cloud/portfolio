@@ -175,9 +175,10 @@ Requirements:
 
 ### Public service catalog
 
-- Use editorial category sections and comparable service rows rather than a marketplace grid.
+- Use image-led, full-link service cards with reusable 16:10 code-native category thumbnails, visible pricing and commercial models. Do not add seller, rating, or sales UI.
+- Catalog order: introduction, localized search/category controls, editorial Featured Services, complete business catalog, then Career Services.
 - Separate Career Services as additional support for individuals; keep business services prominent.
-- Detail pages emphasize scope, exclusions, client inputs, and confirmed versus starting prices.
+- Detail pages emphasize scope, scope-derived output expectations, exclusions, client inputs, and confirmed versus starting prices. Outputs must not imply guaranteed business outcomes.
 - Use “Choose This Service”, “Book a Consultation”, or “Request a Quote” with equivalent Indonesian labels; clarify that Phase 2B opens WhatsApp and does not complete booking or payment.
 
 ### Form

@@ -14,6 +14,7 @@ export interface CatalogService {
   revisionRounds: number | null
   name: Localized<string>
   description: Localized<string>
+  outputs: Localized<string[]>
   scope: Localized<string[]>
   exclusions: Localized<string[]>
 }
@@ -31,15 +32,15 @@ export const serviceCategories: ServiceCategory[] = [
     },
     "audience": {
       "en": "Businesses planning a new website or a clearer online presence.",
-      "id": "Bisnis yang merencanakan website baru atau kehadiran daring yang lebih jelas."
+      "id": "Bisnis yang membutuhkan website baru atau ingin memperjelas kehadirannya secara online."
     },
     "problem": {
       "en": "An unclear website structure or functionality that does not match business needs.",
-      "id": "Struktur website yang tidak jelas atau fungsi yang belum sesuai kebutuhan bisnis."
+      "id": "Struktur website yang membingungkan atau fungsi yang belum sesuai kebutuhan bisnis."
     },
     "inputs": {
       "en": "Business goals, page priorities, available copy, brand assets, and relevant website access.",
-      "id": "Tujuan bisnis, prioritas halaman, copy yang tersedia, aset merek, dan akses website yang relevan."
+      "id": "Tujuan bisnis, halaman prioritas, teks yang tersedia, aset merek, dan akses website yang relevan."
     }
   },
   {
@@ -54,26 +55,26 @@ export const serviceCategories: ServiceCategory[] = [
     },
     "audience": {
       "en": "Businesses reviewing or improving their organic search foundation.",
-      "id": "Bisnis yang meninjau atau memperbaiki fondasi pencarian organik."
+      "id": "Bisnis yang ingin meninjau atau memperbaiki dasar pencarian organiknya."
     },
     "problem": {
       "en": "Unclear search priorities, technical issues, or gaps in on-page content.",
-      "id": "Prioritas pencarian yang belum jelas, masalah teknis, atau kekurangan konten halaman."
+      "id": "Prioritas SEO yang belum jelas, kendala teknis, atau kekurangan pada konten halaman."
     },
     "inputs": {
       "en": "Website URL, business priorities, target audience, and relevant search or website access.",
-      "id": "URL website, prioritas bisnis, target audiens, serta akses pencarian atau website yang relevan."
+      "id": "Alamat website, prioritas bisnis, target audiens, serta akses website atau platform pencarian yang relevan."
     }
   },
   {
     "id": "tracking",
     "name": {
       "en": "Tracking & Analytics",
-      "id": "Tracking & Analytics"
+      "id": "Tracking & Analitik"
     },
     "description": {
       "en": "Understand what visitors do next.",
-      "id": "Pahami tindakan pengunjung berikutnya."
+      "id": "Pahami aktivitas pengunjung website."
     },
     "audience": {
       "en": "Businesses that need clearer measurement of website or advertising activity.",
@@ -81,11 +82,11 @@ export const serviceCategories: ServiceCategory[] = [
     },
     "problem": {
       "en": "Missing or unclear event measurement across the relevant platforms.",
-      "id": "Pengukuran event yang belum tersedia atau belum jelas pada platform terkait."
+      "id": "Event yang belum diukur atau pengukurannya belum jelas pada platform terkait."
     },
     "inputs": {
       "en": "Website details, measurement goals, event priorities, and authorized platform access.",
-      "id": "Detail website, tujuan pengukuran, prioritas event, dan akses platform yang berizin."
+      "id": "Informasi website, tujuan pengukuran, event prioritas, dan izin akses ke platform terkait."
     }
   },
   {
@@ -96,19 +97,19 @@ export const serviceCategories: ServiceCategory[] = [
     },
     "description": {
       "en": "Support a focused acquisition effort.",
-      "id": "Dukung upaya akuisisi yang terarah."
+      "id": "Jalankan upaya menjangkau pelanggan secara terarah."
     },
     "audience": {
       "en": "Businesses preparing or managing paid advertising campaigns.",
-      "id": "Bisnis yang menyiapkan atau mengelola kampanye iklan berbayar."
+      "id": "Bisnis yang sedang menyiapkan atau mengelola campaign iklan berbayar."
     },
     "problem": {
       "en": "Campaign setup, testing, or optimization priorities that need a clearer direction.",
-      "id": "Prioritas penyiapan, pengujian, atau optimasi kampanye yang membutuhkan arah lebih jelas."
+      "id": "Penyiapan, pengujian, atau optimasi campaign yang membutuhkan prioritas lebih jelas."
     },
     "inputs": {
       "en": "Campaign goals, target audience, ad budget, available assets, and authorized advertising account access.",
-      "id": "Tujuan kampanye, target audiens, anggaran iklan, aset yang tersedia, dan akses akun iklan yang berizin."
+      "id": "Tujuan campaign, target audiens, anggaran iklan, materi yang tersedia, dan izin akses ke akun iklan."
     }
   },
   {
@@ -119,19 +120,19 @@ export const serviceCategories: ServiceCategory[] = [
     },
     "description": {
       "en": "Decide what deserves attention first.",
-      "id": "Tentukan hal yang perlu diprioritaskan."
+      "id": "Tentukan hal yang perlu didahulukan."
     },
     "audience": {
       "en": "Business owners and teams reviewing digital marketing or marketplace priorities.",
-      "id": "Pemilik bisnis dan tim yang meninjau prioritas pemasaran digital atau marketplace."
+      "id": "Pemilik bisnis dan tim yang ingin meninjau prioritas pemasaran digital atau marketplace."
     },
     "problem": {
       "en": "Unclear priorities, competing ideas, or uncertainty about the next practical step.",
-      "id": "Prioritas yang belum jelas, gagasan yang bersaing, atau keraguan mengenai langkah praktis berikutnya."
+      "id": "Prioritas yang belum jelas, banyaknya pilihan ide, atau keraguan menentukan langkah berikutnya."
     },
     "inputs": {
       "en": "Business context, goals, current challenges, and relevant performance information.",
-      "id": "Konteks bisnis, tujuan, tantangan saat ini, dan informasi performa yang relevan."
+      "id": "Konteks bisnis, tujuan, tantangan saat ini, dan informasi kinerja yang relevan."
     }
   },
   {
@@ -142,19 +143,19 @@ export const serviceCategories: ServiceCategory[] = [
     },
     "description": {
       "en": "Additional support for individual professionals.",
-      "id": "Dukungan tambahan untuk profesional individu."
+      "id": "Dukungan praktis untuk langkah profesional Anda."
     },
     "audience": {
       "en": "Individual professionals reviewing their career direction or CV.",
-      "id": "Profesional individu yang meninjau arah karier atau CV."
+      "id": "Profesional yang ingin meninjau CV atau membahas arah kariernya."
     },
     "problem": {
       "en": "Unclear career priorities or a CV that needs review or better structure.",
-      "id": "Prioritas karier yang belum jelas atau CV yang perlu ditinjau atau diperbaiki strukturnya."
+      "id": "CV yang perlu diperbaiki atau pertanyaan tentang langkah karier berikutnya."
     },
     "inputs": {
       "en": "Current CV where relevant, career goals, target roles, and questions you want to discuss.",
-      "id": "CV saat ini jika relevan, tujuan karier, peran yang dituju, dan pertanyaan yang ingin dibahas."
+      "id": "CV saat ini jika relevan, tujuan karier, posisi yang dituju, dan pertanyaan yang ingin dibahas."
     }
   }
 ]
@@ -183,7 +184,7 @@ export const catalogServices: CatalogService[] = [
     },
     "description": {
       "en": "A focused page to introduce your offer and guide inquiries.",
-      "id": "Halaman terarah untuk memperkenalkan penawaran dan mengarahkan pertanyaan."
+      "id": "Landing page untuk memperkenalkan penawaran Anda dan memudahkan calon klien menghubungi bisnis."
     },
     "scope": {
       "en": [
@@ -196,7 +197,7 @@ export const catalogServices: CatalogService[] = [
       "id": [
         "1 halaman",
         "Hingga 6 bagian",
-        "Implementasi responsif",
+        "Tampilan responsif",
         "Integrasi WhatsApp atau formulir pertanyaan",
         "Pengaturan SEO dasar"
       ]
@@ -206,7 +207,17 @@ export const catalogServices: CatalogService[] = [
         "Domain, hosting, full copywriting, premium assets, and advanced integrations"
       ],
       "id": [
-        "Domain, hosting, copywriting lengkap, aset premium, dan integrasi lanjutan"
+        "Domain, hosting, penulisan seluruh konten, aset premium, dan integrasi lanjutan"
+      ]
+    },
+    "outputs": {
+      "en": [
+        "A responsive landing page with the agreed sections and inquiry connection.",
+        "Basic SEO configuration."
+      ],
+      "id": [
+        "Landing page responsif dengan bagian dan sarana kontak sesuai kesepakatan.",
+        "Pengaturan SEO dasar."
       ]
     }
   },
@@ -232,7 +243,7 @@ export const catalogServices: CatalogService[] = [
     },
     "description": {
       "en": "Present your business across a structured website.",
-      "id": "Tampilkan bisnis melalui website yang terstruktur."
+      "id": "Perkenalkan bisnis Anda melalui website dengan struktur yang jelas."
     },
     "scope": {
       "en": [
@@ -244,10 +255,10 @@ export const catalogServices: CatalogService[] = [
       ],
       "id": [
         "Hingga 5 halaman",
-        "Implementasi responsif",
+        "Tampilan responsif",
         "SEO dasar",
-        "Analytics dasar",
-        "CMS sederhana hanya jika termasuk dalam scope yang dikonfirmasi"
+        "Analitik dasar",
+        "CMS sederhana jika termasuk dalam cakupan yang disepakati"
       ]
     },
     "exclusions": {
@@ -255,7 +266,17 @@ export const catalogServices: CatalogService[] = [
         "Domain, hosting, complete copywriting, premium assets, and custom integrations"
       ],
       "id": [
-        "Domain, hosting, copywriting lengkap, aset premium, dan integrasi khusus"
+        "Domain, hosting, penulisan seluruh konten, aset premium, dan integrasi khusus"
+      ]
+    },
+    "outputs": {
+      "en": [
+        "A responsive business website with the agreed pages.",
+        "Basic SEO and analytics configuration; a simple CMS only if agreed."
+      ],
+      "id": [
+        "Website bisnis responsif dengan halaman sesuai kesepakatan.",
+        "Pengaturan SEO dan analitik dasar; CMS sederhana jika disepakati."
       ]
     }
   },
@@ -281,7 +302,7 @@ export const catalogServices: CatalogService[] = [
     },
     "description": {
       "en": "Define a website around non-standard requirements.",
-      "id": "Tentukan website sesuai kebutuhan nonstandar."
+      "id": "Rancang website sesuai kebutuhan yang tidak tercakup dalam paket standar."
     },
     "scope": {
       "en": [
@@ -289,13 +310,21 @@ export const catalogServices: CatalogService[] = [
         "Specific functionality and deliverables are confirmed in the quote"
       ],
       "id": [
-        "Penelusuran scope untuk dashboard, autentikasi, pembayaran, integrasi API, alur khusus, atau fungsi nonstandar lainnya",
-        "Fungsi dan hasil kerja spesifik dikonfirmasi dalam penawaran"
+        "Pembahasan kebutuhan dashboard, autentikasi, pembayaran, integrasi API, alur kerja khusus, atau fungsi di luar standar",
+        "Fungsi dan hasil pekerjaan ditetapkan dalam penawaran"
       ]
     },
     "exclusions": {
       "en": [],
       "id": []
+    },
+    "outputs": {
+      "en": [
+        "Website functionality and deliverables defined in the confirmed quote."
+      ],
+      "id": [
+        "Fungsi website dan hasil pekerjaan sesuai penawaran yang disepakati."
+      ]
     }
   },
   {
@@ -316,11 +345,11 @@ export const catalogServices: CatalogService[] = [
     "revisionRounds": null,
     "name": {
       "en": "SEO Audit & Roadmap",
-      "id": "Audit SEO & Roadmap"
+      "id": "Audit SEO & Rencana Tindak Lanjut"
     },
     "description": {
       "en": "Identify search priorities and practical next steps.",
-      "id": "Identifikasi prioritas pencarian dan langkah praktis berikutnya."
+      "id": "Temukan prioritas SEO dan langkah perbaikan yang bisa dijalankan."
     },
     "scope": {
       "en": [
@@ -332,13 +361,23 @@ export const catalogServices: CatalogService[] = [
       "id": [
         "Tinjauan teknis",
         "Peluang kata kunci",
-        "Temuan berprioritas",
-        "Rencana tindakan praktis"
+        "Temuan yang diurutkan berdasarkan prioritas",
+        "Rencana tindak lanjut yang praktis"
       ]
     },
     "exclusions": {
       "en": [],
       "id": []
+    },
+    "outputs": {
+      "en": [
+        "Prioritized technical and keyword findings.",
+        "A practical plan for the next actions."
+      ],
+      "id": [
+        "Temuan teknis dan peluang kata kunci yang disusun berdasarkan prioritas.",
+        "Rencana langkah perbaikan yang praktis."
+      ]
     }
   },
   {
@@ -363,7 +402,7 @@ export const catalogServices: CatalogService[] = [
     },
     "description": {
       "en": "Address the basic search foundations of priority pages.",
-      "id": "Tangani fondasi pencarian dasar pada halaman prioritas."
+      "id": "Benahi dasar SEO pada halaman yang menjadi prioritas."
     },
     "scope": {
       "en": [
@@ -374,14 +413,24 @@ export const catalogServices: CatalogService[] = [
       ],
       "id": [
         "Audit",
-        "Peninjauan/pengaturan sitemap dan robots",
+        "Peninjauan atau pengaturan sitemap dan robots",
         "Metadata",
-        "Perbaikan dasar hingga 5 halaman"
+        "Perbaikan dasar pada maksimal 5 halaman"
       ]
     },
     "exclusions": {
       "en": [],
       "id": []
+    },
+    "outputs": {
+      "en": [
+        "Reviewed or configured sitemap, robots, and metadata.",
+        "Basic SEO improvements on the agreed priority pages."
+      ],
+      "id": [
+        "Sitemap, robots, dan metadata yang ditinjau atau diatur sesuai kebutuhan.",
+        "Perbaikan SEO dasar pada halaman prioritas yang disepakati."
+      ]
     }
   },
   {
@@ -402,11 +451,11 @@ export const catalogServices: CatalogService[] = [
     "revisionRounds": null,
     "name": {
       "en": "SEO Growth",
-      "id": "Pertumbuhan SEO"
+      "id": "Pengembangan SEO"
     },
     "description": {
       "en": "Maintain a structured organic growth effort.",
-      "id": "Jalankan upaya pertumbuhan organik yang terstruktur."
+      "id": "Jalankan pengembangan pencarian organik secara terarah."
     },
     "scope": {
       "en": [
@@ -418,10 +467,10 @@ export const catalogServices: CatalogService[] = [
       ],
       "id": [
         "Pemantauan",
-        "Perbaikan on-page",
+        "Perbaikan SEO on-page",
         "Perencanaan konten",
         "Pelaporan",
-        "Rekomendasi kerja sama minimum: 3 bulan"
+        "Disarankan bekerja sama minimal 3 bulan"
       ]
     },
     "exclusions": {
@@ -429,7 +478,17 @@ export const catalogServices: CatalogService[] = [
         "Article production, backlinks, and visual content unless separately quoted"
       ],
       "id": [
-        "Produksi artikel, backlink, dan konten visual kecuali ditawarkan terpisah"
+        "Penulisan artikel, backlink, dan konten visual, kecuali tercantum dalam penawaran terpisah"
+      ]
+    },
+    "outputs": {
+      "en": [
+        "On-page improvements and content planning.",
+        "Reporting from ongoing SEO monitoring."
+      ],
+      "id": [
+        "Perbaikan SEO on-page dan perencanaan konten.",
+        "Laporan dari pemantauan SEO."
       ]
     }
   },
@@ -455,7 +514,7 @@ export const catalogServices: CatalogService[] = [
     },
     "description": {
       "en": "Set up a focused set of measurement events.",
-      "id": "Siapkan event pengukuran yang terarah."
+      "id": "Siapkan pengukuran untuk sejumlah aktivitas penting di website."
     },
     "scope": {
       "en": [
@@ -472,6 +531,14 @@ export const catalogServices: CatalogService[] = [
     "exclusions": {
       "en": [],
       "id": []
+    },
+    "outputs": {
+      "en": [
+        "Tested GA4 and Google Tag Manager configuration for the agreed events."
+      ],
+      "id": [
+        "Pengaturan GA4 dan Google Tag Manager untuk event yang disepakati, disertai pengujian."
+      ]
     }
   },
   {
@@ -496,7 +563,7 @@ export const catalogServices: CatalogService[] = [
     },
     "description": {
       "en": "Connect website measurement with advertising tracking.",
-      "id": "Hubungkan pengukuran website dengan tracking iklan."
+      "id": "Hubungkan pengukuran aktivitas website dengan tracking iklan."
     },
     "scope": {
       "en": [
@@ -513,6 +580,14 @@ export const catalogServices: CatalogService[] = [
     "exclusions": {
       "en": [],
       "id": []
+    },
+    "outputs": {
+      "en": [
+        "GA4 and GTM configuration connected to Meta Pixel or Google Ads tracking for the agreed events."
+      ],
+      "id": [
+        "Pengaturan GA4 dan GTM yang terhubung ke Meta Pixel atau tracking Google Ads untuk event yang disepakati."
+      ]
     }
   },
   {
@@ -537,7 +612,7 @@ export const catalogServices: CatalogService[] = [
     },
     "description": {
       "en": "Scope measurement for more complex requirements.",
-      "id": "Tentukan scope pengukuran untuk kebutuhan yang lebih kompleks."
+      "id": "Tentukan pengaturan tracking untuk kebutuhan pengukuran yang lebih kompleks."
     },
     "scope": {
       "en": [
@@ -545,13 +620,21 @@ export const catalogServices: CatalogService[] = [
         "Implementation scope is confirmed in the quote"
       ],
       "id": [
-        "Penelusuran scope untuk tracking multiplatform, event khusus, data layer, CAPI, atau kebutuhan server-side",
-        "Scope implementasi dikonfirmasi dalam penawaran"
+        "Pembahasan kebutuhan tracking lintas platform, event khusus, data layer, CAPI, atau server-side tracking",
+        "Cakupan penerapan ditetapkan dalam penawaran"
       ]
     },
     "exclusions": {
       "en": [],
       "id": []
+    },
+    "outputs": {
+      "en": [
+        "Tracking implementation for the requirements defined in the confirmed quote."
+      ],
+      "id": [
+        "Penerapan tracking sesuai kebutuhan yang tercantum dalam penawaran yang disepakati."
+      ]
     }
   },
   {
@@ -576,7 +659,7 @@ export const catalogServices: CatalogService[] = [
     },
     "description": {
       "en": "Run a focused Meta campaign with client-supplied assets.",
-      "id": "Jalankan kampanye Meta terarah dengan aset dari klien."
+      "id": "Jalankan campaign Meta yang terarah menggunakan materi dari klien."
     },
     "scope": {
       "en": [
@@ -586,10 +669,10 @@ export const catalogServices: CatalogService[] = [
         "Campaign monitoring, optimization, and monthly report"
       ],
       "id": [
-        "1 kampanye",
+        "1 campaign",
         "Hingga 2 ad set",
-        "Aset kreatif disediakan klien",
-        "Pemantauan kampanye, optimasi, dan laporan bulanan"
+        "Materi iklan disediakan oleh klien",
+        "Pemantauan campaign, optimasi, dan laporan bulanan"
       ]
     },
     "exclusions": {
@@ -598,6 +681,16 @@ export const catalogServices: CatalogService[] = [
       ],
       "id": [
         "Biaya iklan"
+      ]
+    },
+    "outputs": {
+      "en": [
+        "A configured Meta campaign using the supplied creative assets.",
+        "Monthly reporting alongside campaign monitoring and optimization."
+      ],
+      "id": [
+        "Campaign Meta yang disiapkan menggunakan materi dari klien.",
+        "Laporan bulanan beserta pemantauan dan optimasi campaign."
       ]
     }
   },
@@ -623,7 +716,7 @@ export const catalogServices: CatalogService[] = [
     },
     "description": {
       "en": "Support testing and retargeting across Meta campaigns.",
-      "id": "Dukung pengujian dan retargeting dalam kampanye Meta."
+      "id": "Lakukan pengujian dan retargeting dalam campaign Meta."
     },
     "scope": {
       "en": [
@@ -633,7 +726,7 @@ export const catalogServices: CatalogService[] = [
         "Reporting"
       ],
       "id": [
-        "Hingga 2 kampanye",
+        "Hingga 2 campaign",
         "Pengujian dan retargeting",
         "Optimasi mingguan",
         "Pelaporan"
@@ -645,6 +738,16 @@ export const catalogServices: CatalogService[] = [
       ],
       "id": [
         "Biaya iklan"
+      ]
+    },
+    "outputs": {
+      "en": [
+        "Meta campaigns with testing and retargeting.",
+        "Reporting alongside weekly optimization."
+      ],
+      "id": [
+        "Campaign Meta dengan pengujian dan retargeting.",
+        "Laporan beserta optimasi mingguan."
       ]
     }
   },
@@ -670,7 +773,7 @@ export const catalogServices: CatalogService[] = [
     },
     "description": {
       "en": "Build a basic Search campaign around relevant keywords.",
-      "id": "Bangun kampanye Search dasar dengan kata kunci relevan."
+      "id": "Siapkan campaign pencarian dasar dengan kata kunci yang relevan."
     },
     "scope": {
       "en": [
@@ -680,7 +783,7 @@ export const catalogServices: CatalogService[] = [
         "Reporting"
       ],
       "id": [
-        "Kampanye Search dasar",
+        "Campaign pencarian dasar",
         "Pengaturan kata kunci",
         "Optimasi",
         "Pelaporan"
@@ -692,6 +795,16 @@ export const catalogServices: CatalogService[] = [
       ],
       "id": [
         "Biaya iklan"
+      ]
+    },
+    "outputs": {
+      "en": [
+        "A basic Search campaign with keyword setup.",
+        "Reporting alongside campaign optimization."
+      ],
+      "id": [
+        "Campaign pencarian dasar dengan pengaturan kata kunci.",
+        "Laporan beserta optimasi campaign."
       ]
     }
   },
@@ -717,7 +830,7 @@ export const catalogServices: CatalogService[] = [
     },
     "description": {
       "en": "Define a coordinated advertising scope across channels.",
-      "id": "Tentukan scope iklan yang terkoordinasi lintas kanal."
+      "id": "Susun pengelolaan iklan yang terkoordinasi di berbagai kanal."
     },
     "scope": {
       "en": [
@@ -725,8 +838,8 @@ export const catalogServices: CatalogService[] = [
         "Channel mix and deliverables are confirmed in the quote"
       ],
       "id": [
-        "Meta dan Google Ads atau funnel multikanal yang lebih kompleks",
-        "Kombinasi kanal dan hasil kerja dikonfirmasi dalam penawaran"
+        "Meta dan Google Ads atau alur pemasaran lintas kanal yang lebih kompleks",
+        "Kombinasi kanal dan hasil pekerjaan ditetapkan dalam penawaran"
       ]
     },
     "exclusions": {
@@ -735,6 +848,14 @@ export const catalogServices: CatalogService[] = [
       ],
       "id": [
         "Biaya iklan dan produksi materi kreatif"
+      ]
+    },
+    "outputs": {
+      "en": [
+        "Advertising work across the channels and deliverables defined in the confirmed quote."
+      ],
+      "id": [
+        "Pekerjaan iklan pada kanal dan hasil pekerjaan sesuai penawaran yang disepakati."
       ]
     }
   },
@@ -760,7 +881,7 @@ export const catalogServices: CatalogService[] = [
     },
     "description": {
       "en": "Discuss business priorities and practical next actions.",
-      "id": "Diskusikan prioritas bisnis dan langkah praktis berikutnya."
+      "id": "Bahas prioritas bisnis dan langkah praktis berikutnya."
     },
     "scope": {
       "en": [
@@ -769,12 +890,22 @@ export const catalogServices: CatalogService[] = [
       ],
       "id": [
         "Konsultasi 60 menit",
-        "Ringkasan konsultasi atau catatan tindakan praktis"
+        "Ringkasan konsultasi atau catatan langkah tindak lanjut"
       ]
     },
     "exclusions": {
       "en": [],
       "id": []
+    },
+    "outputs": {
+      "en": [
+        "A consultation focused on business priorities.",
+        "A consultation summary or practical action notes."
+      ],
+      "id": [
+        "Sesi konsultasi yang membahas prioritas bisnis.",
+        "Ringkasan konsultasi atau catatan langkah tindak lanjut."
+      ]
     }
   },
   {
@@ -799,7 +930,7 @@ export const catalogServices: CatalogService[] = [
     },
     "description": {
       "en": "Discuss your career questions and direction.",
-      "id": "Diskusikan pertanyaan dan arah karier Anda."
+      "id": "Bahas pertanyaan dan arah karier Anda."
     },
     "scope": {
       "en": [
@@ -812,6 +943,14 @@ export const catalogServices: CatalogService[] = [
     "exclusions": {
       "en": [],
       "id": []
+    },
+    "outputs": {
+      "en": [
+        "A consultation to discuss your career questions and direction."
+      ],
+      "id": [
+        "Sesi konsultasi untuk membahas pertanyaan dan arah karier Anda."
+      ]
     }
   },
   {
@@ -836,7 +975,7 @@ export const catalogServices: CatalogService[] = [
     },
     "description": {
       "en": "Identify practical improvements to your current CV.",
-      "id": "Identifikasi perbaikan praktis pada CV Anda."
+      "id": "Temukan bagian CV yang perlu diperbaiki beserta saran praktisnya."
     },
     "scope": {
       "en": [
@@ -845,12 +984,20 @@ export const catalogServices: CatalogService[] = [
       ],
       "id": [
         "Review CV",
-        "Catatan perbaikan praktis"
+        "Catatan saran perbaikan"
       ]
     },
     "exclusions": {
       "en": [],
       "id": []
+    },
+    "outputs": {
+      "en": [
+        "Practical notes identifying improvements to your CV."
+      ],
+      "id": [
+        "Catatan saran perbaikan berdasarkan review CV Anda."
+      ]
     }
   },
   {
@@ -875,7 +1022,7 @@ export const catalogServices: CatalogService[] = [
     },
     "description": {
       "en": "Improve the wording and structure of your CV.",
-      "id": "Perbaiki penulisan dan struktur CV Anda."
+      "id": "Perbaiki pilihan kata dan struktur CV Anda."
     },
     "scope": {
       "en": [
@@ -884,7 +1031,7 @@ export const catalogServices: CatalogService[] = [
       ],
       "id": [
         "Penulisan ulang CV",
-        "Optimasi struktur"
+        "Perbaikan struktur"
       ]
     },
     "exclusions": {
@@ -893,6 +1040,14 @@ export const catalogServices: CatalogService[] = [
       ],
       "id": [
         "Desain visual CV"
+      ]
+    },
+    "outputs": {
+      "en": [
+        "A rewritten CV with improved wording and structure; visual design is not included."
+      ],
+      "id": [
+        "CV yang ditulis ulang dengan pilihan kata dan struktur yang lebih baik; tidak termasuk desain visual."
       ]
     }
   },
@@ -914,11 +1069,11 @@ export const catalogServices: CatalogService[] = [
     "revisionRounds": null,
     "name": {
       "en": "Marketing or Marketplace Audit",
-      "id": "Audit Marketing atau Marketplace"
+      "id": "Audit Pemasaran atau Marketplace"
     },
     "description": {
       "en": "Review your marketing or marketplace priorities.",
-      "id": "Tinjau prioritas marketing atau marketplace Anda."
+      "id": "Tinjau prioritas pemasaran atau marketplace bisnis Anda."
     },
     "scope": {
       "en": [
@@ -933,6 +1088,14 @@ export const catalogServices: CatalogService[] = [
     "exclusions": {
       "en": [],
       "id": []
+    },
+    "outputs": {
+      "en": [
+        "Written notes from the marketing or marketplace audit session."
+      ],
+      "id": [
+        "Catatan tertulis dari sesi audit pemasaran atau marketplace."
+      ]
     }
   },
   {
@@ -957,7 +1120,7 @@ export const catalogServices: CatalogService[] = [
     },
     "description": {
       "en": "Turn marketplace findings into practical priorities.",
-      "id": "Ubah temuan marketplace menjadi prioritas praktis."
+      "id": "Susun prioritas dan langkah praktis berdasarkan hasil audit marketplace."
     },
     "scope": {
       "en": [
@@ -968,12 +1131,20 @@ export const catalogServices: CatalogService[] = [
       "id": [
         "Audit",
         "Penentuan prioritas",
-        "Rencana pertumbuhan praktis"
+        "Rencana pertumbuhan yang praktis"
       ]
     },
     "exclusions": {
       "en": [],
       "id": []
+    },
+    "outputs": {
+      "en": [
+        "A practical marketplace growth plan with priorities based on the audit."
+      ],
+      "id": [
+        "Rencana pertumbuhan marketplace yang praktis, dengan prioritas berdasarkan hasil audit."
+      ]
     }
   }
 ]
