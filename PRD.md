@@ -1,7 +1,7 @@
 # Adam's Work — Product Requirements Document
 
 **Status:** Working product baseline  
-**Version:** 1.0  
+**Version:** 1.1\
 **Last updated:** 27 September 2026  
 **Owner:** Fikri Adam  
 **Current launch domain:** `adamswork.app`  
@@ -9,7 +9,7 @@
 
 ## 1. Product summary
 
-Adam's Work is a personal-brand-led digital services platform. It combines a credible portfolio, a service catalogue, ordering and payment, and a private workspace where clients and the internal team can complete projects.
+Adam's Work is an Indonesia-based, personal-brand-led Web, SEO & Digital Growth Studio and digital services platform. English is the default communication language. It combines a credible portfolio, a service catalogue, ordering and payment, and a private workspace where clients and the internal team can complete projects.
 
 All services belong to Adam's Work and are delivered by Fikri Adam with an internal team. The platform is not a public freelancer marketplace. Fiverr is only a reference for the ordering workflow.
 
@@ -23,8 +23,8 @@ All services belong to Adam's Work and are delivered by Fikri Adam with an inter
 | Operating principle | Clarity before execution. |
 | Brand lead | Fikri Adam — founder, strategist, and quality lead |
 | Character | Strategic, practical, personal, collaborative |
-| Primary market | Indonesian SMEs |
-| Secondary market | Global clients entering Indonesia |
+| Primary market | Growing businesses and global clients entering or operating in Indonesia |
+| Secondary market | Indonesian SMEs |
 
 ## 3. Product goals
 
@@ -46,13 +46,13 @@ All services belong to Adam's Work and are delivered by Fikri Adam with an inter
 
 ## 5. Target users
 
-### 5.1 Indonesian SME decision-maker
+### 5.1 Indonesian SME decision-maker (secondary audience)
 
 Needs understandable services, transparent scope, Rupiah pricing, local communication, visible proof, and a simple order process.
 
-### 5.2 Global client entering Indonesia
+### 5.2 Growing businesses and global clients (primary audience)
 
-Needs a bilingual experience, local market context, credible execution, clear deliverables, and a structured way to commission work.
+Growing businesses need clear digital services, credible execution, and structured delivery. Global clients entering or operating in Indonesia also need local market context and an English-first bilingual experience.
 
 ### 5.3 Owner
 
@@ -98,6 +98,47 @@ Supporting capabilities such as paid media, analytics, landing pages, and digita
 - Terms and Conditions
 - Privacy Policy
 - Cancellation and Refund Policy
+
+### Locked language direction
+
+English is the default public and communication language. English targets growing businesses and global companies, particularly those entering or operating in Indonesia. Indonesian serves Indonesian SMEs as the secondary audience. Adam's Work remains an Indonesia-based Web, SEO & Digital Growth Studio.
+
+### Public URL strategy (Phase 2 target)
+
+| Page | English (default) | Indonesian |
+| --- | --- | --- |
+| Home | `/` | `/id` |
+| About | `/about` | `/id/tentang` |
+| Services | `/services` | `/id/layanan` |
+| Work | `/work` | `/id/karya` |
+| Contact | `/contact` | `/id/kontak` |
+
+Service details, case studies, and policies must have equivalent permanent URLs in both locales. Public translated slugs may differ; use stable internal IDs and explicit locale-to-URL mapping.
+
+### International SEO
+
+- Root document language is English (`en`); `/id` and its descendants use Indonesian (`id`).
+- Every locale page has a self-referencing canonical and reciprocal `hreflang` links for `en` and `id`; `x-default` points to its English equivalent.
+- Sitemap contains both locale versions. Metadata and structured data follow the active locale.
+- No automatic IP-based language redirect. The language switcher opens the equivalent translated page when available.
+- Missing translations must not silently render mixed-language final content. Do not advertise nonexistent equivalents in SEO links or use English fallback as final Indonesian copy.
+
+### Content architecture and parity
+
+- Content and business logic remain separate. Services, packages, case studies, FAQs, policies, and transactional labels use stable IDs.
+- Translations are locale variants of the same entity, with explicit locale mapping; translated slugs are not entity IDs.
+- Do not duplicate pricing, order, payment, or permission logic per language.
+- Both languages must provide equivalent service, portfolio, policy, and commerce information. Indonesian preserves factual and feature parity with English; secondary language never means reduced functionality or incomplete content.
+
+### Application language
+
+- Public website: English default, Indonesian selectable.
+- Checkout and client area: English default and bilingual-ready. User locale can later be stored in session/profile.
+- Transactional email should eventually follow the client's selected locale, using localized templates for shared domain events.
+- Internal status values remain language-neutral; only display labels are translated.
+- Admin language may remain English for MVP unless a later requirement approves Indonesian UI.
+
+Phase 1B records this direction in documentation only; it does not authorize runtime copy changes, locale routing, staging setup, or Phase 2 implementation. Later application phases remain bilingual-ready without duplicating domain logic.
 
 ### Client area
 
@@ -155,7 +196,7 @@ Requirement submission → discussion → custom offer → client approval → 1
 
 ### Public and catalogue
 
-- Responsive bilingual-ready public experience.
+- Responsive English-first bilingual public experience with equivalent Indonesian content and functionality.
 - Service catalogue with packages in IDR.
 - Service detail with scope, exclusions, duration, revision allowance, deliverables, requirements, FAQ, and policy summary.
 - Portfolio and permanent case-study URLs.
@@ -227,7 +268,7 @@ Transitions must be validated on the server. A payment redirect must not directl
 - Webhook signature verification and idempotent processing.
 - Backups, monitoring, error reporting, and recovery procedures before production commerce.
 - Reasonable Core Web Vitals and optimized media.
-- Indonesian is the initial commercial language; architecture should support English without duplicating business logic.
+- English is the default public and application language; Indonesian maintains factual and feature parity without duplicating business logic.
 
 ## 14. Success measures
 
@@ -266,9 +307,10 @@ No KPI target is final until a baseline exists.
 | 0 | Repository and product audit |
 | 0.5 | Local typography migration and build remediation — completed |
 | 1A | Adam's Work brand, content, design-system, accessibility foundation |
-| Staging gate | Stable staging environment after Phase 1A and before Phase 2 |
-| 2 | Public multipage and bilingual-ready experience |
-| 3 | Approved services, packages, pricing, FAQs, and policies |
+| 1B | Documentation-only language-direction alignment; no runtime changes |
+| Staging gate | Stable staging environment after Phase 1B and before Phase 2 |
+| 2 | Implement the English-first multipage bilingual public website |
+| 3 | Approved bilingual services, packages, pricing, FAQs, and policies |
 | 4 | Authentication, order model, checkout shell, and working staging workflow |
 | Midtrans onboarding | Register using functional public staging after Phase 4 |
 | 5 | Midtrans Sandbox and verified webhook flow |
@@ -296,7 +338,6 @@ Midtrans onboarding begins only when the staging website is publicly accessible 
 - Database, authentication, private storage, transactional email, and monitoring vendors.
 - Legal entity and merchant identity used for payment onboarding.
 - Tax treatment and invoice requirements.
-- Exact bilingual URL strategy.
 - Service-level expectations and internal capacity.
 - Timing for purchasing and promoting `adamswork.id`.
 

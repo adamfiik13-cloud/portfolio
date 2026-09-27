@@ -1,7 +1,7 @@
 # Adam's Work — Design System
 
 **Status:** Foundation specification  
-**Version:** 1.0  
+**Version:** 1.1\
 **Last updated:** 27 September 2026
 
 ## 1. Design principles
@@ -245,6 +245,19 @@ All nonessential motion must respect `prefers-reduced-motion`.
 
 ## 12. Content style
 
+### Language direction and parity (target)
+
+- Adam's Work remains an Indonesia-based Web, SEO & Digital Growth Studio. English is the default communication language for growing businesses and global companies, particularly those entering or operating in Indonesia. Indonesian serves Indonesian SMEs as the secondary audience.
+- English home uses `/`; Indonesian home uses `/id`. Follow the equivalent-page mapping and international SEO requirements in `PRD.md` and `ARCHITECTURE.md`.
+- The language switcher opens the equivalent translated page when available. Do not automatically redirect based on IP.
+- Both languages provide equivalent service, portfolio, policy, and commerce information, facts, and features. Secondary language never means incomplete content or reduced functionality.
+- Never use Indonesian copy on an English route except approved proper nouns. Never use English fallback as final public copy on Indonesian routes; missing translations must not silently render mixed-language content.
+- Services, packages, case studies, FAQs, policies, and transactional labels use stable IDs and locale variants. Do not introduce locale-specific business logic.
+- Translate navigation and accessible labels for the active locale. Preserve approved facts and commercial meaning with natural phrasing and safe text wrapping.
+- Checkout and client area default to English and remain bilingual-ready. Transactional email should eventually follow the client's selected locale. Status values remain language-neutral; only display labels are translated. Admin may remain English for MVP.
+
+Phase 1B is documentation-only; production copy and UI remain unchanged. Staging setup follows Phase 1B, Phase 2 implements the multipage bilingual public website, and Phase 3 delivers approved bilingual commercial and policy content. Later application phases remain bilingual-ready without duplicating domain logic.
+
 Voice:
 
 - Direct, calm, practical, evidence-led.
@@ -269,7 +282,9 @@ Avoid:
 
 ## 13. Design QA ownership
 
-During lean development:
+Phase 1B requires only Markdown and Git-diff validation, without visual QA or a Vercel Preview.
+
+During implementation phases:
 
 - Agent performs lint, type-check, build, and basic functional smoke tests.
 - Fikri performs final visual, responsive, copy, and UX review from one Vercel Preview per phase.

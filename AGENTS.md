@@ -4,7 +4,7 @@ These instructions apply to automated coding agents working in this repository. 
 
 ## 1. Product context
 
-Adam's Work is a personal-brand-led Web, SEO & Digital Growth Studio owned by Fikri Adam. It will combine a public portfolio and service catalogue with ordering, payment, a client workspace, and internal delivery tools.
+Adam's Work is an Indonesia-based, personal-brand-led Web, SEO & Digital Growth Studio owned by Fikri Adam. It will combine a public portfolio and service catalogue with ordering, payment, a client workspace, and internal delivery tools.
 
 It is **not** a public freelancer marketplace. Services are owned by Adam's Work and delivered by Fikri with an internal team. Public users may register only as clients.
 
@@ -24,11 +24,25 @@ When documents conflict, prefer the most recent explicit user instruction, then 
 - Tagline: Better digital work, built together.
 - Principle: Clarity before execution.
 - Founder: Fikri Adam — founder, strategist, and quality lead.
-- Primary market: Indonesian SMEs.
-- Secondary market: global clients entering Indonesia.
+- Primary market: growing businesses and global clients entering or operating in Indonesia.
+- Secondary market: Indonesian SMEs.
 - Current domain: `adamswork.app`.
 - Planned future domain: `adamswork.id`.
 - Visual direction: black, red, off-white; editorial, modern, creative, simple.
+
+### Locked language direction
+
+- English is the default public and communication language. English home uses `/`; Indonesian home uses `/id`.
+- Follow the locked equivalent-page URL mapping and international SEO requirements in `PRD.md` and `ARCHITECTURE.md`.
+- Never use Indonesian copy on an English route except approved proper nouns.
+- Never use English fallback as final public copy on Indonesian routes. Missing translations must not silently render mixed-language final content.
+- Preserve translation parity: both languages need equivalent service, portfolio, policy, and commerce information, facts, and functionality. Secondary language does not mean incomplete content.
+- Services, packages, case studies, FAQs, policies, and transactional labels use stable internal IDs and explicit locale mappings. Translations are variants of the same entity.
+- Do not introduce locale-specific pricing, order, payment, permission, or other business logic.
+- Checkout and client area default to English and remain bilingual-ready. User locale may later be stored in session/profile; transactional email should eventually follow the client's selected locale.
+- Internal status values remain language-neutral; translate display labels only. Admin may remain English for MVP unless Indonesian UI is approved later.
+- Do not implement locale routing until the active phase authorizes it.
+- Do not reinterpret this documentation update as approval to begin Phase 2 or staging setup.
 
 ## 3. Locked typography
 
@@ -68,15 +82,17 @@ Stop and ask only when blocked by:
 Implement only the active phase.
 
 - Phase 1A: brand, content, design-system, accessibility foundation.
-- Phase 2: public multipage and bilingual-ready experience.
-- Phase 3: approved services, packages, pricing, FAQ, policies.
+- Phase 1B: documentation-only language-direction alignment; no runtime changes.
+- Staging setup: after Phase 1B and before Phase 2.
+- Phase 2: implement the English-first multipage bilingual public website.
+- Phase 3: approved bilingual services, packages, pricing, FAQ, and policies.
 - Phase 4: authentication, orders, offers, checkout workflow.
 - Midtrans onboarding: after functional Phase 4 staging.
 - Phase 5: Midtrans Sandbox and payment reconciliation.
 - Phase 6: client/admin/team workspace, files, messages, delivery.
 - Phase 7: production hardening and launch.
 
-Do not pull features forward merely because they are mentioned in future documents.
+Later application phases remain bilingual-ready without duplicating domain logic. Do not pull features forward merely because they are mentioned in future documents.
 
 ## 6. Content integrity
 
@@ -127,7 +143,9 @@ Preserve verified portfolio evidence. Mark internal unknowns as `TBD` and hide i
 
 ## 10. Required validation
 
-For normal phase work, run only:
+Phase 1B is documentation-only: run quick Markdown and Git-diff validation only. Do not run visual QA or create a Vercel Preview.
+
+For runtime implementation phase work, run only:
 
 1. Lint.
 2. Type-check.
@@ -143,7 +161,7 @@ Do not generate large screenshot sets or lengthy QA reports unless explicitly re
 - Work on the phase branch specified by the user.
 - Prefer one meaningful commit per phase or approved revision batch.
 - Do not merge to `main` without explicit approval.
-- Produce one Vercel Preview after phase implementation is ready for manual review.
+- Produce one Vercel Preview after runtime phase implementation is ready for manual review; documentation-only Phase 1B does not require a Preview.
 - Branch previews are not the stable staging environment.
 - Stable staging is configured at the roadmap gate and must use non-production services and credentials.
 

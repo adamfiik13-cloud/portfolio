@@ -1,7 +1,7 @@
 # Adam's Work — Architecture
 
 **Status:** Target architecture and delivery constraints  
-**Version:** 1.0  
+**Version:** 1.1\
 **Last updated:** 27 September 2026
 
 ## 1. Architecture goals
@@ -65,10 +65,17 @@ app/
   (marketing)/
     page.tsx
     about/
-    portfolio/
+    work/
     services/
     contact/
     policies/
+    id/
+      page.tsx
+      tentang/
+      layanan/
+      karya/
+      kontak/
+      # Equivalent localized policy and detail routes use explicit locale mapping.
   (auth)/
     login/
     register/
@@ -237,12 +244,44 @@ Retries and reminders should be idempotent and observable. Introduce a job/sched
 
 ## 11. Internationalization
 
-- Indonesian is the initial commercial default.
-- English supports global clients and should share the same domain data.
-- Keep translated copy separate from business logic.
-- Decide the URL strategy before Phase 2 completion.
-- Metadata, alternate-language links, sitemap entries, and structured data must follow the chosen URL strategy.
-- Do not machine-publish unfinished translations as final content.
+English is the default public and communication language. English targets growing businesses and global companies, particularly those entering or operating in Indonesia. Indonesian serves Indonesian SMEs as the secondary audience. Adam's Work remains an Indonesia-based Web, SEO & Digital Growth Studio.
+
+### Public URL strategy (Phase 2 target)
+
+| Page | English (default) | Indonesian |
+| --- | --- | --- |
+| Home | `/` | `/id` |
+| About | `/about` | `/id/tentang` |
+| Services | `/services` | `/id/layanan` |
+| Work | `/work` | `/id/karya` |
+| Contact | `/contact` | `/id/kontak` |
+
+Service details, case studies, and policies must have equivalent permanent URLs in both locales. Public translated slugs may differ; use stable internal IDs and explicit locale-to-URL mapping.
+
+### International SEO
+
+- Root document language is English (`en`); `/id` and its descendants use Indonesian (`id`).
+- Every locale page has a self-referencing canonical and reciprocal `hreflang` links for `en` and `id`; `x-default` points to its English equivalent.
+- Sitemap contains both locale versions. Metadata and structured data follow the active locale.
+- No automatic IP-based language redirect. The language switcher opens the equivalent translated page when available.
+- Missing translations must not silently render mixed-language final content. Do not advertise nonexistent equivalents in SEO links or use English fallback as final Indonesian copy.
+
+### Content architecture and parity
+
+- Content and business logic remain separate. Services, packages, case studies, FAQs, policies, and transactional labels use stable IDs.
+- Translations are locale variants of the same entity, with explicit locale mapping; translated slugs are not entity IDs.
+- Do not duplicate pricing, order, payment, or permission logic per language.
+- Both languages must provide equivalent service, portfolio, policy, and commerce information. Indonesian preserves factual and feature parity with English; secondary language never means reduced functionality or incomplete content.
+
+### Application language
+
+- Public website: English default, Indonesian selectable.
+- Checkout and client area: English default and bilingual-ready. User locale can later be stored in session/profile.
+- Transactional email should eventually follow the client's selected locale, using localized templates for shared domain events.
+- Internal status values remain language-neutral; only display labels are translated.
+- Admin language may remain English for MVP unless a later requirement approves Indonesian UI.
+
+Phase 1B records this direction in documentation only; it does not authorize runtime copy changes, locale routing, staging setup, or Phase 2 implementation. Later application phases remain bilingual-ready without duplicating domain logic.
 
 ## 12. Environment and deployment model
 
@@ -256,7 +295,7 @@ Short-lived Vercel deployments for phase review. No production secrets or live p
 
 ### Stable staging
 
-Created after Phase 1A and before Phase 2 work is treated as release-ready. Recommended characteristics:
+Created after Phase 1B and before Phase 2. Recommended characteristics:
 
 - Stable URL such as `staging.adamswork.app`.
 - Separate project or environment configuration where practical.
@@ -307,6 +346,8 @@ Before commerce production:
 
 ## 16. Testing strategy
 
+Phase 1B requires quick Markdown and Git-diff validation only, without visual QA or a Vercel Preview.
+
 ### Every implementation phase
 
 - Lint.
@@ -343,9 +384,10 @@ Before commerce production:
 | Gate | Required outcome |
 | --- | --- |
 | Phase 1A | Brand and reusable UI foundation; no commerce architecture |
-| Staging setup | Stable isolated environment established |
-| Phase 2 | Public information architecture and bilingual-ready pages |
-| Phase 3 | Approved commercial content and policies |
+| Phase 1B | Documentation-only language-direction alignment |
+| Staging setup | Stable isolated environment after Phase 1B, before Phase 2 |
+| Phase 2 | Implement the English-first multipage bilingual public website |
+| Phase 3 | Approved bilingual commercial content and policies |
 | Phase 4 | Working auth/order/checkout flow on staging; no live payment assumption |
 | Midtrans onboarding | Public functional staging satisfies provider website criteria |
 | Phase 5 | Sandbox payment, signed idempotent webhook, reconciliation |
@@ -360,7 +402,7 @@ Before commerce production:
 - Transactional email provider.
 - Monitoring and error-reporting provider.
 - Background job/scheduler mechanism.
-- Bilingual routing and content source.
+- Content source and routing implementation details within the locked English-root/Indonesian-`/id` URL strategy.
 - Final schema after packages and policies are approved.
 - Whether SEO billing requires recurring payment in the MVP.
 
