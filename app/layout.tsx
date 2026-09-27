@@ -49,7 +49,10 @@ export const metadata: Metadata = {
   },
   twitter: { card: "summary", title, description, images: ["/assets/avatar/avatar-about-640.webp"] },
   icons: { icon: { url: "/assets/brand/adams-work.svg", type: "image/svg+xml" }, apple: "/assets/avatar/avatar-circle-64.png" },
-  robots: { index: process.env.VERCEL_ENV !== "preview", follow: true },
+  robots: {
+    index: process.env.APP_ENV !== "staging" && process.env.VERCEL_ENV !== "preview",
+    follow: process.env.APP_ENV !== "staging",
+  },
 }
 
 export default function RootLayout({
