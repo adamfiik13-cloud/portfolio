@@ -169,6 +169,17 @@ Phase 1B records this direction in documentation only; it does not authorize run
 - Progress updates allowed by role
 - Deliverable upload if authorized
 
+### Phase 2C.2 public policies
+
+- Approved source: `docs/policies/Adams_Work_Policies_Draft_v1.md`. Publish full equivalent EN/ID clauses, not only the English operational summary.
+- Operator: Fikri Adam, an individual trading as Adam’s Work, Badung, Bali, Indonesia; public contact: adam.fikri13@gmail.com. Do not publish private identification or a home address.
+- Indonesian is the primary contractual version for transactions directed to Indonesian customers; English supports international visitors and transactions subject to specific Transaction Terms.
+- Policy version 1.0 is active in configuration. Its effective date stays unset until actual production publication; set `POLICY_EFFECTIVE_DATE` once during promotion. Staging approval is not an effective date.
+- Routes: `/terms` ↔ `/id/syarat-ketentuan`; `/service-policy` ↔ `/id/kebijakan-layanan`; `/refund-policy` ↔ `/id/kebijakan-refund`; `/privacy` ↔ `/id/kebijakan-privasi`.
+- Approved operational terms include the source timelines/revisions, 5-business-day review, two reminders plus 14 days of inactivity before possible archival, consultation rescheduling, and progress-based refunds with statutory protections. Specific accepted Transaction Terms/custom offers take precedence under the documented hierarchy.
+- Public policies do not activate accounts, checkout, payment integration, acceptance logging, or orders. Service inquiries remain available through existing contact channels.
+- Every future order must retain an immutable accepted Terms snapshot. Acceptance precedes payment transaction creation; policy updates never change historical orders. Changed custom offers require a new version/addendum and renewed acceptance. Payment, work, and refund statuses remain separate.
+
 ## 9. Ordering workflows
 
 ### 9.1 Fixed package
@@ -329,11 +340,11 @@ Midtrans onboarding begins only when the staging website is publicly accessible 
 
 ## 17. Open decisions
 
-- Delivery timelines and any revision or scope terms not specified in the approved Phase 2B catalog.
+- Service-specific terms not covered by the approved Phase 2C.2 policy estimates/revisions or an accepted custom offer.
 - Future recurring billing mechanics for monthly services; no automatic subscription is implemented.
-- Cancellation, refund, review-period, and automatic completion rules.
+- Professional legal review of approved liability, dispute, and refund clauses before live payments; final provider-dependent privacy and retention details.
 - Database, authentication, private storage, transactional email, and monitoring vendors.
-- Legal entity and merchant identity used for payment onboarding.
+- Licensing and onboarding requirements for Fikri Adam as individual operator; operator identity is approved.
 - Tax treatment and invoice requirements.
 - Service-level expectations and internal capacity.
 - Timing for purchasing and promoting `adamswork.id`.

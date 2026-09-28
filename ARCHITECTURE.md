@@ -129,6 +129,30 @@ Rules:
 - Each page maps its equivalent locale URL for navigation and canonical/hreflang metadata. Production sitemap includes both versions; staging SEO protection is inherited unchanged.
 - CTAs prepare WhatsApp inquiries only. Price metadata is not a checkout implementation or authorization to take payment.
 
+### Phase 2C.2 policy content and future transaction boundary
+
+- `data/policies/config.ts` centralizes stable policy IDs, EN/ID paths, operator identity, version/status, and the nullable `POLICY_EFFECTIVE_DATE`. Set the date to actual production publication during promotion, never a staging/build date.
+- `data/policies/en.ts` and `id.ts` contain typed paragraph/list/table sections with matching stable section IDs. `PolicyPage` shares presentation and the existing public shell; footer links import only configuration. Indonesian is the primary contractual version for Indonesian-directed transactions; full English clauses preserve substantive parity.
+- Policy route pairs: `/terms` ↔ `/id/syarat-ketentuan`, `/service-policy` ↔ `/id/kebijakan-layanan`, `/refund-policy` ↔ `/id/kebijakan-refund`, `/privacy` ↔ `/id/kebijakan-privasi`. Metadata maps reciprocal alternates and English x-default; production sitemap includes all eight routes and staging remains noindex with an empty sitemap.
+- Internal source retained in `docs/policies/Adams_Work_Policies_Draft_v1.md`; internal review items, checkout checklist, and data model are not rendered publicly. Provider-dependent text must not imply unimplemented systems or finalized vendors.
+
+Future Transaction Terms fields (documentation only; no acceptance or persistence implementation):
+
+| Group | Immutable snapshot fields |
+| --- | --- |
+| Identity | Order ID, timestamp, contract language, client name/contact, operator, accepted Terms/Service/Refund/Privacy versions |
+| Service | Stable service ID/name, objectives/context, scope, outputs, milestones, estimate, revision/review model, mandatory brief/access/materials, exclusions, dependencies/assumptions |
+| Price | Base price, add-ons, disclosed taxes/fees, total IDR, payment method/expiry, commencement conditions |
+| Cancellation/change | Specific cancellation rules, milestone values, third-party/non-refundable costs, change-request procedure, 5-business-day review, 14-day inactivity rule |
+| Rights | Ownership/source files, third-party licenses, confidentiality/white-label/portfolio opt-out, no guaranteed business outcomes |
+| Acceptance | Active unchecked-by-default consent, accepted_at, accepted_by, accepted_language, restricted/encrypted IP evidence, user agent, immutable content hash |
+
+- Future policy-version records retain type, version, locale, content/hash/location, effective_at, published_at, and retired_at. Acceptance records link the order/user to every accepted policy version; retain the accepted content, not only a link to mutable pages.
+- Persist the immutable order Terms snapshot and successful acceptance **before creating any payment transaction or token**. Optional marketing consent stays separate.
+- Historical orders keep their accepted policy versions. A changed custom offer requires a new version or addendum, a new snapshot, and renewed acceptance; never overwrite an accepted snapshot.
+- Payment, work/order, and refund statuses are independent. A refund does not overwrite payment history or imply a work-state transition.
+- Source Parts V, VII, and VIII provide the complete future checkbox, checkout, and data-model requirements; they authorize no runtime commerce in Phase 2C.2.
+
 ## 5. Core domain entities
 
 ### User
@@ -211,7 +235,7 @@ Planned provider: Midtrans, introduced after a working staging commerce flow exi
 
 Required flow:
 
-1. Server creates a pending order and payment attempt from an approved price snapshot.
+1. Server records the immutable order Terms/price snapshot and successful client acceptance before creating a payment attempt.
 2. Server requests a payment session/token from the provider.
 3. Client completes the provider-supported payment experience within the approved Adam's Work checkout flow.
 4. Browser return state is treated as informational only.

@@ -181,6 +181,13 @@ Requirements:
 - Detail pages emphasize scope, scope-derived output expectations, exclusions, client inputs, and confirmed versus starting prices. Outputs must not imply guaranteed business outcomes.
 - Use “Choose This Service”, “Book a Consultation”, or “Request a Quote” with equivalent Indonesian labels; clarify that Phase 2B opens WhatsApp and does not complete booking or payment.
 
+### Public policy pages
+
+- Use a shared narrow editorial layout with Source Sans 3 legal body copy, League Spartan headings, visible version/date information, and readable section spacing.
+- Keep all clauses visible; use semantic lists, scoped table headers, wrapping table cells, and an accessible table of contents with stable section anchors. Do not use accordion-only legal content or sticky panels.
+- Put localized policy links in a clearly labeled footer group; keep the primary header concise. Language switching maps equivalent policy pages and section IDs.
+- Staging shows version 1.0 without inventing an effective date. Publication date is centrally configured during production promotion. Display an accurate shared notice for online features that are not yet available.
+
 ### Form
 
 - Persistent label above control; placeholder is not the label.
