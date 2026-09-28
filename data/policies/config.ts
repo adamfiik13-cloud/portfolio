@@ -19,7 +19,7 @@ export const policyOperator = {
 
 // Set once to the actual production publication date (YYYY-MM-DD) during promotion.
 // Staging approval or a build timestamp must never supply this date.
-export const POLICY_EFFECTIVE_DATE: string | null = null
+export const POLICY_EFFECTIVE_DATE: string | null = "2026-09-28"
 export const policyVersion = { version: "1.0", status: "active" } as const
 
 type Localized = Record<PublicLocale, string>
