@@ -13,7 +13,7 @@ export const policyOperator = {
   brand: "Adam’s Work",
   operator: "Fikri Adam",
   domicile: "Badung, Bali, Indonesia",
-  email: "adam.fikri13@gmail.com",
+  email: "adamfiik13@gmail.com",
   website: "https://adamswork.app",
 } as const
 

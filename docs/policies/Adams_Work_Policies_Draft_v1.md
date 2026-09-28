@@ -4,7 +4,7 @@
 **Review date:** 28 September 2026  
 **Operator:** Fikri Adam, trading as Adam's Work  
 **Domicile:** Badung, Bali, Indonesia  
-**Contact:** adam.fikri13@gmail.com  
+**Contact:** adamfiik13@gmail.com  
 **Website:** https://adamswork.app  
 
 > **Review notice:** This document is an operational and legal-policy draft prepared from the current Adam's Work business model, the Midtrans Terms & Conditions service template dated 13 January 2017, and applicable Indonesian regulatory sources reviewed in September 2026. It is not a substitute for advice from an Indonesian lawyer. Before live payments are enabled, identity, tax, licensing, dispute-resolution, data-retention, and liability clauses should receive professional legal review.
@@ -128,7 +128,7 @@ Tanggung jawab terkait layanan tertentu, sejauh diizinkan hukum, dibatasi pada n
 
 ## 14. Pengaduan dan sengketa
 
-Keluhan dapat dikirim ke **adam.fikri13@gmail.com** dengan nomor pesanan dan uraian masalah. Kami akan mengonfirmasi penerimaan dan berusaha menyelesaikan secara musyawarah.
+Keluhan dapat dikirim ke **adamfiik13@gmail.com** dengan nomor pesanan dan uraian masalah. Kami akan mengonfirmasi penerimaan dan berusaha menyelesaikan secara musyawarah.
 
 Ketentuan ini tunduk pada hukum Republik Indonesia. Jika musyawarah gagal, para pihak dapat menggunakan mekanisme penyelesaian sengketa konsumen atau forum lain yang berwenang sesuai hukum. Klausul ini tidak menghapus hak konsumen untuk menggunakan mekanisme yang disediakan peraturan.
 
@@ -140,7 +140,7 @@ Versi dan tanggal berlaku ditampilkan pada setiap kebijakan. Perubahan berlaku u
 
 **Adam's Work - Fikri Adam**  
 Badung, Bali, Indonesia  
-Email: adam.fikri13@gmail.com  
+Email: adamfiik13@gmail.com  
 Website: https://adamswork.app
 
 ---
@@ -272,7 +272,7 @@ Klien disarankan menghubungi Adam's Work terlebih dahulu. Kami dapat memberikan 
 
 ## 1. Pengendali data
 
-Pengendali data untuk layanan Adam's Work adalah Fikri Adam, trading as Adam's Work, Badung, Bali, Indonesia. Pertanyaan privasi dapat dikirim ke adam.fikri13@gmail.com.
+Pengendali data untuk layanan Adam's Work adalah Fikri Adam, trading as Adam's Work, Badung, Bali, Indonesia. Pertanyaan privasi dapat dikirim ke adamfiik13@gmail.com.
 
 ## 2. Data yang diproses
 
@@ -334,7 +334,7 @@ Layanan tidak ditujukan untuk anak yang tidak memiliki kapasitas memberikan pers
 
 ## 10. Perubahan dan kontak
 
-Perubahan kebijakan ditampilkan dengan versi dan tanggal berlaku. Perubahan material disampaikan secara layak. Kontak: adam.fikri13@gmail.com.
+Perubahan kebijakan ditampilkan dengan versi dan tanggal berlaku. Perubahan material disampaikan secara layak. Kontak: adamfiik13@gmail.com.
 
 ---
 
@@ -450,7 +450,7 @@ Adam's Work processes identity, contact, account, brief, files, order, payment, 
 
 ## 11. Governing law and contact
 
-These terms are governed by Indonesian law without limiting mandatory consumer rights. Complaints should be sent to adam.fikri13@gmail.com with the relevant order number.
+These terms are governed by Indonesian law without limiting mandatory consumer rights. Complaints should be sent to adamfiik13@gmail.com with the relevant order number.
 
 ---
 

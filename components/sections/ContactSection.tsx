@@ -20,8 +20,8 @@ const contactLinks = [
   },
   {
     label: "Email",
-    value: "adam.fikri13@gmail.com",
-    href: "mailto:adam.fikri13@gmail.com",
+    value: "adamfiik13@gmail.com",
+    href: "mailto:adamfiik13@gmail.com",
     icon: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
@@ -114,7 +114,7 @@ export default function ContactSection() {
                 </svg>
               </Button>
               <Button
-                href="mailto:adam.fikri13@gmail.com"
+                href="mailto:adamfiik13@gmail.com"
                 variant="secondary"
                 className="text-base px-7 py-3.5"
               >

@@ -172,7 +172,7 @@ Phase 1B records this direction in documentation only; it does not authorize run
 ### Phase 2C.2 public policies
 
 - Approved source: `docs/policies/Adams_Work_Policies_Draft_v1.md`. Publish full equivalent EN/ID clauses, not only the English operational summary.
-- Operator: Fikri Adam, an individual trading as Adam’s Work, Badung, Bali, Indonesia; public contact: adam.fikri13@gmail.com. Do not publish private identification or a home address.
+- Operator: Fikri Adam, an individual trading as Adam’s Work, Badung, Bali, Indonesia; public contact: adamfiik13@gmail.com. Do not publish private identification or a home address.
 - Indonesian is the primary contractual version for transactions directed to Indonesian customers; English supports international visitors and transactions subject to specific Transaction Terms.
 - Policy version 1.0 is active in configuration. Its effective date stays unset until actual production publication; set `POLICY_EFFECTIVE_DATE` once during promotion. Staging approval is not an effective date.
 - Routes: `/terms` ↔ `/id/syarat-ketentuan`; `/service-policy` ↔ `/id/kebijakan-layanan`; `/refund-policy` ↔ `/id/kebijakan-refund`; `/privacy` ↔ `/id/kebijakan-privasi`.
