@@ -23,7 +23,7 @@
 - Planned permanent Indonesian domain: `adamswork.id`.
 - Fonts: self-hosted through `next/font/local`.
 - Typography roles: League Spartan, Alata, Source Sans 3.
-- Database, authentication, private storage, payment, email, and monitoring vendors remain undecided.
+- Phase 3A locks Supabase PostgreSQL/Auth/private Storage (Singapore), Resend email, and Sentry monitoring. Midtrans remains deferred.
 
 Do not infer vendor selections from examples in this document.
 
@@ -48,11 +48,11 @@ Business rules for packages, offers, orders, briefs, payments, refunds, access, 
 ### External services
 
 - Payment gateway: planned Midtrans.
-- Transactional email: TBD.
-- Database: TBD.
-- Authentication: TBD.
-- Private object storage: TBD.
-- Monitoring/error reporting: TBD.
+- Transactional/Auth email: Resend.
+- Database: Supabase PostgreSQL.
+- Authentication: Supabase Auth; no production registration in Phase 3A.
+- Private object storage: Supabase Storage, private buckets only.
+- Monitoring/error reporting: Sentry, server errors only initially.
 
 Vendor-specific code should be isolated behind narrow adapters where practical.
 
@@ -152,6 +152,16 @@ Future Transaction Terms fields (documentation only; no acceptance or persistenc
 - Historical orders keep their accepted policy versions. A changed custom offer requires a new version or addendum, a new snapshot, and renewed acceptance; never overwrite an accepted snapshot.
 - Payment, work/order, and refund statuses are independent. A refund does not overwrite payment history or imply a work-state transition.
 - Source Parts V, VII, and VIII provide the complete future checkbox, checkout, and data-model requirements; they authorize no runtime commerce in Phase 2C.2.
+
+### Phase 3A backend foundation
+
+- Implementation/runbook: [docs/backend/PHASE_3A.md](docs/backend/PHASE_3A.md). Three versioned Supabase migrations define 17 RLS-protected tables, immutable commercial/policy evidence, private Storage buckets, and read-only health data.
+- Supabase staging and production are separate Singapore projects. Target Free plans/no additional vendor cost for three months within quotas; review upgrades before production data becomes commercially significant. Never share their secrets or use production from local/preview.
+- Official Supabase SSR browser/server clients and session-refresh helper are prepared. No public auth UI or Proxy matcher changes to existing public routes. Future private routes must wire session refresh and server identity verification before launch.
+- The protected health route checks only system_health, with server-only service-role configuration. Vercel schedule 15 0,8,16 * * * UTC maps to 08:15/16:15/00:15 WITA. Vercel Cron runs Production only: staging endpoint verification is manual; the schedule is not activated by a staging deployment. Heartbeat is temporary inactivity mitigation, not an uptime guarantee.
+- All client operational mutations are denied until explicit authenticated server APIs are implemented. Owner/admin browser sessions cannot write privileged state. Storage downloads follow metadata visibility and assignment RLS; private uploads are not yet enabled.
+- Resend custom SMTP replaces Supabase default SMTP before production auth. Sentry disables personal-data collection, replay, tracing, and raw error details. No email or monitoring event is sent without configured credentials.
+- No card/payment credentials are stored. No payment integration is introduced. Backups precede major schema changes, follow meaningful production transactions, and run weekly once real client data exists; private object bytes require separate backup from SQL.
 
 ## 5. Core domain entities
 

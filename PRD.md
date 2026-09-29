@@ -325,6 +325,12 @@ No KPI target is final until a baseline exists.
 | 6 | Client portal, admin workspace, team assignments, files, messages, and delivery |
 | 7 | Production hardening, production payment activation, launch, and monitoring |
 
+### Phase 3A — Backend Foundation (authorized roadmap refinement)
+
+Supabase provides PostgreSQL, Auth and private Storage in Singapore; Resend provides Auth SMTP and future transactional delivery; Sentry provides error monitoring; Vercel Cron provides a protected health query. Staging and production use separate Supabase projects. Target Free plans for the first three months with no additional vendor spend, subject to quotas; review upgrades before commercially significant production data.
+
+The repository adds migration-driven tables, RLS, immutable order/policy snapshots, storage definitions, secure client helpers, health endpoint and backup/recovery guidance. Existing public content/SEO and catalog storage remain unchanged. No production registration, application UI, checkout, payments, email delivery or production deployment is part of this phase. Midtrans remains deferred and Adam’s Work must never store card data. Vercel Cron scheduling requires Production; the Custom Environment staging endpoint is prepared for manual authorized testing. Heartbeat is temporary inactivity mitigation only.
+
 ## 16. Midtrans readiness gate
 
 Midtrans onboarding begins only when the staging website is publicly accessible and demonstrates:
@@ -343,7 +349,7 @@ Midtrans onboarding begins only when the staging website is publicly accessible 
 - Service-specific terms not covered by the approved Phase 2C.2 policy estimates/revisions or an accepted custom offer.
 - Future recurring billing mechanics for monthly services; no automatic subscription is implemented.
 - Professional legal review of approved liability, dispute, and refund clauses before live payments; final provider-dependent privacy and retention details.
-- Database, authentication, private storage, transactional email, and monitoring vendors.
+- Vendor account configuration/quotas for the locked Supabase, Resend, and Sentry foundation.
 - Licensing and onboarding requirements for Fikri Adam as individual operator; operator identity is approved.
 - Tax treatment and invoice requirements.
 - Service-level expectations and internal capacity.

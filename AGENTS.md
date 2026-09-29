@@ -85,7 +85,7 @@ Implement only the active phase.
 - Phase 1B: documentation-only language-direction alignment; no runtime changes.
 - Staging setup: after Phase 1B and before Phase 2.
 - Phase 2: implement the English-first multipage bilingual public website.
-- Phase 3: approved bilingual services, packages, pricing, FAQ, and policies.
+- Phase 3A: approved backend foundation using Supabase, Resend, Sentry and protected Vercel health checks; no checkout or production registration.
 - Phase 4: authentication, orders, offers, checkout workflow.
 - Midtrans onboarding: after functional Phase 4 staging.
 - Phase 5: Midtrans Sandbox and payment reconciliation.
@@ -119,6 +119,16 @@ Preserve verified portfolio evidence. Mark internal unknowns as `TBD` and hide i
 - Private client files must not be placed in public assets.
 - Do not commit secrets or production user data.
 - Do not select a database, auth, storage, email, or monitoring vendor without the phase requiring it and enough information to decide.
+
+### Locked Phase 3A backend rules
+
+- Use Supabase PostgreSQL/Auth/private Storage in Singapore, Resend for Auth SMTP/transactional email, and Sentry for error monitoring. Separate staging and production projects. Target Free plans for the initial three months; no paid subscription/overage changes without approval.
+- Follow `docs/backend/PHASE_3A.md` for migrations, access matrix, provider setup, storage and recovery. Never apply remote migrations as part of a build or without explicit target verification/authorization.
+- No roles from user-editable metadata, no service-role imports into client modules, no permissive development RLS. Privileged server mutations must verify identity, role and order access. Existing Phase 3A operational API-user access is read-only.
+- Preserve immutable accepted snapshots and separate payment/work/refund states; no card data, secrets, or raw payment payloads in storage/logging. Configure Auth signup off until explicitly authorized.
+- Heartbeat is a read-only internal health query with CRON_SECRET and safe error responses. Vercel Cron runs Production, not custom staging; do not claim a staging schedule is active. It is not an availability guarantee.
+- Sentry must discard private content and identifiers; no replay or unnecessary performance capture. No email without explicit test authorization/credentials. No Supabase default SMTP for production.
+- Back up before major schema changes, after meaningful production transactions and weekly once real client data exists; rehearse restore and include private object bytes. Review upgrade needs before data becomes commercially significant.
 
 ## 8. UI and accessibility boundaries
 
