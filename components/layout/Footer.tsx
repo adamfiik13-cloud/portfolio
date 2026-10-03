@@ -6,6 +6,8 @@ import { usePublicLocale } from "@/components/layout/PublicLocaleProvider"
 
 import BrandSignature from "@/components/ui/BrandSignature"
 import { authPaths, authText } from "@/data/auth-content"
+import { analyticsCopy } from "@/data/analytics"
+import { COOKIE_SETTINGS_EVENT } from "@/lib/analytics/rules"
 
 export default function Footer() {
   const { t, siteConfig, locale } = usePublicLocale()
@@ -24,13 +26,14 @@ export default function Footer() {
             <a className="min-h-11 min-w-11 inline-flex items-center hover:text-white" href={"mailto:" + siteConfig.email}>Email</a>
             <a className="min-h-11 min-w-11 inline-flex items-center hover:text-white" href={siteConfig.linkedinUrl} target="_blank" rel="noopener noreferrer">LinkedIn Fikri</a>
             <a className="min-h-11 min-w-11 inline-flex items-center hover:text-white" href={siteConfig.instagramUrl} target="_blank" rel="noopener noreferrer">Instagram</a>
-            <Link className="min-h-11 min-w-11 inline-flex items-center hover:text-white" href={authPaths.login[locale]}>{authText("login", locale)}</Link>
+            <a className="min-h-11 min-w-11 inline-flex items-center hover:text-white" href={authPaths.login[locale]}>{authText("login", locale)}</a>
           </nav>
         </div>
         <nav aria-label={policyCopy.group[locale]} className="border-t border-line pt-5">
           <p className="font-display text-base mb-2">{policyCopy.group[locale]}</p>
           <div className="flex flex-wrap gap-x-6 gap-y-1 font-interface text-sm text-muted">
             {policyDefinitions.map(policy => <Link key={policy.id} href={policy.paths[locale]} className="inline-flex min-h-11 items-center hover:text-white underline underline-offset-4">{policy.label[locale]}</Link>)}
+            <button type="button" onClick={() => window.dispatchEvent(new Event(COOKIE_SETTINGS_EVENT))} className="inline-flex min-h-11 items-center hover:text-white underline underline-offset-4">{analyticsCopy.settings[locale]}</button>
           </div>
         </nav>
         <p className="text-xs text-muted">&copy; {new Date().getFullYear()} {siteConfig.name}</p>

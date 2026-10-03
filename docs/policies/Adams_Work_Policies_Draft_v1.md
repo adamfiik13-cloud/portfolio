@@ -326,7 +326,17 @@ Kami dapat memverifikasi identitas sebelum memenuhi permintaan.
 
 ## 8. Cookies dan analytics
 
-Cookies yang wajib untuk login, keamanan, sesi, checkout, dan preferensi dapat digunakan untuk menyediakan layanan. Analytics atau marketing cookies yang tidak wajib harus mengikuti mekanisme consent yang sesuai sebelum diaktifkan bila diwajibkan.
+Cookies fungsional untuk login, keamanan, dan sesi tetap terpisah dari analitik opsional. Cookies tersebut tidak dikendalikan oleh pilihan analitik. Analitik opsional tidak diperlukan untuk menggunakan website.
+
+Kami menggunakan Google Tag Manager sebagai infrastruktur pengelolaan tag untuk Google Analytics 4 (GA4) yang bersifat opsional. Container hanya dimuat setelah persetujuan analitik secara tegas pada rute publik yang disetujui. Pengumpulan GA4 hanya ditujukan untuk website publik production, guna memahami penggunaan halaman publik serta meningkatkan website dan layanan; staging digunakan untuk pemeriksaan container dan persetujuan tanpa pengukuran GA4.
+
+Analitik opsional dapat memproses URL atau path halaman publik, informasi perujuk, informasi browser dan perangkat, perkiraan lokasi dari Google, serta interaksi atau keterlibatan pada website publik. Payload event halaman yang disetujui hanya menggunakan path publik dalam daftar yang diizinkan, judul publik statis, bahasa, dan kategori konten; query string dan fragmen dihapus. Pengumpulan informasi perujuk dinonaktifkan pada rancangan tag awal. Rute autentikasi dan akun dikecualikan. Kami tidak bermaksud mengumpulkan kata sandi, isi email, pesan pesanan privat, file unggahan, maupun token autentikasi dan pemulihan melalui analitik.
+
+Browser Anda hanya menyimpan granted atau denied pada preferensi localStorage berversi adamswork.analytics-consent.v1. Preferensi ini tidak disimpan dalam akun, profil, atau database dan tidak memuat informasi pribadi. Anda dapat menerima atau menolak analitik opsional, membuka kembali Pengaturan cookie pada footer, serta menarik persetujuan kapan saja. Penarikan persetujuan mengirim pembaruan consent denied, menghentikan analitik berikutnya, menghapus cookies GA pihak pertama yang dapat diakses sejauh aman dilakukan, dan memuat ulang halaman untuk menghentikan tag yang sudah dimuat tanpa mengubah cookies autentikasi.
+
+Retensi data tingkat event dan pengguna GA4 untuk eksplorasi diatur selama 14 bulan, dengan reset saat aktivitas baru dinonaktifkan. Pengaturan ini tidak menjelaskan retensi setiap laporan teragregasi. Google Signals, pengumpulan data yang diberikan pengguna, penautan Google Ads, dan personalisasi iklan tidak diaktifkan saat peluncuran; persetujuan penyimpanan dan personalisasi iklan tetap denied. Google memproses informasi menurut ketentuan privasinya sendiri.
+
+[Kebijakan Privasi Google](https://policies.google.com/privacy?hl=id)
 
 ## 9. Anak
 
@@ -578,3 +588,22 @@ Snapshot tidak boleh diedit setelah diterima. Perubahan menggunakan versioned cu
 - Midtrans website/application criteria: https://docs.midtrans.com/docs/what-are-the-website-or-application-criterias-for-registering-a-midtrans-account
 - Midtrans refund reference: https://docs.midtrans.com/reference/refund-transactions-card
 - Midtrans Terms & Conditions Template, Service Template, 13 January 2017 (user-provided PDF; guidance template only).
+
+
+## Phase 16D — Privacy-only revision (4 October 2026)
+
+Privacy Policy alone is version **1.1**, effective **2026-10-04**. Terms, Service and Refund remain **1.0 / 2026-09-28**. This supplement supersedes the earlier generic cookies/analytics wording for Privacy; other policy wording is unchanged. Runtime metadata is selected by stable policy ID through `getPolicyMetadata` in `data/policies/config.ts`. Future immutable acceptance snapshots must use each applicable policy version; no acceptance data is seeded now.
+
+### English equivalent of Privacy clause 8
+
+Functional cookies for login, security and sessions remain separate from optional analytics. They are not controlled by the analytics preference. Optional analytics is not required to use the website.
+
+We use Google Tag Manager as tag-management infrastructure for optional Google Analytics 4 (GA4). The container loads only after explicit analytics consent on approved public routes. GA4 collection is intended only for the production public website, to understand public-site usage and improve our website and services; staging is for container and consent checks without GA4 measurement.
+
+Optional analytics may process public page URLs or paths, referrer information, browser and device information, approximate location supplied by Google, and public-site interactions or engagement. Our approved page-event payload uses only an allowlisted public path, a static public title, language and content category; query strings and fragments are removed. Referrer collection is disabled in the initial tag design. Authentication and account routes are excluded. We do not intentionally collect passwords, email contents, private order messages, uploaded files, or authentication and recovery tokens through analytics.
+
+Your browser stores only granted or denied under the versioned localStorage preference adamswork.analytics-consent.v1. This preference is not stored in an account, profile or database and contains no personal details. You may accept or reject optional analytics, reopen Cookie settings in the footer, and withdraw consent at any time. Withdrawal sends a denied consent update, stops future analytics, removes accessible first-party GA cookies where safely possible, and reloads the page to stop already loaded tags without changing authentication cookies.
+
+GA4 event- and user-level data used in explorations is configured for 14-month retention, with reset on new activity off. This setting does not describe retention of every aggregated report. Google Signals, user-provided data collection, Google Ads linking and Ads personalization are not enabled at launch; advertising storage and personalization consent remain denied. Google processes information under its own privacy terms.
+
+[Google Privacy Policy](https://policies.google.com/privacy)

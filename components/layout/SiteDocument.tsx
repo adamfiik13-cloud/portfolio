@@ -2,6 +2,7 @@ import localFont from "next/font/local"
 import "@/app/globals.css"
 import type { PublicLocale } from "@/data/public-content"
 import PublicMotion from "@/components/layout/PublicMotion"
+import AnalyticsConsent from "@/components/analytics/AnalyticsConsent"
 
 const displayFont = localFont({
   src: "../../app/fonts/LeagueSpartan-Variable.woff2",
@@ -39,7 +40,7 @@ export default function SiteDocument({
 }>) {
   return (
     <html lang={locale} className={`${displayFont.variable} ${brandBodyFont.variable} ${interfaceFont.variable}`}>
-      <body><PublicMotion>{children}</PublicMotion></body>
+      <body><PublicMotion>{children}</PublicMotion><AnalyticsConsent productionEnabled={process.env.APP_ENV !== "staging" && process.env.VERCEL_ENV !== "preview"} /></body>
     </html>
   )
 }

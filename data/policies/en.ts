@@ -712,7 +712,28 @@ export const policiesEn: Record<PolicyId, PolicyContent> = {
         "blocks": [
           {
             "type": "paragraph",
-            "text": "Cookies necessary for login, security, sessions, checkout, and preferences may be used to provide services. Non-essential analytics or marketing cookies must follow an appropriate consent mechanism before activation where required."
+            "text": "Functional cookies for login, security and sessions remain separate from optional analytics. They are not controlled by the analytics preference. Optional analytics is not required to use the website."
+          },
+          {
+            "type": "paragraph",
+            "text": "We use Google Tag Manager as tag-management infrastructure for optional Google Analytics 4 (GA4). The container loads only after explicit analytics consent on approved public routes. GA4 collection is intended only for the production public website, to understand public-site usage and improve our website and services; staging is for container and consent checks without GA4 measurement."
+          },
+          {
+            "type": "paragraph",
+            "text": "Optional analytics may process public page URLs or paths, referrer information, browser and device information, approximate location supplied by Google, and public-site interactions or engagement. Our approved page-event payload uses only an allowlisted public path, a static public title, language and content category; query strings and fragments are removed. Referrer collection is disabled in the initial tag design. Authentication and account routes are excluded. We do not intentionally collect passwords, email contents, private order messages, uploaded files, or authentication and recovery tokens through analytics."
+          },
+          {
+            "type": "paragraph",
+            "text": "Your browser stores only granted or denied under the versioned localStorage preference adamswork.analytics-consent.v1. This preference is not stored in an account, profile or database and contains no personal details. You may accept or reject optional analytics, reopen Cookie settings in the footer, and withdraw consent at any time. Withdrawal sends a denied consent update, stops future analytics, removes accessible first-party GA cookies where safely possible, and reloads the page to stop already loaded tags without changing authentication cookies."
+          },
+          {
+            "type": "paragraph",
+            "text": "GA4 event- and user-level data used in explorations is configured for 14-month retention, with reset on new activity off. This setting does not describe retention of every aggregated report. Google Signals, user-provided data collection, Google Ads linking and Ads personalization are not enabled at launch; advertising storage and personalization consent remain denied. Google processes information under its own privacy terms."
+          },
+          {
+            "type": "link",
+            "href": "https://policies.google.com/privacy",
+            "label": "Google Privacy Policy"
           }
         ]
       },

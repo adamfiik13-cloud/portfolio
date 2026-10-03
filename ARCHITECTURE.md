@@ -6,6 +6,8 @@
 
 ## 1. Architecture goals
 
+Phase 16D optional public analytics: `docs/analytics/PHASE_16D.md` documents consent/storage state, host and public-route allowlists, sanitized events, staging container-only QA and future production-only GTM configuration. `lib/analytics` owns eligibility/controller/browser boundaries; `data/analytics.ts` derives static public payloads; root `AnalyticsConsent` and footer settings share that controller. No auth, commerce, monitoring or database integration is added.
+
 - Preserve the current Next.js and Vercel foundation.
 - Support public portfolio and service discovery first, then commerce and authenticated operations.
 - Keep business rules on trusted server boundaries.
@@ -131,7 +133,7 @@ Rules:
 
 ### Phase 2C.2 policy content and future transaction boundary
 
-- `data/policies/config.ts` centralizes stable policy IDs, EN/ID paths, operator identity, version/status, and the nullable `POLICY_EFFECTIVE_DATE`. Set the date to actual production publication during promotion, never a staging/build date.
+- `data/policies/config.ts` centralizes stable policy IDs, EN/ID paths, operator identity and typed per-policy metadata via `getPolicyMetadata`. Terms, Service and Refund retain 1.0 / 2026-09-28; Privacy alone is 1.1 / 2026-10-04 (owner-approved date, not a build/staging timestamp). Future immutable acceptance snapshots must use each applicable policy's version/date/content, never one global version. Viewing or updating these pages does not seed acceptance data.
 - `data/policies/en.ts` and `id.ts` contain typed paragraph/list/table sections with matching stable section IDs. `PolicyPage` shares presentation and the existing public shell; footer links import only configuration. Indonesian is the primary contractual version for Indonesian-directed transactions; full English clauses preserve substantive parity.
 - Policy route pairs: `/terms` ↔ `/id/syarat-ketentuan`, `/service-policy` ↔ `/id/kebijakan-layanan`, `/refund-policy` ↔ `/id/kebijakan-refund`, `/privacy` ↔ `/id/kebijakan-privasi`. Metadata maps reciprocal alternates and English x-default; production sitemap includes all eight routes and staging remains noindex with an empty sitemap.
 - Internal source retained in `docs/policies/Adams_Work_Policies_Draft_v1.md`; internal review items, checkout checklist, and data model are not rendered publicly. Provider-dependent text must not imply unimplemented systems or finalized vendors.

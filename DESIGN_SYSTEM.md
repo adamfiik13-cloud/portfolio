@@ -299,6 +299,8 @@ Avoid:
 
 ## 13. Design QA ownership
 
+Phase 16D analytics preferences use a bilingual, non-modal region in normal document flow. Source Sans 3 covers functional copy/buttons, League Spartan the heading; existing black/off-white/red tokens remain. Accept and reject have identical prominence and minimum 44px targets, wrap on narrow screens/200% zoom, and retain visible focus. Footer Cookie settings reopens/focuses preferences; closing restores the opener. Content is never obscured or blocked; no acceptance is preselected, no motion/focus trap is introduced. Final responsive/visual QA remains manual. See `docs/analytics/PHASE_16D.md`.
+
 Phase 1B requires only Markdown and Git-diff validation, without visual QA or a Vercel Preview.
 
 During implementation phases:
