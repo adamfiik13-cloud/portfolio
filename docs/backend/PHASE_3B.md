@@ -2,7 +2,9 @@
 
 ## Scope and status
 
-Staging-only email/password authentication, verified email, password recovery, logout and a minimal account page. No ordering, checkout, payment, upload, admin/team management or account deletion. All Phase 3A tables, RLS, immutable records and private Storage policies remain unchanged. Hosted settings and owner assignment are not assumed to have been applied by this source change.
+Staging-only email/password authentication, verified email, password recovery, logout and a minimal account page. No ordering, checkout, payment, upload, admin/team management or account deletion. All Phase 3A tables, RLS, immutable records and private Storage policies remain unchanged.
+
+**Closeout: 2026-10-04 WITA.** Phase 3B implementation at commit `ce716b2f5539fd91096b4ca884d7bfd03c21c2c8` and hosted staging authentication QA are complete. Configuration, owner bootstrap and hosted results below are **manual operator-reported staging QA**, not automated repository tests or production verification. This documentation closeout does not configure vendors or change application code. Production rollout remains deferred.
 
 The owner's Stage 14 rehearsal report states that application recovery passed. **Full hosted Auth and Storage restore remains deferred until a compatible platform environment is available.** This implementation does not repeat or claim that rehearsal or full hosted recovery.
 
@@ -35,20 +37,21 @@ Every auth/account/confirmation route is dynamic, `noindex, nofollow`, private/n
 - Logout attempts provider local-scope signout and clears current app session cookies; errors remain visible and generic. No service-role/admin client is introduced. The service-role secret remains exclusively in the existing protected health reader.
 - Hosted Supabase Auth rate limits must be reviewed. Server-side provider calls may share an egress IP; do not claim per-client distributed rate limiting or CAPTCHA has been implemented. Before production authentication, verify abuse protection, delivery quotas and user-visible retry behavior.
 
-## Staging dashboard and email configuration (manual)
+## Staging dashboard and email configuration (operator-reported completed)
 
-Select **adams-work-staging** and verify its identity before every action. No production dashboard/database is queried or configured by this phase.
+The operator reported the following configuration completed on **2026-10-04 WITA** in **adams-work-staging**. For later operator actions, verify the selected staging project first. No production dashboard/database is queried or configured by this closeout.
 
 1. Email provider enabled; email/password signup enabled **only in staging**. Require email confirmations. Anonymous sign-in stays disabled. Do not enable social, phone or magic-link login.
 2. Site URL: `https://staging.adamswork.app`.
-3. Exact allowed Redirect URLs used by signup/recovery:
+3. Exact allowed Redirect URLs configured:
    - `https://staging.adamswork.app/auth/confirm?locale=en`
    - `https://staging.adamswork.app/id/auth/konfirmasi?locale=id`
-   - If the optional PKCE confirmation flow is used: `https://staging.adamswork.app/auth/callback?locale=en` and `https://staging.adamswork.app/auth/callback?locale=id`.
+   - `https://staging.adamswork.app/auth/callback?locale=en`
+   - `https://staging.adamswork.app/auth/callback?locale=id`
    No wildcard or production redirects. The reset destinations are internal server routes, not provider redirect targets.
-4. Set the password policy to at least 12 characters, uppercase/lowercase/digit/symbol when supported. App registration/reset enforce this policy and a 128-character maximum. Existing passwords can still log in; no forced owner password change is imposed. Set email-link expiry to a short operational window (recommend 30 minutes), review provider rate limits and available leaked-password protections without enabling paid features automatically.
-5. Preserve Resend Custom SMTP and approved sender `Adam’s Work <notifications@adamswork.app>`. Disable click/open tracking on Auth links. Verify actual received headers and Reply-To handling (`adamfiik13@gmail.com`) during manual QA. No direct email SDK/sender is added.
-6. Configure the **Confirm signup**, **Reset password** and **Invite user** email template links to use the matching entry below. The app sends RedirectTo with `?locale=en|id`, so append parameters with `&`, not a second `?`:
+4. Configured password minimum: **12 characters**. App registration/reset also require uppercase/lowercase/digit/symbol and a 128-character maximum. Existing passwords can still log in; no forced owner password change is imposed. Configured email link/OTP expiry: **1800 seconds (30 minutes)**. Review provider rate limits and available leaked-password protections before production without enabling paid features automatically.
+5. Approved and tested Auth sender: `Adam's Work <no-reply@adamswork.app>` through Resend Custom SMTP. Public Reply-To/contact remains `adamfiik13@gmail.com`. Keep click/open tracking disabled on Auth links and verify actual Reply-To headers separately where required; the reported delivery results do not independently establish every received header. No SMTP, environment or sender application code is changed by this closeout.
+6. **Confirm signup**, **Reset password** and **Invite user** templates were configured with `.RedirectTo`, `.TokenHash` and the matching `signup`, `recovery` or `invite` type below. Default `.ConfirmationURL` was removed from all three templates. The app sends RedirectTo with `?locale=en|id`, so append parameters with `&`, not a second `?`:
 
 ```html
 <!-- Confirm signup -->
@@ -64,6 +67,8 @@ Use the invitation RedirectTo explicitly; existing already-consumed invitations 
 7. Confirm staging application env has APP_ENV=staging, NEXT_PUBLIC_SITE_URL=https://staging.adamswork.app, staging URL/publishable key, staging project ref and both distinct project refs. Use the existing approved operator/Vercel workflow; never paste credentials in chat or commit env files. No new secret is required for Phase 3B. Production settings remain unchanged.
 
 ## Owner bootstrap (operator only)
+
+**Operator-reported completed on 2026-10-04 WITA:** bootstrap succeeded for `adamfiik13@gmail.com`; the owner is verified, non-anonymous, has role `owner` and `active=true`. Owner login displayed owner access in both languages; owner logout and route protection passed. The procedure below is retained as the staging-only operator runbook, not an instruction to rerun it during closeout.
 
 Run the **single idempotent DO operation** in [../../scripts/bootstrap-staging-owner.sql](../../scripts/bootstrap-staging-owner.sql) only in the **adams-work-staging SQL Editor**, after visually confirming the selected project's name/ref. It is intentionally not a shared migration or public server endpoint. There is no portable SQL-only hostname/ref check for the hosted SQL Editor, so checking the selected staging project is mandatory.
 
@@ -107,8 +112,42 @@ Retain financial payment/refund records, order snapshots and accepted policies, 
 
 ## Verification and handoff
 
-Run lint, type-check, fresh production build, `npm run test:auth`, tracked-secret scan and focused staging route/SEO checks. Auth provider calls are stubbed in unit tests; SQL bootstrap/deletion evidence uses disposable local PostgreSQL. These are not hosted email/session behavior proofs. Public copy/data, policies, prices and migrations are unchanged; only a localized login entry is added to the footer.
+Implementation validation previously passed lint, type-check, fresh production build, focused auth tests, secret scan and staging route/SEO checks. Auth provider calls are stubbed in repository unit tests; SQL bootstrap/deletion evidence uses disposable local PostgreSQL. Those tests are separate from the manual hosted results below. The documentation-only closeout validates Markdown, Git diff, the corrected sender and absence of added secrets/live token URLs; it does not repeat runtime tests or deployment smoke checks.
 
-Manual staging QA: contextual registration → verification email → explicit confirmation → verified login; incorrect password; absent-user generic response; forgot/reset (including expired/re-used links); logged-out account redirect; logged-in login/register redirect; EN/ID parity/switching; logout; owner role after bootstrap. Do not test deletion or production. Auth email delivery, full hosted Auth/Storage restoration, private signed URLs and application provider connectivity need actual staging verification. Resend/Sentry/health live behavior is not newly verified by this task.
+### Manual operator-reported hosted staging QA — 2026-10-04 WITA
+
+All following checks were reported **passed** by the operator in staging. They are not automated repository test results and do not verify production:
+
+- Owner bootstrap succeeded for `adamfiik13@gmail.com`; verified, non-anonymous, role `owner`, active `true`.
+- Contextual client registration succeeded.
+- Verification email was delivered through Resend.
+- Explicit signup confirmation succeeded.
+- Client profile was initialized without staff/owner access.
+- Logged-out account protection passed.
+- Incorrect-password handling returned a generic error.
+- Verified login passed.
+- Logged-in login/register redirects passed.
+- Logout and post-logout route protection passed.
+- Forgot-password email delivery passed.
+- Password reset passed.
+- Successful reset cleared the recovery session.
+- Previous password was rejected.
+- New-password login succeeded.
+- Unknown-email recovery response remained generic.
+- A used recovery token was rejected.
+- A recovery token older than the configured 30-minute expiry was rejected.
+- English/Indonesian auth route parity and session switching passed.
+- Owner login displayed owner access in both languages.
+- Owner logout and route protection passed.
+
+### Remaining limitations
+
+- Production authentication is not configured or tested; production rollout remains deferred.
+- Full hosted Auth and Storage restore remains deferred until a compatible platform environment is available.
+- Signed private file URLs and upload flows are not implemented or tested.
+- Account hard deletion remains disabled. The existing client test account is retained; do not delete it.
+- Deactivation, anonymization and retention require a later approved lifecycle implementation.
+- Midtrans, ordering, checkout and client-order workflows are outside Phase 3B.
+- Phase 3A Resend/Sentry/health tests are not repeated by this documentation update. Reported Phase 3B Auth email delivery does not constitute a new monitoring/health test.
 
 References: [Supabase SSR clients and Proxy](https://supabase.com/docs/guides/auth/server-side/creating-a-client?queryGroups=framework&framework=nextjs), [password authentication](https://supabase.com/docs/guides/auth/passwords), [Next.js Proxy](https://nextjs.org/docs/app/api-reference/file-conventions/proxy).
