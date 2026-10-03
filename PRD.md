@@ -213,7 +213,8 @@ Requirement submission → discussion → custom offer → client approval → 1
 
 ### Account and access
 
-- Public registration creates client accounts only.
+- Clients register only in the context of starting a service order; no general homepage or primary-navigation signup CTA. Email/password is primary; verification and password recovery are required. Registration creates client access only.
+- Phase 3B provides bilingual login/register/recovery and a protected minimal account page on staging, not a client portal. See `docs/backend/PHASE_3B.md`; anonymous access and account deletion remain disabled.
 - Owner and team accounts are created or invited internally.
 - Server-side authorization protects all private records and files.
 - Users can access only data permitted by their role and assignment.
@@ -332,6 +333,8 @@ Supabase provides PostgreSQL, Auth and private Storage in Singapore; Resend prov
 The repository adds migration-driven tables, RLS, immutable order/policy snapshots, storage definitions, secure client helpers, health endpoint and backup/recovery guidance. Existing public content/SEO and catalog storage remain unchanged. No production registration, application UI, checkout, payments, email delivery or production deployment is part of this phase. Midtrans remains deferred and Adam’s Work must never store card data. Vercel Cron scheduling requires Production; the Custom Environment staging endpoint is prepared for manual authorized testing. Heartbeat is temporary inactivity mitigation only.
 
 ## 16. Midtrans readiness gate
+
+Phase 3B is the approved staging authentication/lifecycle foundation before the Phase 4 order/checkout flow. Owner provisioning is a trusted staging-only operator action; account deactivation/anonymization/hard deletion require a later approved retention workflow. Production authentication is not authorized by this phase. Stage 14 application recovery passed per the owner report; full hosted Auth/Storage restore is deferred until a compatible platform environment is available.
 
 Midtrans onboarding begins only when the staging website is publicly accessible and demonstrates:
 

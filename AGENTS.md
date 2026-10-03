@@ -86,6 +86,7 @@ Implement only the active phase.
 - Staging setup: after Phase 1B and before Phase 2.
 - Phase 2: implement the English-first multipage bilingual public website.
 - Phase 3A: approved backend foundation using Supabase, Resend, Sentry and protected Vercel health checks; no checkout or production registration.
+- Phase 3B: staging-only email/password authentication and user lifecycle foundation; contextual registration, no deletion, commerce or production Auth access. Follow `docs/backend/PHASE_3B.md`.
 - Phase 4: authentication, orders, offers, checkout workflow.
 - Midtrans onboarding: after functional Phase 4 staging.
 - Phase 5: Midtrans Sandbox and payment reconciliation.
@@ -131,6 +132,8 @@ Preserve verified portfolio evidence. Mark internal unknowns as `TBD` and hide i
 - Back up before major schema changes, after meaningful production transactions and weekly once real client data exists; rehearse restore and include private object bytes. Review upgrade needs before data becomes commercially significant.
 
 ## 8. UI and accessibility boundaries
+
+Phase 3B rules: no general signup CTA on homepage/primary navigation; registration belongs to starting an order. Verify identity server-side, require verified email, no anonymous sign-in. Recovery requires provider-verified one-time recovery/invite capability, never a client flag or ordinary session alone. No owner assignment from user metadata/browser email; bootstrap is a trusted staging-only operator action. Preserve RESTRICT FKs, immutable audit/history and all Phase 3A RLS. Do not implement deletion or production Auth settings. Full hosted Auth/Storage restore remains deferred despite the owner-reported successful Stage 14 application recovery.
 
 - Follow `DESIGN_SYSTEM.md`.
 - Maintain semantic HTML, keyboard access, visible focus, reduced motion, and responsive wrapping.

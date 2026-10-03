@@ -3,12 +3,12 @@ import { createServerClient } from "@supabase/ssr"
 import { NextResponse, type NextRequest } from "next/server"
 import { getSupabaseConfig } from "./config"
 
-// Ready for future auth-only Proxy matchers. Deliberately not wired to public
-// pages: no auth routes or public registration are introduced in Phase 3A.
+// Called only by the Auth/account Proxy matcher. Public marketing is unaffected.
 export async function updateSession(request: NextRequest) {
   const { url, key } = getSupabaseConfig()
   let response = NextResponse.next({ request })
   const supabase = createServerClient(url, key, {
+    cookieOptions: { secure: process.env.APP_ENV !== "local", sameSite: "lax" },
     cookies: {
       getAll: () => request.cookies.getAll(),
       setAll(values) {

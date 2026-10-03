@@ -5,6 +5,7 @@ import { policyDefinitions, policyCopy } from "@/data/policies/config"
 import { usePublicLocale } from "@/components/layout/PublicLocaleProvider"
 
 import BrandSignature from "@/components/ui/BrandSignature"
+import { authPaths, authText } from "@/data/auth-content"
 
 export default function Footer() {
   const { t, siteConfig, locale } = usePublicLocale()
@@ -23,6 +24,7 @@ export default function Footer() {
             <a className="min-h-11 min-w-11 inline-flex items-center hover:text-white" href={"mailto:" + siteConfig.email}>Email</a>
             <a className="min-h-11 min-w-11 inline-flex items-center hover:text-white" href={siteConfig.linkedinUrl} target="_blank" rel="noopener noreferrer">LinkedIn Fikri</a>
             <a className="min-h-11 min-w-11 inline-flex items-center hover:text-white" href={siteConfig.instagramUrl} target="_blank" rel="noopener noreferrer">Instagram</a>
+            <Link className="min-h-11 min-w-11 inline-flex items-center hover:text-white" href={authPaths.login[locale]}>{authText("login", locale)}</Link>
           </nav>
         </div>
         <nav aria-label={policyCopy.group[locale]} className="border-t border-line pt-5">

@@ -190,6 +190,8 @@ Requirements:
 
 ### Form
 
+Phase 3B Auth forms share centralized EN/ID copy and Source Sans 3 controls, League Spartan headings/submit actions, existing color tokens, visible labels/focus, 44px targets and announced loading/success/error states. Registration explicitly belongs to starting a service order and has no homepage/primary-nav CTA. The small footer login entry maps locale; Auth language switching opens the equivalent route. Account contains verified identity and preparation notice only, without simulated portal records.
+
 - Persistent label above control; placeholder is not the label.
 - Help text and validation remain close to the field.
 - Error messages explain how to correct the problem.

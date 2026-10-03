@@ -231,6 +231,10 @@ Records sensitive state changes such as payment verification, refund decisions, 
 
 ## 7. Authentication and authorization
 
+Phase 3B implementation: `docs/backend/PHASE_3B.md` maps shared EN/ID login, contextual registration, recovery, confirmation and protected account routes. Auth-only Next.js Proxy refreshes SSR cookies with getClaims and private/no-store headers; server pages/actions independently verify identity with getUser and RLS. Recovery consumes a one-time recovery/invite token on POST immediately before setting the new password; a login session alone cannot authorize reset. No generic service-role client, deletion workflow or commerce API is introduced. Source Auth connections are limited to staging/local until production rollout is separately approved.
+
+Owner provisioning uses `scripts/bootstrap-staging-owner.sql` exclusively through the verified staging SQL Editor. The existing RESTRICT identity FKs and immutable audit/snapshot triggers explain the locally reproduced deletion failure and remain intact. Lifecycle proposals and exact dashboard/email-template settings are in the Phase 3B runbook. Stage 14 application recovery passed per the owner's report; full hosted Auth/Storage restore remains deferred to a compatible platform environment.
+
 - Authentication proves identity; authorization must be enforced separately on the server.
 - Client queries must be scoped to the authenticated client's records.
 - Team queries must be scoped to assigned orders unless the role grants broader access.

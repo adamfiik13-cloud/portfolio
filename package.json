@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "test:backend": "node scripts/test-database.mjs && node --experimental-strip-types scripts/test-backend.mjs",
+    "test:auth": "node --experimental-strip-types scripts/test-auth.mjs && node scripts/test-auth-database.mjs",
     "db:start": "supabase start",
     "db:lint": "supabase db lint --local",
     "db:migrations": "supabase migration list"

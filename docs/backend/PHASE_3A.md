@@ -98,7 +98,7 @@ No restore or production schema command should run as part of deployment. Destru
 
 Before live commerce: verify hosted RLS/Storage signed links, auth refresh/proxy matcher on future private routes, SMTP/Reply-To, sanitized Sentry delivery, concurrent webhook/refund state transitions, backup restoration, retention/legal requirements, and quotas. The session-refresh helper is prepared but not wired to current public routes; future auth pages must call it from a scoped Next.js Proxy and use server-verified identity plus RLS. Refresh responses must be private/no-store and retain cookies/cache headers. Never trust getSession for authorization.
 
-Installation audit reported existing baseline advisories for Next.js 16.3.1, sharp 0.35.3 and js-yaml 4.3.1. These baseline packages were not upgraded during backend scope; address them in a focused security patch before enabling authenticated production traffic. Do not expose local development servers publicly.
+The separate dependency security patch and production hotfix resolved the baseline Next.js/sharp/js-yaml advisories (Next.js 16.3.3, sharp 0.35.5, js-yaml 4.3.2), plus patched transitive brace-expansion. Phase 3B wires staging-only Auth/session routes; see [PHASE_3B.md](PHASE_3B.md). Do not expose local development servers publicly. The owner reports Stage 14 application recovery passed; full hosted Auth/Storage restore remains deferred until a compatible platform environment is available.
 
 Official references:
 - https://supabase.com/docs/guides/auth/server-side/creating-a-client?framework=nextjs
