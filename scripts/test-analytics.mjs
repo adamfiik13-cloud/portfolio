@@ -65,6 +65,10 @@ assert.deepEqual(f.calls.slice(-3), [['consent', 'update', 'denied'], ['clear'],
 const previous = f.calls.length; f.controller.sync('/services', 'granted'); check(f.calls.length === previous)
 // A new public document restores the saved choice; private documents never load.
 const returned = fixture(); returned.controller.sync('/', readConsent(storage)); check(returned.controller.isLoaded())
+// Denial/revocation persists into a fresh document: no subsequent GTM load.
+saveConsent(storage, 'denied')
+const afterReload = fixture(); afterReload.controller.sync('/', readConsent(storage)); check(afterReload.calls.length === 0)
+saveConsent(storage, 'granted')
 for (const route of privateRoutes) {
   const privateDoc = fixture(); privateDoc.controller.sync(route, 'granted'); check(privateDoc.calls.length === 0)
   const navigation = fixture(); navigation.controller.sync('/', 'granted'); navigation.controller.sync(route, 'granted')
@@ -134,6 +138,18 @@ for (const locale of ['en', 'id']) {
   check(clause.blocks.some(block => block.type === 'link' && block.href.startsWith('https://policies.google.com/privacy')))
   check(JSON.stringify(clause).includes(CONSENT_KEY)); check(JSON.stringify(clause).includes('Google Analytics 4'))
   check(analyticsCopy.accept[locale].length > 0 && analyticsCopy.reject[locale].length > 0)
+}
+assert.deepEqual(analyticsCopy.title, { en: 'Help us improve Adam’s Work', id: 'Bantu kami meningkatkan Adam’s Work' })
+assert.deepEqual(analyticsCopy.description, {
+  en: 'We use optional analytics to understand how visitors use the website. Analytics only starts if you accept. You can change your choice at any time.',
+  id: 'Kami menggunakan analytics opsional untuk memahami penggunaan website. Analytics hanya aktif jika Anda menyetujuinya. Pilihan dapat diubah kapan saja.',
+})
+assert.deepEqual(analyticsCopy.accept, { en: 'Accept analytics', id: 'Izinkan analytics' })
+assert.deepEqual(analyticsCopy.reject, { en: 'Continue without analytics', id: 'Lanjut tanpa analytics' })
+// The UI revision must not alter the approved processing, policy or SEO code.
+for (const file of ['lib/analytics/browser.ts', 'lib/analytics/controller.ts', 'lib/analytics/rules.ts', 'lib/analytics/staging-csp.ts', 'next.config.ts', 'data/policies/config.ts', 'data/policies/en.ts', 'data/policies/id.ts', 'lib/public-metadata.ts', 'app/robots.ts', 'app/sitemap.ts']) {
+  const approved = execFileSync('git', ['-c', 'safe.directory=' + root.replaceAll('\\', '/'), 'show', '89625e8b3297fc21976e381380d6fe5d6f09b741:' + file], { encoding: 'utf8' })
+  assert.equal(fs.readFileSync(file, 'utf8').replaceAll('\r\n', '\n'), approved.replaceAll('\r\n', '\n'))
 }
 const ui = fs.readFileSync('components/analytics/AnalyticsConsent.tsx', 'utf8'), footer = fs.readFileSync('components/layout/Footer.tsx', 'utf8')
 check(ui.includes('COOKIE_SETTINGS_EVENT') && footer.includes('COOKIE_SETTINGS_EVENT'))

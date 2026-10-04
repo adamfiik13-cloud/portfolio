@@ -11,10 +11,10 @@ export const analyticsPages: PublicPage[] = (["en", "id"] as const).flatMap(loca
 ])
 
 export const analyticsCopy = {
-  title: { en: "Optional analytics", id: "Analitik opsional" },
-  description: { en: "With your permission, optional analytics helps us understand public-site usage and improve our website and services. It is not required to use this website.", id: "Dengan persetujuan Anda, analitik opsional membantu kami memahami penggunaan halaman publik serta meningkatkan website dan layanan. Analitik tidak diperlukan untuk menggunakan website ini." },
-  accept: { en: "Accept analytics", id: "Terima analitik" },
-  reject: { en: "Reject non-essential", id: "Tolak yang tidak wajib" },
+  title: { en: "Help us improve Adam’s Work", id: "Bantu kami meningkatkan Adam’s Work" },
+  description: { en: "We use optional analytics to understand how visitors use the website. Analytics only starts if you accept. You can change your choice at any time.", id: "Kami menggunakan analytics opsional untuk memahami penggunaan website. Analytics hanya aktif jika Anda menyetujuinya. Pilihan dapat diubah kapan saja." },
+  accept: { en: "Accept analytics", id: "Izinkan analytics" },
+  reject: { en: "Continue without analytics", id: "Lanjut tanpa analytics" },
   settings: { en: "Cookie settings", id: "Pengaturan cookie" },
   privacy: { en: "Privacy Policy", id: "Kebijakan Privasi" },
   close: { en: "Close settings", id: "Tutup pengaturan" },

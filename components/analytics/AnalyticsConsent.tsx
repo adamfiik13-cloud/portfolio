@@ -16,8 +16,10 @@ export default function AnalyticsConsent({ productionEnabled }: { productionEnab
   const [ready, setReady] = useState(false)
   const [settingsOpen, setSettingsOpen] = useState(false)
   const [storageError, setStorageError] = useState(false)
+  const [bannerHeight, setBannerHeight] = useState(0)
   const panel = useRef<HTMLElement>(null)
   const returnFocus = useRef<HTMLElement | null>(null)
+  const visible = ready && !!page && (choice === null || settingsOpen || storageError)
 
   useEffect(() => {
     // Storage exceptions fail closed, including browsers disabling localStorage.
@@ -51,6 +53,17 @@ export default function AnalyticsConsent({ productionEnabled }: { productionEnab
 
   useEffect(() => { if (settingsOpen) panel.current?.focus() }, [settingsOpen])
 
+  useEffect(() => {
+    if (!visible || !panel.current) return
+    // Reserve the measured height so the fixed banner cannot hide the footer.
+    // ResizeObserver also follows font loading, narrow screens and browser zoom.
+    const observer = new ResizeObserver(entries => {
+      setBannerHeight(Math.ceil(entries[0].target.getBoundingClientRect().height))
+    })
+    observer.observe(panel.current)
+    return () => observer.disconnect()
+  }, [visible])
+
   const close = () => { setSettingsOpen(false); returnFocus.current?.focus() }
   const select = (value: AnalyticsConsent) => {
     let persisted = false
@@ -62,23 +75,27 @@ export default function AnalyticsConsent({ productionEnabled }: { productionEnab
     browserAnalytics(productionEnabled).sync(location.pathname, effective)
     close()
   }
-  if (!ready || !page || (choice !== null && !settingsOpen && !storageError)) return null
+  if (!visible) return null
   const privacy = policyDefinitions.find(policy => policy.id === "privacy")!.paths[locale]
-  const buttonClass = "inline-flex min-h-11 min-w-11 items-center justify-center rounded border border-line px-4 py-2 font-interface text-base text-soft hover:border-red-bright focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-red-bright"
+  const buttonClass = "inline-flex min-h-11 min-w-11 w-full sm:w-auto items-center justify-center rounded-control border px-4 py-2 font-interface text-base leading-snug focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-red-bright"
 
-  // In-flow, non-modal region: content stays readable at 200% zoom and on mobile.
-  return <section ref={panel} tabIndex={-1} aria-labelledby="analytics-consent-title" className="border-t border-line bg-black font-interface" onKeyDown={event => {
+  // No backdrop or focus trap. At extreme zoom the copy can scroll independently
+  // while both choices stay directly available in the fixed bottom banner.
+  return <><div aria-hidden="true" style={{ height: bannerHeight }} /><section ref={panel} tabIndex={-1} aria-labelledby="analytics-consent-title" className="fixed inset-x-0 bottom-0 z-[70] flex max-h-[80svh] border-t border-line bg-surface px-4 pt-4 pb-[max(1rem,env(safe-area-inset-bottom))] font-interface shadow-xl" onKeyDown={event => {
     if (event.key === "Escape" && choice !== null && settingsOpen) close()
   }}>
-    <div className="public-container py-5 space-y-3">
-      <h2 id="analytics-consent-title" className="font-display text-2xl font-semibold">{t("title")}</h2>
-      <p className="max-w-3xl text-base leading-relaxed text-muted">{t("description")} {" "}<a href={privacy} className="inline-flex min-h-11 items-center underline underline-offset-4 hover:text-white">{t("privacy")}</a></p>
-      {storageError && <p role="status" className="text-base text-muted">{t("unavailable")}</p>}
-      <div className="flex flex-wrap gap-3">
-        <button type="button" className={buttonClass} onClick={() => select("granted")}>{t("accept")}</button>
-        <button type="button" className={buttonClass} onClick={() => select("denied")}>{t("reject")}</button>
-        {choice !== null && settingsOpen && <button type="button" className={buttonClass} onClick={close}>{t("close")}</button>}
+    <div className="mx-auto flex w-full max-w-[1360px] min-h-0 min-w-0 flex-col gap-3 lg:flex-row lg:items-center lg:gap-6">
+      <div tabIndex={0} className="min-h-0 min-w-0 overflow-y-auto overscroll-contain break-words lg:flex-1">
+        <h2 id="analytics-consent-title" className="font-display text-xl sm:text-2xl font-semibold leading-tight">{t("title")}</h2>
+        <p className="max-w-3xl mt-2 text-sm sm:text-base leading-relaxed text-muted">{t("description")}</p>
+        <a href={privacy} className="inline-flex min-h-11 items-center text-sm text-muted underline underline-offset-4 hover:text-white">{t("privacy")}</a>
+        {storageError && <p role="status" className="text-sm text-muted">{t("unavailable")}</p>}
+      </div>
+      <div className="flex shrink-0 flex-col gap-2 sm:flex-row sm:flex-wrap lg:max-w-lg">
+        <button type="button" className={buttonClass + " border-red bg-red text-white hover:bg-red-bright"} onClick={() => select("granted")}>{t("accept")}</button>
+        <button type="button" className={buttonClass + " border-muted text-soft hover:border-white"} onClick={() => select("denied")}>{t("reject")}</button>
+        {choice !== null && settingsOpen && <button type="button" className={buttonClass + " border-line text-soft hover:border-white"} onClick={close}>{t("close")}</button>}
       </div>
     </div>
-  </section>
+  </section></>
 }
