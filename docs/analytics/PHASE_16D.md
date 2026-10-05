@@ -2,7 +2,7 @@
 
 ## Boundary and configuration
 
-- GTM container: `GTM-5HNJFLP7`. Current production GA4 property: `G-NQ5Q41KYSG`. Never use obsolete `G-D7GT4L2LHH`.
+- GTM container: `GTM-5HNJFLP7`. Approved final production GA4 Measurement ID: `G-NQ5Q41KYSG`; no other measurement ID is approved.
 - One container/property; no second staging GA4 property. No dashboard/tag changes are made by this implementation.
 - Set **`NEXT_PUBLIC_GTM_ID=GTM-5HNJFLP7` in Vercel Custom Environment staging only**, then redeploy staging: this public variable is compiled into the browser bundle. Missing/invalid configuration fails closed. Production configuration/promotion requires separate authorization.
 - Loader requires explicit `granted`, a current allowlisted public route, valid container ID and exact hostname `adamswork.app` or `staging.adamswork.app`. Localhost and arbitrary preview hosts never load it. No noscript iframe, preconnect or Google font request is added.
@@ -51,7 +51,17 @@ The owner observed consent already granted, `gtm.js` HTTP 200 and a Tag Assistan
 
 The traced application flow is: staging public allowlist → persisted or explicit granted choice → default denied/update denied for staging → dynamic `gtm.js` insertion → Google's session-specific debug/handshake code. That final session state, blocked request initiator, cookie acceptance, cache and browser-extension behavior are unavailable here. No evidence identifies a GTM handshake request blocked by this CSP. `vercel.live` is not a required origin in Google's published Preview CSP list; its observed rejection does not prove a GTM failure or Vercel Toolbar interference. No speculative CSP/loader patch was applied, no collection endpoint was allowed, and the container remains unpublished.
 
-**Single next diagnostic:** record one fresh Chrome session started from the GTM container's Preview button with staging consent already granted. Preserve Network and Console, confirm the container response, then use Retry once after it loads. Capture the failed handshake request/status and initiator (including CSP violation), with all cookie/debug-token values redacted. This one trace distinguishes timing from session/CSP/toolbar/cache causes. Do not disable consent, allow GA endpoints or publish the container. Google documents [Retry for late-loaded tags](https://support.google.com/tagmanager/answer/10039345?hl=en-GB), [consent-gated connection](https://developers.google.com/tag-platform/security/guides/consent-debugging), and [same-browser Preview session requirements](https://support.google.com/tagmanager/answer/6107056?hl=en).
+## Operator-reported staging QA closeout — 5 October 2026 WITA
+
+The operator approved manual QA on `d5d1852b215d66df8e728fe20a8325a04d80dc77`. These are operator-reported results, not a new agent-run hosted test:
+
+- Stage 16G.1: Tag Assistant connected successfully.
+- Stage 16G.2: Tag Assistant Connected; container `GTM-5HNJFLP7`, Preview version.
+- `Google Tag - GA4 - Production`: Not Fired. `GA4 Event - public_page_view`: Not Fired. Tags Fired: None.
+- Staging `public_page_view`: absent. GA4 collect requests: 0.
+- The earlier connection failure was not reproduced in a clean Preview session. Its historical root cause remains unproven; no loader or CSP patch is required.
+
+The dynamic/basic-consent loader remains approved. Tag Assistant works in a clean Preview session; `vercel.live` was not added to CSP and GA4 collection endpoints remain excluded on staging. The earlier diagnostic request is closed by this successful operator QA. The container remains unpublished; no production activation is authorized by this closeout. Background references: [consent-gated connection](https://developers.google.com/tag-platform/security/guides/consent-debugging) and [same-browser Preview requirements](https://support.google.com/tagmanager/answer/6107056?hl=en).
 
 ## Disable / rollback
 
