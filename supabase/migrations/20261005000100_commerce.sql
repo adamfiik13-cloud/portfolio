@@ -5,6 +5,85 @@ create unique index orders_creation_key_idx on public.orders(client_id,creation_
 alter table public.custom_offers add column transaction_terms jsonb not null default '{}'::jsonb;
 alter table public.custom_offers add column terms_sha256 text check(terms_sha256 ~ '^[a-f0-9]{64}$');
 
+-- Non-STRICT validators always return a boolean, including for SQL/JSON NULL.
+-- Check container types before array operations or numeric/date casts.
+create function private.commerce_valid_text(value jsonb,max_length integer default 6000)
+returns boolean language sql immutable set search_path='' as $$
+  select (jsonb_typeof(value)='string' and length(value#>>'{}') between 1 and max_length and (value#>>'{}') ~ '[^[:space:]]') is true
+$$;
+create function private.commerce_valid_terms(terms jsonb)
+returns boolean language plpgsql immutable set search_path='' as $$
+declare field text; item jsonb; amount numeric; total numeric=0;
+begin
+  if jsonb_typeof(terms) is distinct from 'object' then return false; end if;
+  if not private.commerce_valid_text(terms->'service_id',100) or
+    ((terms->>'service_id') ~ '^[a-z0-9]+(-[a-z0-9]+)*$') is not true then return false; end if;
+  foreach field in array array['package_id','service_name','estimated_duration','cost_disclosure'] loop
+    if not private.commerce_valid_text(terms->field) then return false; end if;
+  end loop;
+  if jsonb_typeof(terms->'amount_idr') is distinct from 'number' or terms->>'currency' is distinct from 'IDR' then return false; end if;
+  amount=(terms->>'amount_idr')::numeric;
+  if amount<=0 or amount>1000000000 or trunc(amount)<>amount then return false; end if;
+  foreach field in array array['scope','deliverables','exclusions','requirements'] loop
+    if jsonb_typeof(terms->field) is distinct from 'array' then return false; end if;
+    if jsonb_array_length(terms->field) not between 1 and 40 then return false; end if;
+    for item in select * from jsonb_array_elements(terms->field) loop
+      if not private.commerce_valid_text(item) then return false; end if;
+    end loop;
+  end loop;
+  if jsonb_typeof(terms->'revision_rule') is distinct from 'object' or
+    not private.commerce_valid_text(terms->'revision_rule'->'description') then return false; end if;
+  if jsonb_typeof(terms->'milestones') is distinct from 'array' then return false; end if;
+  if jsonb_array_length(terms->'milestones') not between 1 and 20 then return false; end if;
+  for item in select * from jsonb_array_elements(terms->'milestones') loop
+    if jsonb_typeof(item) is distinct from 'object' or not private.commerce_valid_text(item->'label') or
+      jsonb_typeof(item->'amount_idr') is distinct from 'number' then return false; end if;
+    amount=(item->>'amount_idr')::numeric;
+    if amount<=0 or amount>1000000000 or trunc(amount)<>amount then return false; end if;
+    total=total+amount;
+  end loop;
+  -- Work-value allocations for refunds, never installments: payment stays 100% upfront.
+  return (total=(terms->>'amount_idr')::numeric) is true;
+end $$;
+create function private.commerce_valid_offer_terms(terms jsonb)
+returns boolean language plpgsql immutable set search_path='' as $$
+declare position integer;
+begin
+  if jsonb_typeof(terms) is distinct from 'object' or
+    not private.commerce_valid_terms(terms->'en') or not private.commerce_valid_terms(terms->'id') then return false; end if;
+  if terms->'en'->>'service_id' is distinct from terms->'id'->>'service_id' or
+    terms->'en'->>'package_id' is distinct from terms->'id'->>'package_id' or
+    terms->'en'->'amount_idr' is distinct from terms->'id'->'amount_idr' or
+    jsonb_array_length(terms->'en'->'milestones')<>jsonb_array_length(terms->'id'->'milestones') then return false; end if;
+  for position in 0..jsonb_array_length(terms->'en'->'milestones')-1 loop
+    if terms->'en'->'milestones'->position->'amount_idr' is distinct from terms->'id'->'milestones'->position->'amount_idr' then return false; end if;
+  end loop;
+  return true;
+end $$;
+create function private.commerce_valid_policies(policies jsonb,locale text)
+returns boolean language plpgsql immutable set search_path='' as $$
+declare policy jsonb; seen text[]='{}'; field text;
+begin
+  if (locale in ('en','id')) is not true or jsonb_typeof(policies) is distinct from 'array' then return false; end if;
+  if jsonb_array_length(policies)<>4 then return false; end if;
+  for policy in select * from jsonb_array_elements(policies) loop
+    if jsonb_typeof(policy) is distinct from 'object' then return false; end if;
+    foreach field in array array['policy_type','version','locale','effective_date','content','content_sha256'] loop
+      if not private.commerce_valid_text(policy->field,2147483647) then return false; end if;
+    end loop;
+    if (policy->>'policy_type' in ('terms','service','refund','privacy')) is not true or
+      policy->>'locale' is distinct from locale or policy->>'policy_type'=any(seen) or
+      ((policy->>'content_sha256') ~ '^[a-f0-9]{64}$') is not true or
+      ((policy->>'effective_date') ~ '^[0-9]{4}-[0-9]{2}-[0-9]{2}$') is not true then return false; end if;
+    begin
+      perform (policy->>'effective_date')::date;
+    exception when invalid_datetime_format or datetime_field_overflow then return false;
+    end;
+    seen=array_append(seen,policy->>'policy_type');
+  end loop;
+  return true;
+end $$;
+
 create function private.guard_sent_offer() returns trigger language plpgsql set search_path='' as $$
 begin
   if old.status in ('sent','accepted') and
@@ -24,13 +103,12 @@ declare existing public.custom_offers;
 begin
   if not exists(select 1 from public.staff_access s join auth.users u on u.id=s.user_id where s.user_id=p_actor and s.active and s.role='owner' and u.email_confirmed_at is not null and not coalesce(u.is_anonymous,false)) then raise exception 'Owner required'; end if;
   if not exists(select 1 from auth.users where id=p_client and email_confirmed_at is not null and not coalesce(is_anonymous,false)) then raise exception 'Verified client required'; end if;
-  if p_expires<=now() or p_hash !~ '^[a-f0-9]{64}$' or not (p_terms ? 'en' and p_terms ? 'id') or
-    p_terms->'en'->>'service_id' is distinct from p_terms->'id'->>'service_id' or
-    p_terms->'en'->>'amount_idr' is distinct from p_terms->'id'->>'amount_idr' then raise exception 'Invalid offer'; end if;
+  if p_id is null or p_expires is null or p_expires<=now() or
+    (p_hash ~ '^[a-f0-9]{64}$') is not true or private.commerce_valid_offer_terms(p_terms) is not true then raise exception 'Invalid offer'; end if;
   perform pg_advisory_xact_lock(hashtextextended(p_id::text,0));
   select * into existing from public.custom_offers where id=p_id;
   if found then
-    if existing.created_by<>p_actor or existing.client_id<>p_client or existing.terms_sha256<>p_hash or existing.expires_at<>p_expires then raise exception 'Duplicate key mismatch'; end if;
+    if existing.created_by is distinct from p_actor or existing.client_id is distinct from p_client or existing.terms_sha256 is distinct from p_hash or existing.expires_at is distinct from p_expires then raise exception 'Duplicate key mismatch'; end if;
     return existing.id;
   end if;
   insert into public.custom_offers(id,client_id,title,scope,amount_idr,estimated_duration,revision_rule,expires_at,status,created_by,transaction_terms,terms_sha256)
@@ -43,19 +121,16 @@ create function public.commerce_place_order(p_client uuid,p_key uuid,p_locale te
 returns uuid language plpgsql security definer set search_path='' as $$
 declare result uuid; previous_hash text; offer public.custom_offers; policy jsonb; version_id uuid; ids uuid[]='{}'; policy_ids text[]='{}'; stored public.policy_versions;
 begin
-  if p_agreed is distinct from true or p_key is null or p_locale not in ('en','id') or p_hash !~ '^[a-f0-9]{64}$' then raise exception 'Explicit acceptance required'; end if;
+  if p_agreed is distinct from true or p_key is null or (p_locale in ('en','id')) is not true or (p_hash ~ '^[a-f0-9]{64}$') is not true then raise exception 'Explicit acceptance required'; end if;
   if not exists(select 1 from auth.users where id=p_client and email_confirmed_at is not null and not coalesce(is_anonymous,false)) then raise exception 'Verified client required'; end if;
-  if jsonb_array_length(p_policies)<>4 or (p_terms->>'amount_idr')::bigint<=0 or p_terms->>'currency'<>'IDR' or
-    jsonb_array_length(p_terms->'scope')=0 or jsonb_array_length(p_terms->'deliverables')=0 or jsonb_array_length(p_terms->'requirements')=0 or
-    jsonb_array_length(p_terms->'exclusions')=0 or jsonb_array_length(p_terms->'milestones')=0 or
-    coalesce(p_terms->>'estimated_duration','')='' or coalesce(p_terms->'revision_rule'->>'description','')='' or coalesce(p_terms->>'cost_disclosure','')='' or
-    (select sum((m->>'amount_idr')::bigint) from jsonb_array_elements(p_terms->'milestones') m)<>(p_terms->>'amount_idr')::bigint then raise exception 'Incomplete transaction terms'; end if;
+  if private.commerce_valid_terms(p_terms) is not true then raise exception 'Incomplete transaction terms'; end if;
+  if private.commerce_valid_policies(p_policies,p_locale) is not true then raise exception 'Invalid policy payload'; end if;
   if p_offer is not null then
     select * into offer from public.custom_offers where id=p_offer for update;
-    if not found or offer.client_id<>p_client or offer.transaction_terms->p_locale<>p_terms then raise exception 'Offer unavailable'; end if;
+    if not found or offer.client_id is distinct from p_client or offer.transaction_terms->p_locale is distinct from p_terms then raise exception 'Offer unavailable'; end if;
     if offer.status='accepted' then
       select selected_package->>'acceptance_fingerprint' into previous_hash from public.order_snapshots where order_id=offer.order_id;
-      if previous_hash<>p_hash then raise exception 'Duplicate acceptance mismatch'; end if;
+      if previous_hash is distinct from p_hash then raise exception 'Duplicate acceptance mismatch'; end if;
       return offer.order_id;
     end if;
     if offer.status<>'sent' or offer.expires_at<=now() then raise exception 'Offer unavailable'; end if;
@@ -63,17 +138,17 @@ begin
   perform pg_advisory_xact_lock(hashtextextended(p_client::text||p_key::text,0));
   select o.id,s.selected_package->>'acceptance_fingerprint' into result,previous_hash from public.orders o join public.order_snapshots s on s.order_id=o.id where o.client_id=p_client and o.creation_key=p_key;
   if found then
-    if previous_hash<>p_hash then raise exception 'Duplicate key mismatch'; end if;
+    if previous_hash is distinct from p_hash then raise exception 'Duplicate key mismatch'; end if;
     return result;
   end if;
   for policy in select * from jsonb_array_elements(p_policies) loop
-    if policy->>'locale'<>p_locale or policy->>'policy_type'=any(policy_ids) then raise exception 'Policy locale/types mismatch'; end if;
+    if policy->>'locale' is distinct from p_locale or policy->>'policy_type'=any(policy_ids) then raise exception 'Policy locale/types mismatch'; end if;
     policy_ids=array_append(policy_ids,policy->>'policy_type');
     insert into public.policy_versions(policy_type,version,locale,effective_date,content,content_sha256,published_at)
     values(policy->>'policy_type',policy->>'version',p_locale,(policy->>'effective_date')::date,policy->>'content',policy->>'content_sha256',(policy->>'effective_date')::date::timestamptz)
     on conflict(policy_type,version,locale) do nothing;
     select * into stored from public.policy_versions where policy_type=policy->>'policy_type' and version=policy->>'version' and locale=p_locale;
-    if stored.content<>policy->>'content' or stored.content_sha256<>policy->>'content_sha256' or stored.effective_date<>(policy->>'effective_date')::date then raise exception 'Policy version content changed'; end if;
+    if stored.content is distinct from policy->>'content' or stored.content_sha256 is distinct from policy->>'content_sha256' or stored.effective_date is distinct from (policy->>'effective_date')::date then raise exception 'Policy version content changed'; end if;
     version_id=stored.id; ids=array_append(ids,version_id);
   end loop;
   insert into public.orders(client_id,service_id,locale,amount_idr,creation_key) values(p_client,p_terms->>'service_id',p_locale,(p_terms->>'amount_idr')::bigint,p_key) returning id into result;
@@ -89,6 +164,7 @@ begin
   return result;
 end $$;
 revoke all on function private.guard_sent_offer() from public,anon,authenticated;
+revoke all on function private.commerce_valid_text(jsonb,integer),private.commerce_valid_terms(jsonb),private.commerce_valid_offer_terms(jsonb),private.commerce_valid_policies(jsonb,text) from public,anon,authenticated,service_role;
 revoke all on function public.commerce_create_offer(uuid,uuid,uuid,jsonb,text,timestamptz),public.commerce_place_order(uuid,uuid,text,jsonb,text,jsonb,boolean,uuid) from public,anon,authenticated;
 grant execute on function public.commerce_create_offer(uuid,uuid,uuid,jsonb,text,timestamptz),public.commerce_place_order(uuid,uuid,text,jsonb,text,jsonb,boolean,uuid) to service_role;
 commit;

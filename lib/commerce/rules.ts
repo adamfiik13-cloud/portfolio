@@ -17,7 +17,7 @@ export function validTerms(value: unknown): value is TransactionTerms {
     Number.isSafeInteger(v.amount_idr) && v.amount_idr > 0 && v.amount_idr <= 1_000_000_000 && v.currency === "IDR" &&
     lines(v.scope) && lines(v.deliverables) && lines(v.exclusions) && lines(v.requirements) && text(v.estimated_duration) &&
     text(v.revision_rule?.description) && text(v.cost_disclosure) && Array.isArray(v.milestones) && v.milestones.length > 0 && v.milestones.length <= 20 &&
-    v.milestones.every(m => text(m.label) && Number.isSafeInteger(m.amount_idr) && m.amount_idr > 0) && v.milestones.reduce((sum, m) => sum + m.amount_idr, 0) === v.amount_idr
+    v.milestones.every(m => m !== null && typeof m === "object" && text(m.label) && Number.isSafeInteger(m.amount_idr) && m.amount_idr > 0) && v.milestones.reduce((sum, m) => sum + m.amount_idr, 0) === v.amount_idr
 }
 export function validOfferTerms(value: OfferTerms) {
   return validTerms(value?.en) && validTerms(value?.id) && value.en.service_id === value.id.service_id && value.en.package_id === value.id.package_id &&
