@@ -10,6 +10,25 @@ import { getPolicyMetadata, policyDefinitions, policyOperator } from "@/data/pol
 import { validTerms, validOfferTerms, isUuid, type Locale, type TransactionTerms, type OfferTerms } from "./rules"
 
 export const hash = (value: unknown) => createHash("sha256").update(JSON.stringify(value)).digest("hex")
+function orderedFields(value: object, keys: string[]) {
+  // Include unexpected fields too: never silently exclude content from integrity checks.
+  const remaining = Object.keys(value).filter(key => !keys.includes(key)).sort()
+  return Object.fromEntries([...keys, ...remaining].map(key => [key, (value as Record<string, unknown>)[key]]))
+}
+export function offerHash(terms: OfferTerms) {
+  // Match the original submitOffer serialization, including nested objects. JSONB
+  // changes key order on storage; existing sent offers must retain their hashes.
+  const ordered = orderedFields(terms, ["en", "id"])
+  for (const locale of ["en", "id"] as const) {
+    const value = terms[locale]
+    ordered[locale] = {
+      ...orderedFields(value, ["service_id", "package_id", "service_name", "amount_idr", "currency", "scope", "deliverables", "requirements", "exclusions", "estimated_duration", "revision_rule", "milestones", "cost_disclosure"]),
+      revision_rule: orderedFields(value.revision_rule, ["description"]),
+      milestones: value.milestones.map(m => orderedFields(m, ["label", "amount_idr"])),
+    }
+  }
+  return hash(ordered)
+}
 export function policyBundle(locale: Locale) {
   return policyDefinitions.map(p => {
     const metadata = getPolicyMetadata(p.id)
@@ -47,7 +66,7 @@ export async function offerAgreement(id: string, locale: Locale) {
   if (!client || !user) return null
   const { data, error } = await client.from("custom_offers").select("id,client_id,status,expires_at,order_id,transaction_terms,terms_sha256,version").eq("id", id).eq("client_id", user.id).maybeSingle()
   if (error) throw new Error("Commerce unavailable")
-  if (!data || !validOfferTerms(data.transaction_terms) || hash(data.transaction_terms) !== data.terms_sha256) return null
+  if (!data || !validOfferTerms(data.transaction_terms) || offerHash(data.transaction_terms) !== data.terms_sha256) return null
   return { offer: data, canAccept: data.status === "sent" && new Date(data.expires_at).getTime() > Date.now(), ...agreement(data.transaction_terms[locale], locale, id) }
 }
 export async function placeOrder(input: { key: string; fingerprint: string; serviceId?: string; offerId?: string; locale: Locale }) {
@@ -66,7 +85,7 @@ export async function placeOrder(input: { key: string; fingerprint: string; serv
 export async function createOffer(input: { id: string; clientId: string; terms: OfferTerms; expires: string }) {
   const context = await ownerContext()
   if (!context?.user || !isUuid(input.id) || !isUuid(input.clientId) || !validOfferTerms(input.terms) || !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/.test(input.expires) || !Number.isFinite(Date.parse(input.expires)) || Date.parse(input.expires) <= Date.now()) throw new Error("Invalid offer")
-  const { data, error } = await mutationClient().rpc("commerce_create_offer", { p_actor: context.user.id, p_id: input.id, p_client: input.clientId, p_terms: input.terms, p_hash: hash(input.terms), p_expires: input.expires })
+  const { data, error } = await mutationClient().rpc("commerce_create_offer", { p_actor: context.user.id, p_id: input.id, p_client: input.clientId, p_terms: input.terms, p_hash: offerHash(input.terms), p_expires: input.expires })
   if (error || !isUuid(data)) throw new Error("Commerce unavailable")
   return data
 }

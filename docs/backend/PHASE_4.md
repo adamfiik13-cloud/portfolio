@@ -51,3 +51,11 @@ RPC validation rejects missing/NULL/wrong-type transaction and policy fields bef
 5. Confirm own order list/detail, translated status labels, mobile/keyboard/error feedback, staging noindex/nofollow and empty sitemap. Verify no Google measurement on private routes. Online payment remains unavailable; no Phase 5 or production promotion.
 
 Rollback before any accepted staging transaction: revert the application commit if necessary; retain the additive schema and immutable history. Do not delete accepted orders, policy versions or audit records. Hosted migration execution and visual/copy/E2E QA are operator checkpoints.
+
+## Offer detail 404 correction — 2026-10-06
+
+Operator reports commerce migration applied and all four Local/Remote versions aligned; do not reapply it. List links and awaited EN/ID route params are correct. Detail rejected otherwise valid terms because `hash(transaction_terms)` used insertion-order-dependent `JSON.stringify`: PostgreSQL JSONB reordered keys, so the stored creation hash differed on read and `offerAgreement` returned null → `notFound()`; the list did not check hashes. Reproduced with real local PostgreSQL storage, not a hosted session.
+
+`offerHash` uses the original owner-form field order (including EN/ID, revisions and milestones) on create/read, preserving existing offer hashes and all values; unknown fields remain included in integrity checks. Session-client reads, recipient filter and RLS are unchanged. No schema, hosted record, acceptance, snapshot or idempotency change. `node scripts/test-commerce.mjs`: 179 focused checks pass, including legacy JSONB round trip, actual EN/ID detail wrappers/list links, recipient access, Client B denial under RLS and detail 404, tamper rejection, acceptance/retries and immutable records. Lint, type-check and fresh production build each passed once after the final code fix.
+
+After staging deployment Ready, Client A must reopen the **same** offer at `/id/penawaran/4f0c998a-49e9-4cd7-9a57-7962f1da2179` and `/offers/4f0c998a-49e9-4cd7-9a57-7962f1da2179`, confirm the bilingual details and pending status, and leave acceptance unchecked. Hosted authenticated QA remains pending: no Client A session was used for this correction. If still 404, report only the route, time and visible result; never share credentials/session cookies.
