@@ -1,0 +1,58 @@
+import type { PublicLocale } from "./public-content"
+
+export const commercePaths = {
+  checkout: { en: "/checkout", id: "/id/pemesanan" },
+  orders: { en: "/orders", id: "/id/pesanan" },
+  offers: { en: "/offers", id: "/id/penawaran" },
+  owner: { en: "/owner/offers", id: "/id/pemilik/penawaran" },
+} as const
+export const commerceCopy = {
+  checkout: ["Order summary", "Ringkasan pesanan"],
+  orders: ["Your orders", "Pesanan Anda"],
+  offers: ["Your offers", "Penawaran Anda"],
+  owner: ["Create a custom offer", "Buat penawaran khusus"],
+  entry: ["Review order options", "Tinjau pilihan pemesanan"],
+  payment: ["Online payment is not yet available. No payment is collected and work has not started.", "Pembayaran online belum tersedia. Tidak ada pembayaran yang ditagih dan pekerjaan belum dimulai."],
+  commencement: ["Work and the delivery countdown start only after verified payment AND mandatory brief completeness approved by admin.", "Pekerjaan dan hitungan durasi dimulai hanya setelah pembayaran terverifikasi DAN kelengkapan mandatory brief disetujui admin."],
+  unavailable: ["Ordering is temporarily unavailable. Please contact Adam’s Work; no order has been confirmed.", "Pemesanan sementara tidak tersedia. Silakan hubungi Adam’s Work; belum ada pesanan yang dikonfirmasi."],
+  missing: ["Direct ordering is unavailable until the following transaction terms are confirmed:", "Pemesanan langsung belum tersedia sampai ketentuan transaksi berikut dikonfirmasi:"],
+  inquiry: ["Discuss this service", "Diskusikan layanan ini"],
+  signIn: ["Sign in to review an order", "Masuk untuk meninjau pesanan"],
+  register: ["Create a client account for this order", "Buat akun klien untuk pesanan ini"],
+  account: ["Account", "Akun"],
+  empty: ["Nothing to show yet.", "Belum ada data."],
+  accept: ["Accept agreement and create unpaid order", "Setujui kesepakatan dan buat pesanan belum dibayar"],
+  agreement: ["I have read and agree to these Transaction Terms and the displayed Terms, Service, Refund and Privacy policies. This is separate from optional analytics consent.", "Saya telah membaca dan menyetujui Ketentuan Transaksi serta kebijakan Syarat, Layanan, Refund dan Privasi yang ditampilkan. Persetujuan ini terpisah dari persetujuan analitik opsional."],
+  changed: ["The agreement changed or expired. Reload and review it again before accepting.", "Kesepakatan berubah atau kedaluwarsa. Muat ulang dan tinjau kembali sebelum menyetujui."],
+  invalid: ["Complete all required fields and explicit agreement. No order was created.", "Lengkapi semua isian wajib dan persetujuan eksplisit. Tidak ada pesanan yang dibuat."],
+  pending: ["Saving…", "Menyimpan…"],
+  saved: ["Offer saved. Share its private link with the intended client; no email is sent.", "Penawaran tersimpan. Bagikan tautan privatnya kepada klien yang dituju; tidak ada email yang dikirim."],
+  price: ["Agreed total (IDR)", "Total disepakati (IDR)"],
+  scope: ["Scope", "Ruang lingkup"],
+  deliverables: ["Deliverables", "Hasil kerja"],
+  exclusions: ["Exclusions", "Tidak termasuk"],
+  requirements: ["Mandatory inputs", "Masukan wajib"],
+  duration: ["Duration / estimate", "Durasi / estimasi"],
+  revisions: ["Revision / clarification rules", "Aturan revisi / klarifikasi"],
+  milestones: ["Milestones and agreed values", "Milestone dan nilai disepakati"],
+  fees: ["Taxes, fees and third-party costs", "Pajak, biaya dan biaya pihak ketiga"],
+  policies: ["Applicable policies", "Kebijakan yang berlaku"],
+  terms: ["Accepted agreement", "Kesepakatan yang disetujui"],
+  work: ["Work status", "Status pekerjaan"],
+  paymentStatus: ["Payment status", "Status pembayaran"],
+  refund: ["Refund status", "Status refund"],
+  brief: ["Brief status", "Status brief"],
+  expires: ["Offer expires", "Penawaran berlaku sampai"],
+  version: ["Version", "Versi"],
+  effective: ["Effective", "Berlaku"],
+} as const
+export function commerceText(key: keyof typeof commerceCopy, locale: PublicLocale) { return commerceCopy[key][locale === "en" ? 0 : 1] }
+const statuses: Record<string, readonly [string, string]> = {
+  draft: ["Draft", "Draf"], unpaid: ["Unpaid", "Belum dibayar"], none: ["None", "Tidak ada"], incomplete: ["Incomplete", "Belum lengkap"],
+  awaiting_brief: ["Awaiting brief", "Menunggu brief"], brief_review: ["Brief review", "Review brief"], ready: ["Ready", "Siap"],
+  in_progress: ["In progress", "Sedang dikerjakan"], delivered: ["Delivered", "Diserahkan"], revision: ["Revision", "Revisi"], completed: ["Completed", "Selesai"],
+  cancelled: ["Cancelled", "Dibatalkan"], pending: ["Pending", "Menunggu"], paid: ["Paid", "Dibayar"], failed: ["Failed", "Gagal"], expired: ["Expired", "Kedaluwarsa"],
+  requested: ["Requested", "Diajukan"], reviewing: ["Under review", "Ditinjau"], approved: ["Approved", "Disetujui"], rejected: ["Rejected", "Ditolak"], partial: ["Partial", "Sebagian"], refunded: ["Refunded", "Dikembalikan"],
+  submitted: ["Submitted", "Dikirim"], changes_requested: ["Changes requested", "Perubahan diminta"], sent: ["Awaiting acceptance", "Menunggu persetujuan"], accepted: ["Accepted", "Disetujui"], withdrawn: ["Withdrawn", "Ditarik"],
+}
+export function statusLabel(value: string, locale: PublicLocale) { return statuses[value]?.[locale === "en" ? 0 : 1] ?? (locale === "en" ? "Unknown status" : "Status tidak dikenal") }

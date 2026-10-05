@@ -44,7 +44,7 @@ export default function PolicyPage({ locale, policyId }: { locale: PublicLocale;
   </ServiceShell>
 }
 
-function PolicyBlockContent({ block, locale }: { block: PolicyBlock; locale: PublicLocale }) {
+export function PolicyBlockContent({ block, locale }: { block: PolicyBlock; locale: PublicLocale }) {
   if (block.type === "link") return <p><a href={block.href} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center underline underline-offset-4 hover:text-white">{block.label}</a></p>
   if (block.type === "paragraph") return <p><PolicyText text={block.text} locale={locale} /></p>
   if (block.type === "list") {

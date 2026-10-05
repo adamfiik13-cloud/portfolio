@@ -320,7 +320,7 @@ No KPI target is final until a baseline exists.
 | Staging gate | Stable staging environment after Phase 1B and before Phase 2 |
 | 2 | Implement the English-first multipage bilingual public website |
 | 3 | Approved bilingual services, packages, pricing, FAQs, and policies |
-| 4 | Authentication, order model, checkout shell, and working staging workflow |
+| 4 | Commerce foundation reusing Phase 3B Auth, orders, offers, checkout shell, and working staging workflow |
 | Midtrans onboarding | Register using functional public staging after Phase 4 |
 | 5 | Midtrans Sandbox and verified webhook flow |
 | 6 | Client portal, admin workspace, team assignments, files, messages, and delivery |

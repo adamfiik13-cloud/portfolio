@@ -9,13 +9,15 @@ import BrandSignature from "@/components/ui/BrandSignature"
 import AuthForm, { LogoutForm } from "./AuthForm"
 import { authContext } from "@/lib/auth/context"
 import { validToken } from "@/lib/auth/rules"
+import { queryOrderIntent, intentQuery, orderDestination } from "@/lib/auth/order-intent"
+import { commercePaths, commerceText } from "@/data/commerce"
 
 export type AuthSearch = Promise<Record<string, string | string[] | undefined>>
 export function authMetadata(kind: AuthPageId, locale: PublicLocale): Metadata {
   return { title: authText(kind, locale), robots: { index: false, follow: false }, alternates: { canonical: null, languages: {} }, openGraph: null, twitter: null, referrer: "no-referrer" }
 }
-function Shell({ locale, kind, children, token = "", tokenType = "" }: { locale: PublicLocale; kind: AuthPageId; children: React.ReactNode; token?: string; tokenType?: string }) {
-  const suffix = token ? "?token_hash=" + encodeURIComponent(token) + "&type=" + encodeURIComponent(tokenType) : ""
+function Shell({ locale, kind, children, token = "", tokenType = "", orderingIntent = "" }: { locale: PublicLocale; kind: AuthPageId; children: React.ReactNode; token?: string; tokenType?: string; orderingIntent?: string }) {
+  const suffix = token ? "?token_hash=" + encodeURIComponent(token) + "&type=" + encodeURIComponent(tokenType) : intentQuery(orderingIntent)
   const paths = { en: authPaths[kind].en + suffix, id: authPaths[kind].id + suffix }
   return <PublicLocaleProvider locale={locale} paths={paths}>
     <a href="#auth-main" className="skip-link">{authText(kind, locale)}</a>
@@ -28,22 +30,23 @@ function Shell({ locale, kind, children, token = "", tokenType = "" }: { locale:
 }
 export async function AuthPage({ kind, locale, searchParams }: { kind: AuthFormKind; locale: PublicLocale; searchParams: AuthSearch }) {
   const context = await authContext()
-  if (["login", "register"].includes(kind) && context.user) redirect(authPaths.account[locale])
   const query = await searchParams
+  const orderingIntent = queryOrderIntent(query)
+  if (["login", "register"].includes(kind) && context.user) redirect(orderDestination(orderingIntent, locale) ?? authPaths.account[locale])
   const token = typeof query.token_hash === "string" ? query.token_hash : ""
   const tokenType = typeof query.type === "string" ? query.type : ""
   if (kind === "confirm" && ["recovery", "invite"].includes(tokenType) && validToken(token)) redirect(authPaths.reset[locale] + "?token_hash=" + encodeURIComponent(token) + "&type=" + tokenType)
   const badLink = ["reset", "confirm"].includes(kind) && (!validToken(token) || (kind === "reset" ? !["recovery", "invite"].includes(tokenType) : tokenType !== "signup"))
   const intro = { login: "loginIntro", register: "registerIntro", forgot: "forgotIntro", reset: "resetIntro", confirm: "confirmIntro" } as const
   const notice = typeof query.notice === "string" && ["passwordSaved", "invalidLink", "logoutFailed"].includes(query.notice) ? query.notice as "passwordSaved" | "invalidLink" | "logoutFailed" : null
-  return <Shell kind={kind} locale={locale} token={badLink ? "" : token} tokenType={tokenType}>
+  return <Shell kind={kind} locale={locale} token={badLink ? "" : token} tokenType={tokenType} orderingIntent={orderingIntent}>
     <p className="text-muted leading-relaxed">{authText(intro[kind], locale)}</p>
     {notice && <p role="status" className="rounded-xl border border-line p-4">{authText(notice, locale)}</p>}
     {!context.configured && <p role="status">{authText("unavailable", locale)}</p>}
-    {badLink ? <p role="alert">{authText("invalidLink", locale)}</p> : <AuthForm kind={kind} locale={locale} disabled={!context.configured} token={token} tokenType={tokenType} />}
+    {badLink ? <p role="alert">{authText("invalidLink", locale)}</p> : <AuthForm kind={kind} locale={locale} disabled={!context.configured} token={token} tokenType={tokenType} orderingIntent={orderingIntent} />}
     <nav className="flex flex-col items-start gap-1 text-muted underline underline-offset-4">
-      {kind !== "login" && <Link className="inline-flex min-h-11 items-center" href={authPaths.login[locale]}>{authText("loginLink", locale)}</Link>}
-      {kind === "login" && <Link className="inline-flex min-h-11 items-center" href={authPaths.register[locale]}>{authText("registerLink", locale)}</Link>}
+      {kind !== "login" && <Link className="inline-flex min-h-11 items-center" href={authPaths.login[locale] + intentQuery(orderingIntent)}>{authText("loginLink", locale)}</Link>}
+      {kind === "login" && <Link className="inline-flex min-h-11 items-center" href={authPaths.register[locale] + intentQuery(orderingIntent)}>{authText("registerLink", locale)}</Link>}
       {kind !== "forgot" && <Link className="inline-flex min-h-11 items-center" href={authPaths.forgot[locale]}>{authText("forgot", locale)}</Link>}
       {kind === "register" && <Link className="inline-flex min-h-11 items-center" href={locale === "en" ? "/services" : "/id/layanan"}>{authText("browse", locale)}</Link>}
     </nav>
@@ -59,6 +62,8 @@ export async function AccountPage({ locale }: { locale: PublicLocale }) {
     <dl className="space-y-5 break-words"><div><dt className="text-muted">{authText("email", locale)}</dt><dd>{user.email}</dd></div>
       <div><dt className="text-muted">{authText("name", locale)}</dt><dd>{profile?.display_name || authText("noName", locale)}</dd></div>
       <div><dt className="text-muted">{authText("locale", locale)}</dt><dd>{profile?.locale === "id" ? "Bahasa Indonesia" : profile?.locale === "en" ? "English" : authText("noName", locale)}</dd></div>
-    </dl><p>{authText("verified", locale)}</p>{role && <p>{authText(role, locale)}</p>}<p className="text-muted">{authText("portal", locale)}</p><LogoutForm locale={locale} />
+    </dl><p>{authText("verified", locale)}</p>{role && <p>{authText(role, locale)}</p>}
+    <nav className="flex flex-col items-start gap-2 underline">{(["orders", "offers"] as const).map(key => <a key={key} href={commercePaths[key][locale]} className="inline-flex min-h-11 items-center">{commerceText(key, locale)}</a>)}{role === "owner" && <a href={commercePaths.owner[locale]} className="inline-flex min-h-11 items-center">{commerceText("owner", locale)}</a>}</nav>
+    <p className="text-muted">{commerceText("payment", locale)}</p><LogoutForm locale={locale} />
   </Shell>
 }

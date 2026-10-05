@@ -63,6 +63,16 @@ The operator approved manual QA on `d5d1852b215d66df8e728fe20a8325a04d80dc77`. T
 
 The dynamic/basic-consent loader remains approved. Tag Assistant works in a clean Preview session; `vercel.live` was not added to CSP and GA4 collection endpoints remain excluded on staging. The earlier diagnostic request is closed by this successful operator QA. The container remains unpublished; no production activation is authorized by this closeout. Background references: [consent-gated connection](https://developers.google.com/tag-platform/security/guides/consent-debugging) and [same-browser Preview requirements](https://support.google.com/tagmanager/answer/6107056?hl=en).
 
+## Operator-reported production QA closeout — 5 October 2026 WITA
+
+The operator reports production QA passed after the isolated analytics release. Container `GTM-5HNJFLP7` is Live; measurement ID `G-NQ5Q41KYSG`. These results supersede the earlier staging-only publication boundary:
+
+- `public_page_view` present in `dataLayer`; GA4 Realtime received `page_view`.
+- Consent after revocation: `denied`; automatic reload: yes.
+- Remaining GA cookies: none; collect requests after reload: 0.
+
+No setup or manual QA was repeated. Stages 12–16 denote manual configuration/QA, not development phases. The development sequence remains Phase 4 commerce foundation → Midtrans onboarding after functional Phase 4 staging → Phase 5 Sandbox/reconciliation → Phase 6 operations → Phase 7 production hardening/MVP launch.
+
 ## Disable / rollback
 
 Remove `NEXT_PUBLIC_GTM_ID` from the relevant authorized environment and redeploy to disable container loads; revoking the browser preference also disables that browser immediately. Do not change production configuration during this stage. Revert the focused commit if needed; do not rewrite accepted policy history or relabel prior versions. Any later production tag publication needs its own review.

@@ -87,13 +87,15 @@ Implement only the active phase.
 - Phase 2: implement the English-first multipage bilingual public website.
 - Phase 3A: approved backend foundation using Supabase, Resend, Sentry and protected Vercel health checks; no checkout or production registration.
 - Phase 3B: staging-only email/password authentication and user lifecycle foundation; contextual registration, no deletion, commerce or production Auth access. Follow `docs/backend/PHASE_3B.md`.
-- Phase 4: authentication, orders, offers, checkout workflow.
+- Phase 4: commerce foundation (reuse Phase 3B Auth), orders, offers, checkout workflow.
 - Midtrans onboarding: after functional Phase 4 staging.
 - Phase 5: Midtrans Sandbox and payment reconciliation.
 - Phase 6: client/admin/team workspace, files, messages, delivery.
 - Phase 7: production hardening and launch.
 
 Later application phases remain bilingual-ready without duplicating domain logic. Do not pull features forward merely because they are mentioned in future documents.
+
+Stages 12–16 are manual configuration/QA steps, not development phases. Phase 4 → Midtrans onboarding after functional staging → Phase 5 Sandbox/reconciliation → Phase 6 workspace/operations → Phase 7 production hardening/MVP launch.
 
 ## 6. Content integrity
 

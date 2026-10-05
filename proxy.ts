@@ -2,7 +2,7 @@ import { type NextRequest, NextResponse } from "next/server"
 import { updateSession } from "@/lib/supabase/session"
 import { authOrigin } from "@/lib/auth/rules"
 
-// Scope session refresh to Auth/account only; public marketing remains static.
+// Scope session refresh to private Auth/commerce routes; public marketing remains static.
 export async function proxy(request: NextRequest) {
   let response: NextResponse
   try { authOrigin(process.env); response = (await updateSession(request)).response } catch { response = NextResponse.next({ request }) }
@@ -14,5 +14,5 @@ export async function proxy(request: NextRequest) {
   return response
 }
 export const config = {
-  matcher: ["/login", "/register", "/forgot-password", "/reset-password", "/account", "/auth/:path*", "/id/masuk", "/id/daftar", "/id/lupa-password", "/id/atur-ulang-password", "/id/akun", "/id/auth/:path*"],
+  matcher: ["/login", "/register", "/forgot-password", "/reset-password", "/account", "/auth/:path*", "/id/masuk", "/id/daftar", "/id/lupa-password", "/id/atur-ulang-password", "/id/akun", "/id/auth/:path*", "/checkout", "/orders/:path*", "/offers/:path*", "/owner/:path*", "/id/pemesanan", "/id/pesanan/:path*", "/id/penawaran/:path*", "/id/pemilik/:path*"],
 }

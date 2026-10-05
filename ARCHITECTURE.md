@@ -436,7 +436,7 @@ Phase 1B requires quick Markdown and Git-diff validation only, without visual QA
 | Staging setup | Stable isolated environment after Phase 1B, before Phase 2 |
 | Phase 2 | Implement the English-first multipage bilingual public website |
 | Phase 3 | Approved bilingual commercial content and policies |
-| Phase 4 | Working auth/order/checkout flow on staging; no live payment assumption |
+| Phase 4 | Commerce foundation reusing Phase 3B Auth; order/offer/checkout flow on staging; no live payment |
 | Midtrans onboarding | Public functional staging satisfies provider website criteria |
 | Phase 5 | Sandbox payment, signed idempotent webhook, reconciliation |
 | Phase 6 | Client/admin/team operations and private files |

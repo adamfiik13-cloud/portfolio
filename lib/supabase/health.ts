@@ -2,8 +2,8 @@ import "server-only"
 import { createClient } from "@supabase/supabase-js"
 import { getSupabaseConfig } from "./config"
 
-// The only service-role consumer. No generic privileged client is exported.
-// The key bypasses RLS: never reuse it for browser/user queries.
+// Read-only health consumer. Commerce mutations use a separate module-private client.
+// The key bypasses RLS: never reuse it for browser/user reads.
 export async function checkSupabaseHealth(): Promise<boolean> {
   const { url } = getSupabaseConfig()
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY

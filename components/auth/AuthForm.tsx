@@ -9,12 +9,13 @@ import { useFormStatus } from "react-dom"
 
 const control = "w-full min-h-11 rounded-xl border border-line bg-black px-3 py-3 text-base text-soft disabled:opacity-60"
 const button = "inline-flex min-h-11 items-center justify-center rounded-xl bg-red px-6 py-3 font-display font-semibold text-white hover:bg-red-bright disabled:cursor-not-allowed disabled:opacity-60"
-export default function AuthForm({ kind, locale, disabled, token = "", tokenType = "" }: { kind: AuthFormKind; locale: PublicLocale; disabled: boolean; token?: string; tokenType?: string }) {
+export default function AuthForm({ kind, locale, disabled, token = "", tokenType = "", orderingIntent = "" }: { kind: AuthFormKind; locale: PublicLocale; disabled: boolean; token?: string; tokenType?: string; orderingIntent?: string }) {
   const [state, action, pending] = useActionState(submitAuth.bind(null, kind, locale, token, tokenType), {} as AuthState)
   const password = kind === "login" || kind === "register" || kind === "reset"
   const fresh = kind === "register" || kind === "reset"
   const submitId = { login: "submitLogin", register: "submitRegister", forgot: "submitForgot", reset: "submitReset", confirm: "submitConfirm" } as const
   return <form action={action} className="space-y-5 font-interface" aria-busy={pending}>
+    <input type="hidden" name="orderingIntent" value={orderingIntent} />
     <fieldset disabled={disabled || pending || Boolean(state.success)} className="space-y-5">
       {kind === "register" && <label className="block space-y-2" htmlFor="auth-name"><span>{authText("name", locale)}</span><input id="auth-name" name="name" autoComplete="name" required maxLength={160} defaultValue={state.name} className={control} /></label>}
       {!["reset", "confirm"].includes(kind) && <label className="block space-y-2" htmlFor="auth-email"><span>{authText("email", locale)}</span><input id="auth-email" name="email" type="email" autoComplete="email" required maxLength={254} defaultValue={state.email} className={control} /></label>}

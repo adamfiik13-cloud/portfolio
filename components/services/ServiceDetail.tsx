@@ -4,6 +4,7 @@ import { catalogPaths, serviceCategories, serviceInquiry, servicePath, servicePr
 import { getServiceCopy } from "@/data/service-copy"
 import type { PublicLocale } from "@/data/public-content"
 import ServiceShell from "./ServiceShell"
+import { commercePaths, commerceText } from "@/data/commerce"
 
 export default function ServiceDetail({ locale, service }: { locale: PublicLocale; service: CatalogService }) {
   const t = getServiceCopy(locale)
@@ -36,6 +37,7 @@ export default function ServiceDetail({ locale, service }: { locale: PublicLocal
         <p className="font-display text-3xl font-bold mb-5">{servicePrice(service, locale)}</p>
         <p className="font-interface text-sm text-muted leading-relaxed mb-6">{t("confirmation")}</p>
         <Button href={serviceInquiry(service, locale)} target="_blank" rel="noopener noreferrer" className="w-full">{t(service.inquiry)}</Button>
+        {process.env.APP_ENV === "staging" && <a href={commercePaths.checkout[locale] + "?service=" + service.id} className="flex min-h-11 items-center justify-center mt-3 font-interface underline underline-offset-4">{commerceText("entry", locale)}</a>}
         <p className="font-interface text-sm text-muted leading-relaxed mt-4">{t("inquiryNote")}</p>
       </aside>
     </div>
