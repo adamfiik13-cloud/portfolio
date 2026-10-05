@@ -3,6 +3,7 @@ import type { PublicLocale } from "@/data/public-content"
 export type PolicyId = "terms" | "service" | "refund" | "privacy"
 export type PolicyBlock =
   | { type: "paragraph"; text: string }
+  | { type: "link"; href: string; label: string }
   | { type: "list"; ordered: boolean; items: string[] }
   | { type: "table"; headers: string[]; rows: string[][] }
 export interface PolicyContent {
@@ -21,6 +22,14 @@ export const policyOperator = {
 // Staging approval or a build timestamp must never supply this date.
 export const POLICY_EFFECTIVE_DATE: string | null = "2026-09-28"
 export const policyVersion = { version: "1.0", status: "active" } as const
+
+export interface PolicyMetadata { version: string; status: "active"; effectiveDate: string | null }
+const policyOverrides: Partial<Record<PolicyId, PolicyMetadata>> = {
+  privacy: { version: "1.1", status: "active", effectiveDate: "2026-10-04" },
+}
+export function getPolicyMetadata(id: PolicyId): PolicyMetadata {
+  return policyOverrides[id] ?? { ...policyVersion, effectiveDate: POLICY_EFFECTIVE_DATE }
+}
 
 type Localized = Record<PublicLocale, string>
 export const policyDefinitions: { id: PolicyId; paths: Localized; title: Localized; label: Localized; description: Localized }[] = [

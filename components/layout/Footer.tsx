@@ -1,6 +1,8 @@
 "use client"
 
 import Link from "next/link"
+import { analyticsCopy } from "@/data/analytics"
+import { COOKIE_SETTINGS_EVENT } from "@/lib/analytics/rules"
 import { policyDefinitions, policyCopy } from "@/data/policies/config"
 import { usePublicLocale } from "@/components/layout/PublicLocaleProvider"
 
@@ -29,6 +31,7 @@ export default function Footer() {
           <p className="font-display text-base mb-2">{policyCopy.group[locale]}</p>
           <div className="flex flex-wrap gap-x-6 gap-y-1 font-interface text-sm text-muted">
             {policyDefinitions.map(policy => <Link key={policy.id} href={policy.paths[locale]} className="inline-flex min-h-11 items-center hover:text-white underline underline-offset-4">{policy.label[locale]}</Link>)}
+            <button type="button" onClick={() => window.dispatchEvent(new Event(COOKIE_SETTINGS_EVENT))} className="inline-flex min-h-11 items-center hover:text-white underline underline-offset-4">{analyticsCopy.settings[locale]}</button>
           </div>
         </nav>
         <p className="text-xs text-muted">&copy; {new Date().getFullYear()} {siteConfig.name}</p>

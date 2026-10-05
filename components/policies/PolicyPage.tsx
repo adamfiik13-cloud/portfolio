@@ -3,19 +3,20 @@ import ServiceShell from "@/components/services/ServiceShell"
 import type { PublicLocale } from "@/data/public-content"
 import { policiesEn } from "@/data/policies/en"
 import { policiesId } from "@/data/policies/id"
-import { POLICY_EFFECTIVE_DATE, policyCopy, policyDefinitions, policyOperator, policyVersion, type PolicyBlock, type PolicyId } from "@/data/policies/config"
+import { getPolicyMetadata, policyCopy, policyDefinitions, policyOperator, type PolicyBlock, type PolicyId } from "@/data/policies/config"
 
 export default function PolicyPage({ locale, policyId }: { locale: PublicLocale; policyId: PolicyId }) {
   const definition = policyDefinitions.find(policy => policy.id === policyId)!
   const content = (locale === "en" ? policiesEn : policiesId)[policyId]
+  const policy = getPolicyMetadata(policyId)
   const t = (key: keyof typeof policyCopy) => policyCopy[key][locale]
   return <ServiceShell locale={locale} paths={definition.paths}>
     <article className="mx-auto max-w-3xl min-w-0 break-words font-longform text-base sm:text-lg leading-relaxed">
       <header className="mb-10">
         <p className="font-display text-sm uppercase tracking-widest text-muted mb-4">{t("group")}</p>
         <h1 className="font-display text-4xl sm:text-5xl font-bold leading-tight mb-6">{definition.title[locale]}</h1>
-        <p className="font-interface text-muted mb-3">{t("version")} {policyVersion.version}</p>
-        <p className="text-muted mb-6">{POLICY_EFFECTIVE_DATE ? <>{t("effective")}: <time dateTime={POLICY_EFFECTIVE_DATE}>{new Intl.DateTimeFormat(locale === "en" ? "en-GB" : "id-ID", { dateStyle: "long", timeZone: "UTC" }).format(new Date(POLICY_EFFECTIVE_DATE + "T00:00:00Z"))}</time></> : t("pending")}</p>
+        <p className="font-interface text-muted mb-3">{t("version")} {policy.version}</p>
+        <p className="text-muted mb-6">{policy.effectiveDate ? <>{t("effective")}: <time dateTime={policy.effectiveDate}>{new Intl.DateTimeFormat(locale === "en" ? "en-GB" : "id-ID", { dateStyle: "long", timeZone: "UTC" }).format(new Date(policy.effectiveDate + "T00:00:00Z"))}</time></> : t("pending")}</p>
         <p>{policyOperator.operator} · {t("operator")}</p>
         <p className="text-muted">{policyOperator.domicile}</p>
         <a href={"mailto:" + policyOperator.email} className="inline-flex min-h-11 items-center underline underline-offset-4 hover:text-red-bright break-all">{policyOperator.email}</a>
@@ -44,6 +45,7 @@ export default function PolicyPage({ locale, policyId }: { locale: PublicLocale;
 }
 
 function PolicyBlockContent({ block, locale }: { block: PolicyBlock; locale: PublicLocale }) {
+  if (block.type === "link") return <p><a href={block.href} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center underline underline-offset-4 hover:text-white">{block.label}</a></p>
   if (block.type === "paragraph") return <p><PolicyText text={block.text} locale={locale} /></p>
   if (block.type === "list") {
     const List = block.ordered ? "ol" : "ul"

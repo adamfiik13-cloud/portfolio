@@ -297,6 +297,8 @@ Avoid:
 
 ## 13. Design QA ownership
 
+Optional analytics consent uses a bilingual, non-modal banner fixed to the viewport bottom after hydration. Accept is primary; Continue without analytics is an outlined secondary action. A measured spacer preserves footer access, long copy scrolls independently, and actions retain at least 44 px targets. Localized Privacy links and footer Cookie settings support reopening with keyboard focus and returning focus when closed. No backdrop, focus trap, or animation is added.
+
 Phase 1B requires only Markdown and Git-diff validation, without visual QA or a Vercel Preview.
 
 During implementation phases:

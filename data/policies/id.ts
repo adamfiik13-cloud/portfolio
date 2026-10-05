@@ -712,7 +712,28 @@ export const policiesId: Record<PolicyId, PolicyContent> = {
         "blocks": [
           {
             "type": "paragraph",
-            "text": "Cookies yang wajib untuk login, keamanan, sesi, checkout, dan preferensi dapat digunakan untuk menyediakan layanan. Analytics atau marketing cookies yang tidak wajib harus mengikuti mekanisme consent yang sesuai sebelum diaktifkan bila diwajibkan."
+            "text": "Cookies fungsional untuk login, keamanan, dan sesi tetap terpisah dari analitik opsional. Cookies tersebut tidak dikendalikan oleh pilihan analitik. Analitik opsional tidak diperlukan untuk menggunakan website."
+          },
+          {
+            "type": "paragraph",
+            "text": "Kami menggunakan Google Tag Manager sebagai infrastruktur pengelolaan tag untuk Google Analytics 4 (GA4) yang bersifat opsional. Container hanya dimuat setelah persetujuan analitik secara tegas pada rute publik yang disetujui. Pengumpulan GA4 hanya ditujukan untuk website publik production, guna memahami penggunaan halaman publik serta meningkatkan website dan layanan; staging digunakan untuk pemeriksaan container dan persetujuan tanpa pengukuran GA4."
+          },
+          {
+            "type": "paragraph",
+            "text": "Analitik opsional dapat memproses URL atau path halaman publik, informasi perujuk, informasi browser dan perangkat, perkiraan lokasi dari Google, serta interaksi atau keterlibatan pada website publik. Payload event halaman yang disetujui hanya menggunakan path publik dalam daftar yang diizinkan, judul publik statis, bahasa, dan kategori konten; query string dan fragmen dihapus. Pengumpulan informasi perujuk dinonaktifkan pada rancangan tag awal. Rute autentikasi dan akun dikecualikan. Kami tidak bermaksud mengumpulkan kata sandi, isi email, pesan pesanan privat, file unggahan, maupun token autentikasi dan pemulihan melalui analitik."
+          },
+          {
+            "type": "paragraph",
+            "text": "Browser Anda hanya menyimpan granted atau denied pada preferensi localStorage berversi adamswork.analytics-consent.v1. Preferensi ini tidak disimpan dalam akun, profil, atau database dan tidak memuat informasi pribadi. Anda dapat menerima atau menolak analitik opsional, membuka kembali Pengaturan cookie pada footer, serta menarik persetujuan kapan saja. Penarikan persetujuan mengirim pembaruan consent denied, menghentikan analitik berikutnya, menghapus cookies GA pihak pertama yang dapat diakses sejauh aman dilakukan, dan memuat ulang halaman untuk menghentikan tag yang sudah dimuat tanpa mengubah cookies autentikasi."
+          },
+          {
+            "type": "paragraph",
+            "text": "Retensi data tingkat event dan pengguna GA4 untuk eksplorasi diatur selama 14 bulan, dengan reset saat aktivitas baru dinonaktifkan. Pengaturan ini tidak menjelaskan retensi setiap laporan teragregasi. Google Signals, pengumpulan data yang diberikan pengguna, penautan Google Ads, dan personalisasi iklan tidak diaktifkan saat peluncuran; persetujuan penyimpanan dan personalisasi iklan tetap denied. Google memproses informasi menurut ketentuan privasinya sendiri."
+          },
+          {
+            "type": "link",
+            "href": "https://policies.google.com/privacy?hl=id",
+            "label": "Kebijakan Privasi Google"
           }
         ]
       },

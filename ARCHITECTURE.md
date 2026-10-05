@@ -13,6 +13,8 @@
 - Allow vendors to be selected later without rewriting core business logic.
 - Keep the MVP operationally simple for a small internal team.
 
+Optional public analytics uses a consent-gated GTM loader, a static public-page allowlist, and sanitized page-view events. Staging and Preview never send application measurement events; private and unknown routes never load GTM. The isolated analytics release adds no backend or authentication infrastructure. Configuration, operator QA, and deferred activation are documented in `docs/analytics/PHASE_16D.md`.
+
 ## 2. Current baseline
 
 - Framework: Next.js.
@@ -131,7 +133,7 @@ Rules:
 
 ### Phase 2C.2 policy content and future transaction boundary
 
-- `data/policies/config.ts` centralizes stable policy IDs, EN/ID paths, operator identity, version/status, and the nullable `POLICY_EFFECTIVE_DATE`. Set the date to actual production publication during promotion, never a staging/build date.
+- `data/policies/config.ts` centralizes stable policy IDs, EN/ID paths, operator identity, and typed per-policy metadata through `getPolicyMetadata`. Terms/Service/Refund retain version 1.0 and 2026-09-28; Privacy uses version 1.1 and 2026-10-04. Rendering uses each policy's metadata, never a staging/build timestamp.
 - `data/policies/en.ts` and `id.ts` contain typed paragraph/list/table sections with matching stable section IDs. `PolicyPage` shares presentation and the existing public shell; footer links import only configuration. Indonesian is the primary contractual version for Indonesian-directed transactions; full English clauses preserve substantive parity.
 - Policy route pairs: `/terms` ↔ `/id/syarat-ketentuan`, `/service-policy` ↔ `/id/kebijakan-layanan`, `/refund-policy` ↔ `/id/kebijakan-refund`, `/privacy` ↔ `/id/kebijakan-privasi`. Metadata maps reciprocal alternates and English x-default; production sitemap includes all eight routes and staging remains noindex with an empty sitemap.
 - Internal source retained in `docs/policies/Adams_Work_Policies_Draft_v1.md`; internal review items, checkout checklist, and data model are not rendered publicly. Provider-dependent text must not imply unimplemented systems or finalized vendors.
