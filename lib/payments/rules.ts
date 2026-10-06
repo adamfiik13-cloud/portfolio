@@ -4,6 +4,9 @@ export const sandboxScript = "https://app.sandbox.midtrans.com/snap/snap.js"
 export type Attempt = { id: string; order_id: string; provider_reference: string; merchant_id: string; amount_idr: number; currency: string; status: string; attempt_state: string; snap_token: string | null; transaction_id: string | null }
 export type VerifiedStatus = { reference: string; merchant: string; amount: number; currency: "IDR"; transaction: string; status: string; fraud: string; refunded: number }
 const record = (value: unknown): value is Record<string, unknown> => !!value && typeof value === "object" && !Array.isArray(value)
+// Opaque credentials: preserve the exact value; prefixes do not prove environment
+// or provider authentication. Reject empty, whitespace and control/format chars.
+const credential = (value: unknown): value is string => typeof value === "string" && value.length > 0 && !/[\s\p{Cc}\p{Cf}]/u.test(value)
 export function reference(value: unknown): value is string { return typeof value === "string" && /^aw-sbx-[a-f0-9-]{36}$/.test(value) }
 export function idr(value: unknown) {
   if (typeof value !== "string" || !/^\d{1,10}(?:\.00)?$/.test(value)) throw new Error("Invalid payment amount")
@@ -14,7 +17,7 @@ export function idr(value: unknown) {
 export function paymentConfig(env: Record<string, string | undefined>) {
   if (env.APP_ENV !== "staging" || env.VERCEL_ENV === "production" || env.MIDTRANS_ENVIRONMENT !== "sandbox" ||
       !env.MIDTRANS_MERCHANT_ID || !/^[a-zA-Z0-9_-]{1,80}$/.test(env.MIDTRANS_MERCHANT_ID) ||
-      !env.MIDTRANS_CLIENT_KEY?.startsWith("SB-Mid-client-") || !env.MIDTRANS_SERVER_KEY?.startsWith("SB-Mid-server-")) throw new Error("Sandbox payments unavailable")
+      !credential(env.MIDTRANS_CLIENT_KEY) || !credential(env.MIDTRANS_SERVER_KEY)) throw new Error("Sandbox payments unavailable")
   return { merchant: env.MIDTRANS_MERCHANT_ID, clientKey: env.MIDTRANS_CLIENT_KEY, serverKey: env.MIDTRANS_SERVER_KEY }
 }
 export function notification(value: unknown, serverKey: string) {

@@ -8,23 +8,25 @@ import { PGlite } from '@electric-sql/pglite'
 
 // Local PostgreSQL / mocked HTTP only: no hosted queries or payment creation.
 const native=createRequire(import.meta.url),cache=new Map(),db=new PGlite()
-let checks=0,context={client:null,user:null},transportCalls=[],mode='ok',statusBody=null
+let checks=0,context={client:null,user:null},transportCalls=[],mode='ok',statusBody=null,databaseCalls=0
 const check=value=>{assert(value);checks++}
 const equal=(a,b)=>{assert.deepEqual(a,b);checks++}
 const denied=async(fn,pattern)=>{await assert.rejects(fn,pattern);checks++}
 const a='11111111-1111-4111-8111-111111111111',b='22222222-2222-4222-8222-222222222222',owner='33333333-3333-4333-8333-333333333333'
-const env={APP_ENV:'staging',MIDTRANS_ENVIRONMENT:'sandbox',MIDTRANS_MERCHANT_ID:'TEST-MERCHANT',MIDTRANS_CLIENT_KEY:'SB-Mid-client-test-only',MIDTRANS_SERVER_KEY:'SB-Mid-server-test-only',SUPABASE_STAGING_PROJECT_REF:'stage',SUPABASE_PRODUCTION_PROJECT_REF:'prod',SUPABASE_PROJECT_REF:'stage',SUPABASE_SERVICE_ROLE_KEY:'test-only',NEXT_PUBLIC_SUPABASE_URL:'https://stage.supabase.co',NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY:'test-only'}
+const env={APP_ENV:'staging',MIDTRANS_ENVIRONMENT:'sandbox',MIDTRANS_MERCHANT_ID:'TEST-MERCHANT',MIDTRANS_CLIENT_KEY:'Mid-client-test-only',MIDTRANS_SERVER_KEY:'Mid-server-test-only',SUPABASE_STAGING_PROJECT_REF:'stage',SUPABASE_PRODUCTION_PROJECT_REF:'prod',SUPABASE_PROJECT_REF:'stage',SUPABASE_SERVICE_ROLE_KEY:'test-only',NEXT_PUBLIC_SUPABASE_URL:'https://stage.supabase.co',NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY:'test-only'}
 const savedEnv=Object.fromEntries(Object.keys(env).map(k=>[k,process.env[k]])),oldFetch=globalThis.fetch
 Object.assign(process.env,env)
 function queryClient(){return {from:table=>{
   assert(['orders','payment_records'].includes(table));let fields='',filters=[],sort='',maximum=''
   const q={select:value=>{fields=value;return q},eq:(key,value)=>{filters.push([key,value]);return q},order:key=>{assert.equal(key,'attempt_number');sort=' order by attempt_number desc';return q},limit:value=>{assert.equal(value,1);maximum=' limit 1';return q},maybeSingle:async()=>{
+    databaseCalls++
     assert(/^[a-z_,]+$/.test(fields));assert(filters.every(([key])=>/^[a-z_]+$/.test(key)))
     if(table==='orders')assert(filters.some(([key,value])=>key==='client_id'&&value===context.user.id))
     const rows=(await db.query(`select ${fields} from ${table} where ${filters.map(([key],i)=>key+'=$'+(i+1)).join(' and ')}${sort}${maximum}`,filters.map(([,v])=>v))).rows
     return {data:rows[0]??null,error:null}
   }};return q
 },rpc:async(name,args)=>{
+  databaseCalls++
   assert(['payments_reserve','payments_token','payments_apply'].includes(name))
   try{const values=Object.values(args),row=(await db.query(`select public.${name}(${values.map((_,i)=>'$'+(i+1)).join(',')}) as value`,values)).rows[0];return {data:row.value,error:null}}
   catch{return {data:null,error:{message:'details withheld'}}}
@@ -39,6 +41,7 @@ function load(file){
 }
 globalThis.fetch=async(url,options)=>{
   transportCalls.push({url,options});check(options.cache==='no-store'&&options.redirect==='error'&&!!options.signal)
+  assert(/^https:\/\/(app|api)\.sandbox\.midtrans\.com\//.test(url))
   if(url.includes('/snap/v1/transactions')){
     if(mode==='timeout')throw new Error('Mock timeout')
     if(mode==='malformed')return Response.json({bad:true})
@@ -64,9 +67,20 @@ const apply=async(attempt,status='settlement',fraud='accept',refunded)=>{
 }
 try{
   check(server.paymentReady())
-  for(const changed of [{APP_ENV:'production'},{VERCEL_ENV:'production'},{MIDTRANS_ENVIRONMENT:'production'},{MIDTRANS_SERVER_KEY:''},{MIDTRANS_CLIENT_KEY:'Mid-client-production'},{SUPABASE_PROJECT_REF:'prod'},{SUPABASE_STAGING_PROJECT_REF:'prod'}]){
+  for(const [clientKey,serverKey]of [['Mid-client-test-only','Mid-server-test-only'],['SB-Mid-client-test-only','SB-Mid-server-test-only'],['opaque-client-test-only','opaque-server-test-only']]){
+    const config=rules.paymentConfig({...env,MIDTRANS_CLIENT_KEY:clientKey,MIDTRANS_SERVER_KEY:serverKey})
+    equal(config.clientKey,clientKey);equal(config.serverKey,serverKey)
+  }
+  for(const field of ['MIDTRANS_CLIENT_KEY','MIDTRANS_SERVER_KEY'])for(const value of [undefined,null,123,'',' ',' test','test ','test key','test\tkey','test\rkey','test\nkey','test\0key','test\x7fkey','test\u0085key','test\u00a0key','test\u200bkey','test\u202ekey']){
+    assert.throws(()=>rules.paymentConfig({...env,[field]:value}),/Sandbox payments unavailable/);checks++
+  }
+  for(const changed of [{APP_ENV:'production'},{VERCEL_ENV:'production'},{MIDTRANS_ENVIRONMENT:'production'},{MIDTRANS_SERVER_KEY:''},{MIDTRANS_CLIENT_KEY:''},{SUPABASE_PROJECT_REF:'prod'},{SUPABASE_STAGING_PROJECT_REF:'prod'},{SUPABASE_SERVICE_ROLE_KEY:''}]){
     const before=Object.fromEntries(Object.keys(changed).map(k=>[k,process.env[k]]));Object.assign(process.env,changed);check(!server.paymentReady());for(const[k,v]of Object.entries(before)){if(v===undefined)delete process.env[k];else process.env[k]=v}
   }
+  const unsignedCalls=transportCalls.length,unsignedDatabaseCalls=databaseCalls
+  equal((await api.POST(new Request('https://example.invalid',{method:'POST',headers:{'Content-Type':'application/json'},body:'{}'}))).status,400)
+  equal(transportCalls.length,unsignedCalls)
+  equal(databaseCalls,unsignedDatabaseCalls)
   for(const bad of [null,0,'1.50','-1','1000000001.00','1e6','1.000'])assert.throws(()=>rules.idr(bad));checks+=7
   equal(rules.idr('2000000.00'),2000000)
   for(const[status,fraud,result]of [['settlement','','verified'],['capture','accept','verified'],['capture','challenge','pending'],['capture','deny','failed'],['pending','','pending'],['failure','','failed'],['deny','','failed'],['expire','','expired'],['cancel','','cancelled'],['refund','','verified'],['partial_refund','','verified']])equal(rules.statusMapping(status,fraud),result)
@@ -175,6 +189,7 @@ try{
   const browserResult=await actions.paymentAction(browserOrder,'pay',{amount_idr:1,client_id:b})
   check(!!browserResult.token&&browserResult.clientKey===env.MIDTRANS_CLIENT_KEY)
   equal(JSON.parse(transportCalls.filter(c=>c.url.includes('/snap/v1/')).at(-1).options.body).transaction_details.gross_amount,2000000)
+  equal(transportCalls.filter(c=>c.url.includes('/snap/v1/')).at(-1).options.headers.Authorization,'Basic '+Buffer.from(env.MIDTRANS_SERVER_KEY+':').toString('base64'))
   check(!JSON.stringify(browserResult).includes(env.MIDTRANS_SERVER_KEY))
   equal(await actions.paymentAction(browserOrder,'invalid'),{message:'unavailable'})
   response=await api.POST(new Request('https://example.invalid',{method:'POST',headers:{'Content-Type':'application/json'},body:'x'.repeat(65537)}));equal(response.status,400)
