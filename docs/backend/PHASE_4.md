@@ -4,6 +4,8 @@ Reuses verified Phase 3B Auth. EN/ID checkout, orders, offers and owner-offer ro
 
 ## Operator migration (staging only)
 
+Application is complete according to the operator-reported hosted staging QA below (6 October 2026 WITA). Keep this procedure as a reference; do not reapply the migration or repeat history repair for this checkpoint.
+
 1. Use the reviewed `staging` checkout. Confirm the dashboard project is the existing **staging** Supabase project and compare its reference with the approved staging reference. The CLI must already be linked to that same project: from the repository root, compare `(Get-Content -LiteralPath 'supabase/.temp/project-ref' -Raw).Trim()` with that reference, then run `npx supabase migration list --linked`. If the link is absent/wrong or history has an unexpected discrepancy, stop. Never point these commands at Production or print passwords/tokens.
 2. Take the normal staging database backup. The CLI Local/Remote columns must match for versions `20260929000100`, `20260929000200`, `20260929000300`; version `20261005000100` must be local-only, and its objects must not already exist. If history says applied or objects exist unexpectedly, stop and investigate rather than re-run this unapplied migration.
 3. In that verified staging project's SQL Editor, execute the **entire reviewed** `supabase/migrations/20261005000100_commerce.sql` once, including `BEGIN` and `COMMIT`. Confirm successful completion without errors. Do not reset/re-run prior migrations, use `db push` for this SQL Editor application, or record the version before the transaction succeeds.
@@ -58,4 +60,26 @@ Operator reports commerce migration applied and all four Local/Remote versions a
 
 `offerHash` uses the original owner-form field order (including EN/ID, revisions and milestones) on create/read, preserving existing offer hashes and all values; unknown fields remain included in integrity checks. Session-client reads, recipient filter and RLS are unchanged. No schema, hosted record, acceptance, snapshot or idempotency change. `node scripts/test-commerce.mjs`: 179 focused checks pass, including legacy JSONB round trip, actual EN/ID detail wrappers/list links, recipient access, Client B denial under RLS and detail 404, tamper rejection, acceptance/retries and immutable records. Lint, type-check and fresh production build each passed once after the final code fix.
 
-After staging deployment Ready, Client A must reopen the **same** offer at `/id/penawaran/4f0c998a-49e9-4cd7-9a57-7962f1da2179` and `/offers/4f0c998a-49e9-4cd7-9a57-7962f1da2179`, confirm the bilingual details and pending status, and leave acceptance unchecked. Hosted authenticated QA remains pending: no Client A session was used for this correction. If still 404, report only the route, time and visible result; never share credentials/session cookies.
+Hosted authenticated QA was pending when the correction was delivered at `05cc7e5a90c37f96224c45aea155f65e5ab3af8a`; no Client A session was used by the agent. The subsequent operator report below supersedes that pending status for the explicitly reported checks only.
+
+## Hosted staging QA closeout — 6 October 2026 WITA
+
+**Evidence source: manual operator-reported hosted staging QA**, supplied by the owner; not agent-executed hosted checks or automated test results. Implementation baseline: `05cc7e5a90c37f96224c45aea155f65e5ab3af8a`. This closes the checkpoint for the reported coverage below.
+
+- Migration `20261005000100_commerce.sql` successfully applied and recorded through `migration repair`; all four Local/Remote versions match. Seven operator-reported structure/RPC permission checks PASS.
+- Owner opened both EN/ID forms and created a custom offer. Client A could not access the owner form. After the JSONB/hash fix, offer detail opened in both EN/ID.
+- Without agreement, no order was created; with explicit agreement, order creation succeeded. Offer `4f0c998a-49e9-4cd7-9a57-7962f1da2179` is `accepted` and linked to order `c3e50d58-768f-409c-aea9-7216bc574fb7`. Total: **2000000 IDR**; contractual locale: **`en`**. These are QA transaction facts, not new catalog prices.
+- One order exists for the checked creation key, with one snapshot, four policy acceptances, one `incomplete` brief and zero payment records. Terms/Service/Refund v1.0 and Privacy v1.1 were all accepted in `en`.
+- Order states: work `draft`, payment `unpaid`, refund `none`, `work_started_at` NULL. Acceptance did not initiate payment or work.
+- Verified Client B could not see Client A's transactions in lists; direct offer and order links returned 404.
+- Order detail EN/ID matched; the original contract remained English. Mobile at 360 px had no overflow; keyboard/focus PASS.
+
+### Previously reported automated evidence and remaining limits
+
+At the implementation baseline, `node scripts/test-commerce.mjs` passed **179 focused local checks** using disposable PostgreSQL and mocked provider transport. Coverage includes legacy JSONB/hash compatibility, EN/ID offer list links/detail wrappers, recipient reads and Client B denial under RLS, tampered terms/hash rejection, explicit acceptance, sequential idempotent retries, expired-offer rejection, mismatched policy-content rejection, immutable records and initial order states. Lint, type-check and fresh production build also passed at that baseline. None of these runtime checks was repeated for this documentation-only closeout.
+
+Hosted double-submit/concurrency, expired/rejected/withdrawn offers, and policy changes after acceptance **have not been reported as manually tested**. Sequential local retries do not prove hosted concurrency behavior; local expired-offer and immutable-record/content-mismatch checks do not establish hosted coverage of all lifecycle or post-acceptance policy-change scenarios. Manual Client B list/detail denial does not establish a separate hosted acceptance-RPC attempt. Other items in the manual QA checklist without an explicit result above remain unverified for this closeout.
+
+### Product boundary retained
+
+Direct purchase remains disabled for **all 19 services**; custom offers require complete agreed bilingual terms. Milestones remain work allocations and payment remains 100% upfront. Online payment is unavailable and production commerce is not activated. This QA closeout does not authorize production promotion, provider/database changes or Phase 5.
