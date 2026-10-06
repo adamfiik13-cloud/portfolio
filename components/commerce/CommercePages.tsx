@@ -13,6 +13,9 @@ import { PolicyBlockContent } from "@/components/policies/PolicyPage"
 import { agreement, commerceContext, offerAgreement, ownerContext, policyBundle } from "@/lib/commerce/server"
 import { isUuid, type Locale, type TransactionTerms } from "@/lib/commerce/rules"
 import { AcceptanceForm, OwnerOfferForm } from "./CommerceForms"
+import PaymentPanel from "./PaymentPanel"
+import { paymentReady } from "@/lib/payments/server"
+import { paymentCopy } from "@/data/payment-copy"
 
 export type CommerceKind = keyof typeof commercePaths
 export type CommerceSearch = Promise<Record<string, string | string[] | undefined>>
@@ -27,7 +30,7 @@ function Shell({ kind, locale, suffix = "", children }: { kind: CommerceKind; lo
       <div className="mx-auto max-w-3xl space-y-8 break-words min-w-0">
         <h1 className="font-display font-bold text-4xl leading-tight">{t(kind, locale)}</h1>
         <nav className="flex flex-wrap gap-x-5 gap-y-1 text-muted underline underline-offset-4" aria-label={t("account", locale)}>{(["orders", "offers"] as const).map(k => <a key={k} className="inline-flex min-h-11 items-center" href={commercePaths[k][locale]}>{t(k, locale)}</a>)}<a className="inline-flex min-h-11 items-center" href={authPaths.account[locale]}>{t("account", locale)}</a></nav>
-        <div className="border-l-2 border-red pl-5 space-y-3"><p>{t("payment", locale)}</p><p className="text-muted">{t("commencement", locale)}</p></div>
+        <div className="border-l-2 border-red pl-5 space-y-3"><p>{paymentReady() ? paymentCopy[locale].notice : t("payment", locale)}</p><p className="text-muted">{t("commencement", locale)}</p></div>
         {children}
       </div>
     </main>
@@ -95,6 +98,7 @@ export async function OrdersPage({ locale, id }: { locale: Locale; id?: string }
   const contractLocale = order.locale as Locale
   return <Shell kind="orders" locale={locale} suffix={"/" + id}>
     <p className="break-all">{id}</p><dl className="grid sm:grid-cols-2 gap-5">{([["work", order.work_status], ["paymentStatus", order.payment_status], ["refund", order.refund_status], ["brief", brief?.status ?? "incomplete"]] as const).map(([key, value]) => <div key={key}><dt className="text-muted">{t(key, locale)}</dt><dd>{statusLabel(value, locale)}</dd></div>)}</dl>
+    <PaymentPanel orderId={id} locale={locale} ready={paymentReady()} paid={order.payment_status === "paid"} eligible={!["cancelled", "completed"].includes(order.work_status)} />
     {snapshotError || acceptanceError || policiesError || !snapshot?.selected_package?.terms ? <p role="status">{t("unavailable", locale)}</p> : <>
       <h2 className="font-display text-2xl">{t("terms", locale)} · {contractLocale === "en" ? "English" : "Bahasa Indonesia"}</h2>
       <p className="text-muted">{locale === "en" ? "The accepted agreement is retained in its original contractual language. Later content changes do not change it." : "Kesepakatan yang disetujui disimpan dalam bahasa kontrak asli. Perubahan konten berikutnya tidak mengubahnya."}</p>
