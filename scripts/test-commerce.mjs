@@ -14,7 +14,7 @@ function load(file) {
   if(resolved.endsWith('.json'))return JSON.parse(fs.readFileSync(resolved,'utf8'))
   const compiled={exports:{}};cache.set(resolved,compiled)
   const code=ts.transpileModule(fs.readFileSync(resolved,'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022,jsx:ts.JsxEmit.ReactJSX,esModuleInterop:true}}).outputText
-  const require=id=>id==='server-only'?{}:id==='next/navigation'?{notFound:()=>{throw Error('NEXT_NOT_FOUND')},redirect:()=>{throw Error('NEXT_REDIRECT')}}:['@/components/ui/BrandSignature','@/components/layout/LanguageSwitcher'].includes(id)?{__esModule:true,default:()=>null}:id==='@/components/layout/PublicLocaleProvider'?{PublicLocaleProvider:()=>null}:id==='@/components/policies/PolicyPage'?{PolicyBlockContent:()=>null}:id==='./CommerceForms'?{AcceptanceForm:()=>null,OwnerOfferForm:()=>null}:id==='@/lib/auth/context'?{authContext:async()=>context}:id==='@/lib/supabase/config'?{getSupabaseConfig:()=>({url:'https://example.invalid',key:'test'})}:id==='@supabase/supabase-js'?{createClient:()=>({rpc:async(name,args)=>{rpcCalls.push({name,args});return {data:'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa',error:null}}})}:id.startsWith('@/')?load(id.slice(2)):id.startsWith('.')?load(path.resolve(path.dirname(resolved),id)):nativeRequire(id)
+  const require=id=>id==='server-only'?{}:id==='@/lib/notifications/server'?{deliverPaymentConfirmation:async()=>{},schedulePaymentConfirmation:()=>{},readConfirmationStatus:async()=>"not_recorded"}:id==='next/navigation'?{notFound:()=>{throw Error('NEXT_NOT_FOUND')},redirect:()=>{throw Error('NEXT_REDIRECT')}}:['@/components/ui/BrandSignature','@/components/layout/LanguageSwitcher'].includes(id)?{__esModule:true,default:()=>null}:id==='@/components/layout/PublicLocaleProvider'?{PublicLocaleProvider:()=>null}:id==='@/components/policies/PolicyPage'?{PolicyBlockContent:()=>null}:id==='./CommerceForms'?{AcceptanceForm:()=>null,OwnerOfferForm:()=>null}:id==='@/lib/auth/context'?{authContext:async()=>context}:id==='@/lib/supabase/config'?{getSupabaseConfig:()=>({url:'https://example.invalid',key:'test'})}:id==='@supabase/supabase-js'?{createClient:()=>({rpc:async(name,args)=>{rpcCalls.push({name,args});return {data:'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa',error:null}}})}:id.startsWith('@/')?load(id.slice(2)):id.startsWith('.')?load(path.resolve(path.dirname(resolved),id)):nativeRequire(id)
   new Function('require','module','exports',code)(require,compiled,compiled.exports);return compiled.exports
 }
 let checks=0
@@ -23,6 +23,7 @@ async function rejects(run,pattern){await assert.rejects(run,pattern);checks++}
 const {validTerms,validOfferTerms,acceptanceInput}=load('lib/commerce/rules.ts')
 const {orderDestination,queryOrderIntent}=load('lib/auth/order-intent.ts')
 const {catalogTerms}=load('data/commerce-catalog.ts'),{catalogServices}=load('data/service-catalog.ts')
+const {directPackages}=load('data/direct-packages.ts')
 const {publicPage}=load('lib/analytics/rules.ts'),{analyticsPages}=load('data/analytics.ts')
 const server=load('lib/commerce/server.ts')
 const a='11111111-1111-4111-8111-111111111111',b='22222222-2222-4222-8222-222222222222',owner='33333333-3333-4333-8333-333333333333',offer='44444444-4444-4444-8444-444444444444',key='55555555-5555-4555-8555-555555555555'
@@ -33,7 +34,8 @@ const fixture=locale=>{
 }
 const terms={en:fixture('en'),id:fixture('id')}
 check(validOfferTerms(terms));check(!validOfferTerms({...terms,id:{...terms.id,amount_idr:1}}));check(!validTerms({...terms.en,service_id:undefined}));check(!validTerms({...terms.en,milestones:[]}));check(!validTerms({...terms.en,cost_disclosure:''}));check(!validTerms({...terms.en,milestones:[{label:'Test',amount_idr:1}]}))
-for(const service of catalogServices)for(const locale of ['en','id']){const c=catalogTerms(service.id,locale);check(!c.eligible&&c.missing.length>0);check(c.terms.estimated_duration.length>0&&c.terms.revision_rule.description.length>0)}
+check(directPackages.length===10)
+for(const service of catalogServices)for(const locale of ['en','id']){const c=catalogTerms(service.id,locale),approved=directPackages.some(p=>p.serviceId===service.id);check(c.eligible===approved&&(approved?c.missing.length===0:c.missing.length>0));check(c.terms.estimated_duration.length>0&&c.terms.revision_rule.description.length>0)}
 const form=new FormData();form.set('key',key);form.set('fingerprint','a'.repeat(64));check(!acceptanceInput(form));form.set('agreement','on');form.set('client_id',b);form.set('price','1');form.set('payment_status','paid');assert.deepEqual(acceptanceInput(form),{key,fingerprint:'a'.repeat(64)});checks++
 for(const bad of ['https://attacker.invalid','//attacker.invalid','service:../account','offer:bad','service:x?next=https://attacker.invalid'])check(orderDestination(bad,'en')===null)
 check(orderDestination('service:tracking-basic','id')==='/id/pemesanan?service=tracking-basic');check(orderDestination('offer:'+offer,'en')==='/offers/'+offer);check(queryOrderIntent({service:['bad']})==='')
@@ -54,7 +56,7 @@ check(eqCalls.some(([field,value])=>field==='client_id'&&value===a));check(rpcCa
 check(rpcCalls[0].args.p_policies.find(p=>p.policy_type==='privacy').version==='1.1')
 check(rpcCalls[0].args.p_policies.filter(p=>p.policy_type!=='privacy').every(p=>p.version==='1.0'))
 selectedOffer.status='accepted';await server.placeOrder({key,locale:'en',offerId:offer,fingerprint:prepared.fingerprint});check(rpcCalls.length===2)
-await rejects(()=>server.placeOrder({key,locale:'en',serviceId:'tracking-basic',fingerprint:prepared.fingerprint}),/Incomplete terms/)
+await rejects(()=>server.placeOrder({key,locale:'en',serviceId:'landing-page-starter',fingerprint:prepared.fingerprint}),/Incomplete terms/)
 process.env.APP_ENV='production';check(!(await server.commerceContext()).configured)
 for(const [name,value]of Object.entries(previousEnv)){if(value===undefined)delete process.env[name];else process.env[name]=value}
 

@@ -5,14 +5,17 @@ import { getServiceCopy } from "@/data/service-copy"
 import type { PublicLocale } from "@/data/public-content"
 import ServiceShell from "./ServiceShell"
 import { commercePaths, commerceText } from "@/data/commerce"
+import { findDirectPackage } from "@/data/direct-packages"
+import DirectPackageDetail from "./DirectPackageDetail"
 
 export default function ServiceDetail({ locale, service }: { locale: PublicLocale; service: CatalogService }) {
   const t = getServiceCopy(locale)
   const category = serviceCategories.find(category => category.id === service.category)!
   const paths = { en: servicePath(service, "en"), id: servicePath(service, "id") }
+  const directPackage = findDirectPackage(service.id)
   return <ServiceShell locale={locale} paths={paths}>
     <Link href={catalogPaths[locale]} className="inline-flex items-center min-h-11 text-muted hover:text-white mb-8">← {t("back")}</Link>
-    <div className="grid lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)] gap-12 lg:gap-20">
+    {directPackage ? <DirectPackageDetail service={service} spec={directPackage} locale={locale} /> : <div className="grid lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)] gap-12 lg:gap-20">
       <div className="min-w-0 break-words">
         <header className="mb-12">
           <p className="font-display text-red-bright uppercase text-sm tracking-widest mb-4">{category.name[locale]}</p>
@@ -40,7 +43,7 @@ export default function ServiceDetail({ locale, service }: { locale: PublicLocal
         {process.env.APP_ENV === "staging" && <a href={commercePaths.checkout[locale] + "?service=" + service.id} className="flex min-h-11 items-center justify-center mt-3 font-interface underline underline-offset-4">{commerceText("entry", locale)}</a>}
         <p className="font-interface text-sm text-muted leading-relaxed mt-4">{t("inquiryNote")}</p>
       </aside>
-    </div>
+    </div>}
   </ServiceShell>
 }
 

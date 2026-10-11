@@ -3,6 +3,7 @@ import { policiesEn } from "./policies/en"
 import { policiesId } from "./policies/id"
 import type { PublicLocale } from "./public-content"
 import { validTerms, type TransactionTerms } from "../lib/commerce/rules"
+import { directPackageTerms } from "./direct-packages"
 
 // Stable IDs map to approved Service Policy estimates; translations remain variants.
 const estimateRows: Record<string, number> = {
@@ -19,9 +20,11 @@ const revisionRows: Record<string, number> = {
 }
 // No commercial values invented. Populate only after explicit owner approval.
 const approvedTransactionDetails: Record<string, Record<PublicLocale, Pick<TransactionTerms, "milestones" | "cost_disclosure">>> = {}
-export function catalogTerms(serviceId: string, locale: PublicLocale) {
+export function catalogTerms(serviceId: string, locale: PublicLocale, outputLanguage: PublicLocale = locale) {
   const service = catalogServices.find(s => s.id === serviceId)
   if (!service) return null
+  const approved = directPackageTerms(serviceId, locale, outputLanguage)
+  if (approved) return { service, terms: approved, missing: [] as string[], eligible: validTerms(approved) }
   const content = (locale === "en" ? policiesEn : policiesId).service
   const estimates = content.sections.find(s => s.id === "service-2")?.blocks.find(b => b.type === "table")
   const revisions = content.sections.find(s => s.id === "service-3")?.blocks.find(b => b.type === "list")

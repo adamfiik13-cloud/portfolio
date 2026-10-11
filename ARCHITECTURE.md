@@ -249,6 +249,8 @@ Owner provisioning uses `scripts/bootstrap-staging-owner.sql` exclusively throug
 
 Planned provider: Midtrans, introduced after a working staging commerce flow exists.
 
+Phase 5 staging extension: centralized typed `data/direct-packages.ts` produces server-resolved ten-package terms and brief definitions with a separate selected output language. Direct order creation reuses atomic immutable snapshots/policy acceptance, with an additive owner-controlled SEO Foundation compatibility gate. A future verified Paid transition enqueues one durable order/type confirmation job; `lib/notifications` uses frozen snapshot content, leases and Resend idempotency, with explicit authorized retry and safe failure status. Historical paid QA orders are not backfilled. Public pages remain static; header session state affects only navigation labels, while server/RLS authorization remains authoritative. See `docs/backend/PHASE_5.md` for operator-only additive migrations and hosted QA; no production or full brief/delivery workflow activation.
+
 Required flow:
 
 1. Server records the immutable order Terms/price snapshot and successful client acceptance before creating a payment attempt.

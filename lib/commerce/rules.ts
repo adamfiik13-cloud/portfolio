@@ -1,10 +1,14 @@
 export type Locale = "en" | "id"
+export type BriefField = { id: string; label: string; instruction: string; required: boolean }
 export interface TransactionTerms {
   service_id: string; package_id: string; service_name: string; amount_idr: number; currency: "IDR";
   scope: string[]; deliverables: string[]; exclusions: string[]; requirements: string[];
   estimated_duration: string; revision_rule: { description: string };
   milestones: { label: string; amount_idr: number }[];
   cost_disclosure: string;
+  specification_version?: string; output_language?: Locale; tools?: string[]; brief_fields?: BriefField[];
+  technical_conditions?: string[]; scheduling_note?: string; compatibility_approval_id?: string;
+  compatibility_target?: { url: string; platform: "wordpress" | "nextjs" };
 }
 export interface OfferTerms { en: TransactionTerms; id: TransactionTerms }
 export function isUuid(value: unknown): value is string { return typeof value === "string" && /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value) }
@@ -17,7 +21,17 @@ export function validTerms(value: unknown): value is TransactionTerms {
     Number.isSafeInteger(v.amount_idr) && v.amount_idr > 0 && v.amount_idr <= 1_000_000_000 && v.currency === "IDR" &&
     lines(v.scope) && lines(v.deliverables) && lines(v.exclusions) && lines(v.requirements) && text(v.estimated_duration) &&
     text(v.revision_rule?.description) && text(v.cost_disclosure) && Array.isArray(v.milestones) && v.milestones.length > 0 && v.milestones.length <= 20 &&
-    v.milestones.every(m => m !== null && typeof m === "object" && text(m.label) && Number.isSafeInteger(m.amount_idr) && m.amount_idr > 0) && v.milestones.reduce((sum, m) => sum + m.amount_idr, 0) === v.amount_idr
+    v.milestones.every(m => m !== null && typeof m === "object" && text(m.label) && Number.isSafeInteger(m.amount_idr) && m.amount_idr > 0) && v.milestones.reduce((sum, m) => sum + m.amount_idr, 0) === v.amount_idr &&
+    (v.specification_version === undefined || text(v.specification_version)) &&
+    (v.output_language === undefined || v.output_language === "en" || v.output_language === "id") &&
+    (v.tools === undefined || lines(v.tools)) &&
+    (v.technical_conditions === undefined || Array.isArray(v.technical_conditions) && v.technical_conditions.length <= 40 && v.technical_conditions.every(text)) &&
+    (v.scheduling_note === undefined || text(v.scheduling_note)) &&
+    (v.compatibility_approval_id === undefined || isUuid(v.compatibility_approval_id)) &&
+    (v.compatibility_target === undefined || v.compatibility_target && text(v.compatibility_target.url) && ["wordpress", "nextjs"].includes(v.compatibility_target.platform)) &&
+    (v.brief_fields === undefined || Array.isArray(v.brief_fields) && v.brief_fields.length > 0 && v.brief_fields.length <= 40 &&
+      new Set(v.brief_fields.map(f => f?.id)).size === v.brief_fields.length &&
+      v.brief_fields.every(f => f && typeof f.id === "string" && /^[a-z0-9_-]{1,80}$/.test(f.id) && text(f.label) && text(f.instruction) && typeof f.required === "boolean"))
 }
 export function validOfferTerms(value: OfferTerms) {
   return validTerms(value?.en) && validTerms(value?.id) && value.en.service_id === value.id.service_id && value.en.package_id === value.id.package_id &&

@@ -69,16 +69,57 @@ export async function offerAgreement(id: string, locale: Locale) {
   if (!data || !validOfferTerms(data.transaction_terms) || offerHash(data.transaction_terms) !== data.terms_sha256) return null
   return { offer: data, canAccept: data.status === "sent" && new Date(data.expires_at).getTime() > Date.now(), ...agreement(data.transaction_terms[locale], locale, id) }
 }
-export async function placeOrder(input: { key: string; fingerprint: string; serviceId?: string; offerId?: string; locale: Locale }) {
+export async function compatibilityRequests() {
+  const { client, user } = await commerceContext()
+  if (!client || !user) return []
+  const { data, error } = await client.from("catalog_compatibility").select("id,client_id,website_url,platform,status,specification_version,order_id,created_at").eq("client_id", user.id).order("created_at", { ascending: false }).limit(30)
+  if (error) throw new Error("Commerce unavailable")
+  return data ?? []
+}
+export async function catalogAgreement(serviceId: string, locale: Locale, outputLanguage: Locale, approvalId = "") {
+  const catalog = catalogTerms(serviceId, locale, outputLanguage)
+  if (!catalog?.eligible) return null
+  let terms = catalog.terms
+  if (serviceId === "seo-foundation") {
+    const { client, user } = await commerceContext()
+    if (!client || !user || !isUuid(approvalId)) return null
+    const { data, error } = await client.from("catalog_compatibility").select("id,client_id,website_url,platform,status,specification_version,order_id").eq("id", approvalId).eq("client_id", user.id).maybeSingle()
+    if (error) throw new Error("Commerce unavailable")
+    if (!data || data.status !== "approved" || data.specification_version !== terms.specification_version) return null
+    terms = { ...terms, compatibility_approval_id: data.id, compatibility_target: { url: data.website_url, platform: data.platform } }
+  }
+  return agreement(terms, locale)
+}
+export async function requestCompatibility(url: string, platform: string) {
+  const { client, user } = await commerceContext()
+  if (!client || !user || !["wordpress", "nextjs"].includes(platform)) throw new Error("Unauthorized")
+  const parsed = new URL(url)
+  if (!["https:", "http:"].includes(parsed.protocol) || parsed.username || parsed.password || parsed.search || parsed.hash || url.length > 500 || /\s/.test(url)) throw new Error("Invalid request")
+  const version = catalogTerms("seo-foundation", "en")?.terms.specification_version
+  if (!version) throw new Error("Incomplete terms")
+  const { data, error } = await mutationClient().rpc("catalog_request_compatibility", { p_client: user.id, p_url: parsed.href, p_platform: platform, p_version: version })
+  if (error || !isUuid(data)) throw new Error("Commerce unavailable")
+  return data
+}
+export async function reviewCompatibility(id: string, approved: boolean) {
+  const context = await ownerContext()
+  if (!context?.user || !isUuid(id)) throw new Error("Unauthorized")
+  const { data, error } = await mutationClient().rpc("catalog_review_compatibility", { p_actor: context.user.id, p_id: id, p_approved: approved })
+  if (error || data !== true) throw new Error("Commerce unavailable")
+}
+export async function placeOrder(input: { key: string; fingerprint: string; serviceId?: string; offerId?: string; locale: Locale; outputLanguage?: Locale; approvalId?: string }) {
   const { client, user } = await commerceContext()
   if (!client || !user || !isUuid(input.key)) throw new Error("Unauthorized")
   const selected = input.offerId ? await offerAgreement(input.offerId, input.locale) : null
-  const catalog = input.serviceId ? catalogTerms(input.serviceId, input.locale) : null
+  if (!["en", "id"].includes(input.locale) || input.outputLanguage !== undefined && !["en", "id"].includes(input.outputLanguage)) throw new Error("Incomplete terms")
+  const catalog = input.serviceId ? catalogTerms(input.serviceId, input.locale, input.outputLanguage ?? input.locale) : null
   if (input.offerId && (!selected || !["sent", "accepted"].includes(selected.offer.status) || (selected.offer.status === "sent" && new Date(selected.offer.expires_at).getTime() <= Date.now()))) throw new Error("Changed agreement")
   if (!input.offerId && !catalog?.eligible) throw new Error("Incomplete terms")
-  const current = selected ?? agreement(catalog!.terms, input.locale)
+  const current = selected ?? await catalogAgreement(input.serviceId!, input.locale, input.outputLanguage ?? input.locale, input.approvalId)
+  if (!current) throw new Error("Compatibility approval required")
   if (!validTerms(current.terms) || current.fingerprint !== input.fingerprint) throw new Error("Changed agreement")
-  const { data, error } = await mutationClient().rpc("commerce_place_order", { p_client: user.id, p_key: input.key, p_locale: input.locale, p_terms: current.terms, p_hash: current.fingerprint, p_policies: current.policies, p_agreed: true, p_offer: input.offerId ?? null })
+  const args = { p_client: user.id, p_key: input.key, p_locale: input.locale, p_terms: current.terms, p_hash: current.fingerprint, p_policies: current.policies, p_agreed: true }
+  const { data, error } = await mutationClient().rpc(input.offerId ? "commerce_place_order" : "commerce_place_catalog_order", input.offerId ? { ...args, p_offer: input.offerId } : args)
   if (error || !isUuid(data)) throw new Error("Commerce unavailable")
   return data
 }

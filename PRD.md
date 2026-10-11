@@ -81,6 +81,8 @@ Phase 2B publishes 19 approved offers across Websites, SEO, Tracking & Analytics
 
 Approved prices and scope are maintained in `data/service-catalog.ts`. Standardized services may later support checkout; variable-scope “Starts from” services require a quote; consultations may later support booking and payment. In Phase 2B all CTAs open a prepared WhatsApp inquiry. Final scope and price are confirmed after discovery. Unspecified delivery timelines and revision arrangements require confirmation; no checkout or booking is implemented.
 
+Phase 5 staging extension: ten owner-approved fixed packages use `data/direct-packages.ts` for bilingual scope, outputs, tools, typed brief checklists, selected output language, one full-price work milestone and explicit costs. Exact catalog price is the checkout total; gateway fees are absorbed, no PPN is added (operator not yet PKP), and excluded third-party purchases need customer approval. SEO Foundation needs owner-controlled compatibility approval before ordering/payment. Other packages, including Landing Page Starter, remain inquiry/custom-offer work. `docs/backend/PHASE_5.md` records approved limits, staging-only direct checkout, durable verified-payment confirmation email and visible header login/orders access. Session scheduling is manual; purchase does not reserve a slot. Full brief submission/admin approval and delivery UI remain later work; payment does not start work. No production commerce activation is approved.
+
 ## 8. Information architecture
 
 ### Public area

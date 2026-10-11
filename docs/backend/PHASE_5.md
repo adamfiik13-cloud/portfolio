@@ -122,3 +122,82 @@ Implementation baseline: `8d0d7e32cb76895c74a8eb3577638c0392878003`. The evidenc
 - Direct purchase, confirmation email, login-header changes and Production implementation were not performed in this documentation task. The 19 incomplete catalog packages remain unavailable for direct purchase; custom offers require complete terms. No production payment rollout or Phase 6 work is authorized.
 - Payment remains 100% upfront; milestones are work allocations, not installment payments. Payment alone does not start work or complete/approve a brief.
 - No secrets, token values, signatures, raw provider payloads or VA numbers are recorded in this checkpoint.
+
+## Approved extension — ten direct packages, confirmation email and header access
+
+Starting commit: `04f50ceb3a9b5deb0d509cce9f609a4f868b11cc`. This extension is staging only. The 6 October operator record above remains historical evidence, not QA for this new extension. Production and the existing two paid QA orders, snapshots, acceptances and payment history are not changed or backfilled.
+
+### Approved package contract
+
+`data/direct-packages.ts` is the centralized typed EN/ID specification and brief source, version `phase5-2026-10-11`. Stable service IDs, prices and slugs remain catalog-owned. One selected English or Indonesian output language is stored separately from the contract/interface language. Examples are labeled illustrative structures, not client evidence or promised sample files.
+
+| Stable ID | Total IDR | Approved limits, tools and output | Estimate / review |
+| --- | ---: | --- | --- |
+| `digital-business-consultation` | 150000 | One business/problem; 60-minute Google Meet; one PDF summary, priorities and next actions | PDF within two business days after session; one clarification submission, up to three questions within seven calendar days after summary |
+| `marketing-marketplace-audit` | 200000 | One channel OR store; 60-minute Google Meet; one PDF findings/priorities/action plan | Notes within two business days after session; one clarification submission, up to three questions within seven calendar days |
+| `tracking-basic` | 450000 | One compatible website, GA4 property and GTM container; up to three events; configuration, event definitions, testing evidence and short checking guide | 3–5 business days; one in-scope adjustment round |
+| `business-website` | 2750000 | WordPress, one language, up to five equivalent pages; responsive editor/contact links; metadata/headings/sitemap/robots; GA4/GTM page visits only; published on customer-owned compatible hosting, admin access and editing guide | 10–15 business days; two in-scope revision rounds |
+| `seo-audit-roadmap` | 500000 | One website, up to 30 priority URLs and ten keyword themes; browser/sitemap, GSC/GA4 if available; one PDF plus prioritized action spreadsheet, including data limitations | Five business days; one report correction/clarification round |
+| `seo-foundation` | 950000 | Compatible WordPress OR Next.js with source/deployment access; up to five target pages; implemented basic SEO, per-page changes and before/after evidence | 7–10 business days; one in-scope correction round; owner compatibility review before order/payment |
+| `ads-tracking` | 650000 | One compatible website, GA4 property/GTM container, up to eight events; Meta Pixel OR Google Ads, browser-side only; configuration, tests and guide | 5–7 business days; one in-scope adjustment round |
+| `career-consultation` | 100000 | One career direction/position; 45-minute Google Meet; session only | Clarification during session; no report, recording, CV writing or extra session |
+| `cv-review` | 75000 | One CV, maximum two pages, one language/position; PDF/DOCX input; one feedback document and priority wording examples | 2–3 business days; one clarification submission, up to three questions within seven calendar days |
+| `cv-rewrite-optimization` | 150000 | One CV, maximum two pages, one language/position; factual rewrite; one version in DOCX and PDF with simple formatting | 3–5 business days; one revision based on previously supplied information |
+
+Every package has one work/handover milestone valued at its entire price, not an installment or a blanket no-refund clause. Payment remains 100% upfront. Gateway costs are absorbed without customer surcharge; checkout total equals the catalog package price. Adam's Work is not yet PKP: no PPN is added and a commercial invoice is not a Faktur Pajak. Domain, hosting, premium assets/plugins, subscriptions, third-party services and ad budgets are excluded unless expressly included. Extra purchases/charges require customer approval. Customer accounts/domain/hosting/website remain customer-owned; no performance/employment guarantees. Existing cancellation/refund/reschedule/no-show rules remain applicable.
+
+Website default pages are Home, About, Services, Portfolio/Gallery and Contact; equivalent substitutions cannot increase count/complexity. Next.js business websites require inquiry/custom offer. Landing Page Starter stays outside activation and retains its existing route/workflow. Other nine catalog services remain inquiry/custom-offer work. Tracking does not assume universal website compatibility: authorized browser tag insertion, identifiable existing events and the existing consent implementation are required; unsupported work uses inquiry. The displayed customer eligibility checkbox is not an operator technical review.
+
+### Direct flow and technical eligibility
+
+Public detail → select output language → contextual login/register retaining package/output intent → review server-resolved total, tools, scope, outputs, exclusions, typed brief checklist, duration/revision, milestone, costs and all four policies → explicit unchecked acceptance → atomic unpaid order with one immutable snapshot/four acceptances → existing Sandbox payment. No artificial offer is created. Idempotent retries reuse the order key; browser totals/content cannot override the server specification. Snapshot includes output language, tools, typed brief fields, technical/scheduling conditions and retained policy contents/versions/hashes.
+
+SEO Foundation requires a client-specific compatibility request (public URL without credentials/query/fragment, WordPress or Next.js). In the existing owner offers area, the owner checks the website, safe source/deployment access, five-page scope and change permissions through the agreed channel, then explicitly approves or redirects to custom-offer work. Client self-declaration does not unlock checkout. SQL locks/rechecks the approved target, client and specification version; one approval is linked to one order. This check does not approve the full work brief or start work.
+
+Brief checklists are typed package data and appear before acceptance, in the retained contract and in email. Session briefs include three proposed times in WITA; scheduling is manual and purchase reserves no calendar slot. SEO audit does not require analytics access. Never collect passwords/API keys in ordinary brief fields. Complete brief submission/admin-approval UI, delivery workspace and work countdown remain later tasks. Payment alone leaves work draft with no start timestamp until a complete brief is admin-approved.
+
+### Confirmation email lifecycle
+
+Future first server-verified Paid transitions atomically enqueue `payment_notifications` by order/type, backed by the verified Sandbox payment. No historical paid-order backfill. Server reconciliation schedules processing after the response; explicit client/owner retry and Check payment status can also process pending jobs. Email failure never reverses payment. There is no background cron or automatic continuous retry worker.
+
+Sender is `Adam's Work <no-reply@adamswork.app>`; Reply-To is `adamfiik13@gmail.com`. Content comes from the immutable accepted snapshot: reference/amount/package/output language, brief checklist, manual scheduling where relevant, authenticated order link and the admin-approved-brief prerequisite. It includes no link to an unimplemented upload form. Header shows localized Login or My orders, retaining footer access without exposing owner controls.
+
+The durable outbox records `pending`, `sending`, `sent`, `retryable` or `manual_review`. Only operational columns are visible through RLS; recipient/content/lease/provider receipt remain server-only. Claims serialize with a three-minute lease and frozen first-send payload. Resend uses a stable per-order idempotency key. Failures can retry after one minute; after 23h50 from the first attempt, processing stops for operator review rather than risking a duplicate beyond [Resend's 24-hour idempotency retention](https://resend.com/docs/dashboard/emails/idempotency-keys). `sent` means provider accepted, not independently verified inbox delivery. Missing configuration and provider failures retain only safe error codes. For manual review, inspect provider receipt/delivery evidence before deciding on any separate recovery; do not blindly reset or resend.
+
+### Operator application and verification — staging only
+
+1. Before new hosted checkout/email QA, verify the approved staging Supabase reference and CLI link, distinct from Production. Back up staging SQL and preserve both paid QA orders. `npx supabase migration list --linked` should show five existing Local/Remote matches, with `20261011000100` and `20261011000200` local-only. If history differs or objects already exist, stop; do not reapply.
+2. In the same staging SQL Editor, apply the full reviewed `20261011000100_catalog_eligibility.sql`, then `20261011000200_payment_notifications.sql`, each including its transaction. These additive migrations neither edit old migrations nor rewrite historical contracts. Builds do not execute SQL.
+3. Read-only verification (all values true):
+
+   ```sql
+   select
+     (select relrowsecurity from pg_class where oid='public.catalog_compatibility'::regclass) as compatibility_rls,
+     (select relrowsecurity from pg_class where oid='public.payment_notifications'::regclass) as notification_rls,
+     has_function_privilege('service_role','public.commerce_place_catalog_order(uuid,uuid,text,jsonb,text,jsonb,boolean)','EXECUTE') as catalog_server_allowed,
+     not has_function_privilege('authenticated','public.commerce_place_catalog_order(uuid,uuid,text,jsonb,text,jsonb,boolean)','EXECUTE') as catalog_browser_denied,
+     not has_function_privilege('authenticated','public.catalog_review_compatibility(uuid,uuid,boolean)','EXECUTE') as approval_browser_denied,
+     not has_function_privilege('authenticated','public.payment_notification_claim(uuid,jsonb)','EXECUTE') as email_browser_denied,
+     has_column_privilege('authenticated','public.payment_notifications','status','SELECT') as email_status_readable,
+     not has_column_privilege('authenticated','public.payment_notifications','payload','SELECT') as email_payload_private,
+     not has_column_privilege('authenticated','public.payment_notifications','lease','SELECT') as email_lease_private,
+     exists(select 1 from pg_trigger where tgname='enqueue_payment_confirmation' and not tgisinternal) as email_trigger_present,
+     not exists(select 1 from public.payment_notifications where order_id in ('c3e50d58-768f-409c-aea9-7216bc574fb7','71925352-206a-4da7-a84a-9307ed620ad7')) as old_qa_not_backfilled;
+   ```
+
+4. Only after successful application/verification, record each applied version: `npx supabase migration repair 20261011000100 --status applied --linked`, then the same command for `20261011000200`; run `npx supabase migration list --linked` and verify seven Local/Remote matches. If recording fails, resolve history without rerunning schema SQL.
+5. Existing server-side `RESEND_API_KEY` is reused; no new env variable is introduced. Operator verifies its custom-staging scope and sender-domain authorization for `no-reply@adamswork.app` without sharing secret values. Auth SMTP alone is not proof that the application API key is available. No vendor setting or email test was performed by Codex.
+6. Deployment Ready alone does not establish migration/configuration readiness. After both migrations, owner/operator performs the focused hosted QA below. Do not activate Production or live payments.
+
+### Extension manual QA checkpoint
+
+- Review all ten EN/ID service details, exact totals/limits/exclusions, selected one-language outputs, manual session scheduling and brief instructions. Confirm Landing Page Starter and non-ten inquiry CTAs remain available. Check visible desktop/mobile Login and authenticated My orders, keyboard/focus and narrow-screen wrapping.
+- Contextual login/register/confirmation retains package and output selection. Review checkout total, milestone, requirements and all four policy versions; unchecked acceptance prevents creation. Duplicate submit yields one order, one immutable snapshot and four acceptances. Confirm existing custom offers and accepted historical contracts are unchanged.
+- Foundation pending/rejected request blocks ordering/payment; only owner can approve, Client B cannot read/use Client A's approval; approved URL/platform/version is bound in the snapshot. Unsupported technical requirements use inquiry. An approved technical request is not brief approval.
+- On a newly authorized Sandbox QA order, verify payment through authoritative provider state; confirm one outbox job/email across webhook replay and Check payment status. Verify sender/reply-to, selected output language, checklist and authenticated link; actual inbox delivery remains operator evidence.
+- Simulate email failure only through approved operator testing; Paid/work draft must remain intact, safe failure status must be reviewable, retries must reuse the payload/key, and expired dedup windows must require manual review. Client B/non-owner retries must fail. Do not reset/delete attempts or existing QA orders.
+- Staging stays noindex/nofollow with empty sitemap and no GA4 measurement on private routes. Full hosted concurrency, uncertain outcomes, expiry/fraud/refund/method coverage and complete brief/delivery workflow remain separate unverified work.
+
+### Extension automated evidence
+
+Local/mocked checks PASS: 570 direct-package/public-navigation checks, 684 direct-checkout/eligibility checks, 85 notification checks, 180 commerce regression checks and 188 payment checks. These cover server price authority, explicit acceptance, selected output/auth intent, duplicate creation, immutable snapshots, owner compatibility/RLS, existing custom offers, verified-payment replays, email deduplication/failure and unchanged payment/work protection. Lint and type-check PASS; one production build with `APP_ENV=staging` PASS (Next retried static-generation timeouts within that invocation). Local smoke returned HTTP 200 for EN/ID home/catalog, representative details and checkout; staging noindex/nofollow, empty sitemap and no advertised production sitemap PASS. No real email, payment or hosted database mutation was performed. Extension hosted migration and authenticated/email QA remain pending operator action.

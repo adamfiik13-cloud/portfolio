@@ -8,11 +8,13 @@ import type { Locale } from "@/lib/commerce/rules"
 
 export const control = "w-full min-h-11 rounded-xl border border-line bg-black px-3 py-3 text-base text-soft disabled:opacity-60"
 const button = "inline-flex min-h-11 items-center justify-center rounded-xl bg-red px-6 py-3 font-display font-semibold text-white hover:bg-red-bright disabled:opacity-60 disabled:cursor-not-allowed"
-export function AcceptanceForm({ locale, serviceId = "", offerId = "", fingerprint, requestKey }: { locale: Locale; serviceId?: string; offerId?: string; fingerprint: string; requestKey: string }) {
+export function AcceptanceForm({ locale, serviceId = "", offerId = "", fingerprint, requestKey, outputLanguage = locale, approvalId = "" }: { locale: Locale; serviceId?: string; offerId?: string; fingerprint: string; requestKey: string; outputLanguage?: Locale; approvalId?: string }) {
   const [state, action, pending] = useActionState(acceptOrder.bind(null, locale, serviceId, offerId), {} as CommerceState)
   return <form action={action} className="space-y-5" aria-busy={pending}>
     <input type="hidden" name="key" value={requestKey} /><input type="hidden" name="fingerprint" value={fingerprint} />
+    <input type="hidden" name="outputLanguage" value={outputLanguage} /><input type="hidden" name="approvalId" value={approvalId} />
     <fieldset disabled={pending} className="space-y-5">
+      {!offerId && ["business-website", "tracking-basic", "ads-tracking", "seo-foundation"].includes(serviceId) && <label className="flex min-h-11 items-start gap-3 py-3"><input type="checkbox" name="supportedConditions" required className="mt-1 size-5 shrink-0 accent-red" /><span>{locale === "en" ? "My requirements meet the displayed supported conditions. Unsupported work requires an inquiry/custom offer. This declaration is not an operator technical review; SEO Foundation also requires the owner's approval." : "Kebutuhan saya sesuai kondisi yang didukung di atas. Pekerjaan di luar kondisi tersebut memerlukan inquiry/penawaran khusus. Pernyataan ini bukan pemeriksaan teknis operator; Fondasi SEO juga memerlukan persetujuan owner."}</span></label>}
       <label className="flex min-h-11 items-start gap-3 py-3"><input type="checkbox" name="agreement" required className="mt-1 size-5 shrink-0 accent-red" /><span>{t("agreement", locale)}</span></label>
       <button type="submit" className={button}>{t(pending ? "pending" : "accept", locale)}</button>
     </fieldset>

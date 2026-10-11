@@ -6,6 +6,7 @@ import BrandSignature from "@/components/ui/BrandSignature"
 import Button from "@/components/ui/Button"
 import LanguageSwitcher from "./LanguageSwitcher"
 import { usePublicLocale } from "./PublicLocaleProvider"
+import HeaderAccountLink from "./HeaderAccountLink"
 
 
 export default function Navbar() {
@@ -54,7 +55,7 @@ export default function Navbar() {
       >
         <div className="public-container h-16 flex items-center justify-between">
           {/* Logo */}
-          <BrandSignature />
+          <div className="min-w-0 max-[400px]:[&_a]:gap-1.5 max-[400px]:[&_img]:w-7 max-[400px]:[&_img]:h-7 max-[400px]:[&_span]:text-sm"><BrandSignature /></div>
 
           {/* Desktop Nav */}
           <nav className="hidden lg:flex items-center gap-1" aria-label={t("nav.main")}>
@@ -83,7 +84,7 @@ export default function Navbar() {
             </Button>
           </div>
 
-          <LanguageSwitcher />
+          <div className="flex shrink-0 items-center"><HeaderAccountLink locale={locale} onNavigate={() => setMenuOpen(false)} /><LanguageSwitcher /></div>
 
           {/* Mobile Hamburger */}
           <button
@@ -127,7 +128,8 @@ export default function Navbar() {
               {navLinks.map((link, i) => (
                 <motion.a
                   key={link.href}
-                  onClick={() => handleNavClick(link.href)}
+                  href={link.href}
+                  onClick={event => { setMenuOpen(false); if (link.href.startsWith("#")) { event.preventDefault(); handleNavClick(link.href) } }}
                   className="text-left px-4 py-4 text-lg font-brand-body text-muted hover:text-white transition-colors border-b border-[#29292e] cursor-pointer"
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -139,6 +141,7 @@ export default function Navbar() {
             </nav>
 
             <div className="mt-8 space-y-3">
+              <HeaderAccountLink locale={locale} expanded onNavigate={() => setMenuOpen(false)} />
               <Button
                 href={siteConfig.whatsappUrl}
                 target="_blank"

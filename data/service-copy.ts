@@ -1,6 +1,20 @@
 import type { PublicLocale } from "./public-content"
 
 export const serviceCopy = {
+  approvedPackage: { en: "Defined package scope", id: "Cakupan paket yang ditetapkan" },
+  workTools: { en: "The work and tools", id: "Pekerjaan dan tools" },
+  tools: { en: "Tools / platforms", id: "Tools / platform" },
+  supportedConditions: { en: "Supported conditions", id: "Kondisi yang didukung" },
+  illustrativeOutput: { en: "Illustrative output structure", id: "Ilustrasi struktur hasil" },
+  optionalRelevant: { en: "if relevant", id: "jika relevan" },
+  nextSteps: { en: "After your order", id: "Setelah pemesanan" },
+  packageTotal: { en: "Total package price", id: "Total harga paket" },
+  outputLanguage: { en: "Deliverable language", id: "Bahasa hasil kerja" },
+  reviewPackageOrder: { en: "Review this package order", id: "Tinjau pesanan paket" },
+  requestCompatibility: { en: "Request compatibility review", id: "Minta pemeriksaan kompatibilitas" },
+  reviewBeforePayment: { en: "Review the full agreement and policies before creating an order or paying. This staging flow uses Midtrans Sandbox.", id: "Tinjau kesepakatan lengkap dan kebijakan sebelum membuat pesanan atau membayar. Alur staging ini menggunakan Midtrans Sandbox." },
+  outsidePackage: { en: "Need something outside this scope?", id: "Perlu pekerjaan di luar cakupan ini?" },
+  catalogConfirmation: { en: "Defined package prices apply to their listed scope. Other services and additional requirements are confirmed through inquiry or a custom offer.", id: "Harga paket yang ditetapkan berlaku untuk cakupan tercantum. Layanan lainnya dan kebutuhan tambahan dikonfirmasi melalui inquiry atau penawaran khusus." },
   "label": {
     "en": "Services",
     "id": "Layanan"

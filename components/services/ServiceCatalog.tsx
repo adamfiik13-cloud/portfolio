@@ -11,7 +11,7 @@ export default function ServiceCatalog({ locale }: { locale: PublicLocale }) {
       <p className="font-display uppercase tracking-widest text-sm text-muted mb-4">{t("label")}</p>
       <h1 className="font-display text-4xl sm:text-6xl font-bold leading-tight mb-6">{t("title")}</h1>
       <p className="text-muted leading-relaxed mb-4">{t("intro")}</p>
-      <p className="font-interface text-sm text-muted">{t("founder")} {t("confirmation")}</p>
+      <p className="font-interface text-sm text-muted">{t("founder")} {t("catalogConfirmation")}</p>
     </header>
     <CatalogBrowser locale={locale} />
   </ServiceShell>

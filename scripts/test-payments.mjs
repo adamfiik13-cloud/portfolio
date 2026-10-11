@@ -36,7 +36,7 @@ function load(file){
   if(cache.has(full))return cache.get(full).exports
   const mod={exports:{}};cache.set(full,mod)
   const compiled=ts.transpileModule(fs.readFileSync(full,'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022,jsx:ts.JsxEmit.ReactJSX,esModuleInterop:true}}).outputText
-  const require=id=>id==='server-only'?{}:id==='@/lib/commerce/server'?{commerceContext:async()=>context}:id==='@supabase/supabase-js'?{createClient:()=>queryClient()}:id==='@/lib/auth/context'?{authContext:async()=>context}:id==='@/lib/supabase/config'?{getSupabaseConfig:()=>({url:process.env.NEXT_PUBLIC_SUPABASE_URL,key:'test'})}:id==='next/cache'?{revalidatePath:()=>{}}:id.startsWith('@/')?load(id.slice(2)):id.startsWith('.')?load(path.resolve(path.dirname(full),id)):native(id)
+  const require=id=>id==='server-only'?{}:id==='@/lib/notifications/server'?{deliverPaymentConfirmation:async()=>{},schedulePaymentConfirmation:()=>{},readConfirmationStatus:async()=>"not_recorded"}:id==='@/lib/commerce/server'?{commerceContext:async()=>context}:id==='@supabase/supabase-js'?{createClient:()=>queryClient()}:id==='@/lib/auth/context'?{authContext:async()=>context}:id==='@/lib/supabase/config'?{getSupabaseConfig:()=>({url:process.env.NEXT_PUBLIC_SUPABASE_URL,key:'test'})}:id==='next/cache'?{revalidatePath:()=>{}}:id.startsWith('@/')?load(id.slice(2)):id.startsWith('.')?load(path.resolve(path.dirname(full),id)):native(id)
   new Function('require','module','exports',compiled)(require,mod,mod.exports);return mod.exports
 }
 globalThis.fetch=async(url,options)=>{
