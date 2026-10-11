@@ -9,7 +9,7 @@ import { PGlite } from '@electric-sql/pglite'
 // provider requests, real email, tokens or credentials.
 const native=createRequire(import.meta.url),cache=new Map(),db=new PGlite()
 const a='11111111-1111-4111-8111-111111111111',b='22222222-2222-4222-8222-222222222222',owner='33333333-3333-4333-8333-333333333333',team='44444444-4444-4444-8444-444444444444'
-let context={user:null,client:null,configured:true},checks=0,rpcCalls=[]
+let context={user:null,client:null,configured:true},checks=0,rpcCalls=[],orderReadFault=null
 const check=value=>{assert(value);checks++}
 const equal=(actual,expected)=>{assert.deepEqual(actual,expected);checks++}
 const denied=async(fn,pattern)=>{await assert.rejects(fn,pattern);checks++}
@@ -18,10 +18,14 @@ const uuid=()=>scalar('select gen_random_uuid()')
 const previousEnv={APP_ENV:process.env.APP_ENV,SUPABASE_SERVICE_ROLE_KEY:process.env.SUPABASE_SERVICE_ROLE_KEY}
 process.env.APP_ENV='staging';process.env.SUPABASE_SERVICE_ROLE_KEY='test-only'
 function client(){return {from:table=>{
-  assert(['staff_access','catalog_compatibility'].includes(table))
+  assert(['staff_access','catalog_compatibility','orders'].includes(table))
   let fields='',filters=[],maximum=''
   const select=async()=>{assert(/^[a-z_,]+$/.test(fields));assert(filters.every(([field])=>/^[a-z_]+$/.test(field)));return (await db.query(`select ${fields} from ${table}${filters.length?' where '+filters.map(([field],i)=>field+'=$'+(i+1)).join(' and '):''}${maximum}`,filters.map(([,value])=>value))).rows}
-  const query={select:value=>{fields=value;return query},eq:(field,value)=>{filters.push([field,value]);return query},order:()=>query,limit:async value=>{assert.equal(value,30);maximum=' limit 30';return {data:await select(),error:null}},maybeSingle:async()=>({data:(await select())[0]??null,error:null})}
+  const query={select:value=>{fields=value;return query},eq:(field,value)=>{filters.push([field,value]);return query},order:()=>query,limit:async value=>{assert.equal(value,30);maximum=' limit 30';return {data:await select(),error:null}},maybeSingle:async()=>{
+    if(table==='orders')assert(filters.some(([field,value])=>field==='client_id'&&value===context.user.id))
+    if(table==='orders'&&orderReadFault)return {data:null,error:orderReadFault==='error'?{message:'details withheld'}:null}
+    return {data:(await select())[0]??null,error:null}
+  }}
   return query
 },rpc:async(name,args)=>{
   assert(['commerce_place_catalog_order','catalog_request_compatibility','catalog_review_compatibility'].includes(name))
@@ -29,15 +33,20 @@ function client(){return {from:table=>{
   try{return {data:await scalar(`select public.${name}(${Object.values(args).map((_,i)=>'$'+(i+1)).join(',')})`,Object.values(args)),error:null}}
   catch{return {data:null,error:{message:'details withheld'}}}
 }}}
+function AcceptanceForm(){return null}
 function load(file){
   let full=path.resolve(file);if(!path.extname(full))full+=fs.existsSync(full+'.ts')?'.ts':'.tsx'
   if(cache.has(full))return cache.get(full).exports
   const mod={exports:{}};cache.set(full,mod)
   const code=ts.transpileModule(fs.readFileSync(full,'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022,jsx:ts.JsxEmit.ReactJSX,esModuleInterop:true}}).outputText
-  const require=id=>id==='server-only'?{}:id==='@/lib/auth/context'?{authContext:async()=>context}:id==='@/lib/supabase/config'?{getSupabaseConfig:()=>({url:'https://stage.example.invalid',key:'test-only'})}:id==='@supabase/supabase-js'?{createClient:()=>client()}:id==='next/cache'?{revalidatePath:()=>{}}:id==='next/navigation'?{redirect:url=>{throw new Error('NEXT_REDIRECT:'+url)}}:id.startsWith('@/')?load(id.slice(2)):id.startsWith('.')?load(path.resolve(path.dirname(full),id)):native(id)
+  const require=id=>id==='server-only'?{}:id==='@/lib/auth/context'?{authContext:async()=>context}:id==='@/lib/supabase/config'?{getSupabaseConfig:()=>({url:'https://stage.example.invalid',key:'test-only'})}:id==='@supabase/supabase-js'?{createClient:()=>client()}:id==='next/cache'?{revalidatePath:()=>{}}:id==='next/navigation'?{redirect:url=>{throw new Error('NEXT_REDIRECT:'+url)},notFound:()=>{throw new Error('NEXT_NOT_FOUND')}}:['@/components/ui/BrandSignature','@/components/layout/LanguageSwitcher','./PaymentPanel','./CompatibilityForm','./ConfirmationPanel'].includes(id)?{__esModule:true,default:()=>null}:id==='@/components/layout/PublicLocaleProvider'?{PublicLocaleProvider:()=>null}:id==='@/components/policies/PolicyPage'?{PolicyBlockContent:()=>null}:id==='./CommerceForms'?{AcceptanceForm,OwnerOfferForm:()=>null}:id==='@/lib/payments/server'?{paymentReady:()=>false}:id==='@/lib/notifications/server'?{readConfirmationStatus:async()=>"not_recorded"}:id.startsWith('@/')?load(id.slice(2)):id.startsWith('.')?load(path.resolve(path.dirname(full),id)):native(id)
   new Function('require','module','exports',code)(require,mod,mod.exports);return mod.exports
 }
 const catalog=load('data/commerce-catalog.ts'),packages=load('data/direct-packages.ts'),server=load('lib/commerce/server.ts'),actions=load('lib/commerce/actions.ts'),rules=load('lib/commerce/rules.ts'),intent=load('lib/auth/order-intent.ts')
+const {CheckoutPage,OrdersPage}=load('components/commerce/CommercePages.tsx')
+function elements(value){return Array.isArray(value)?value.flatMap(elements):value&&typeof value==='object'&&value.props?[value,...elements(value.props.children)]:[]}
+function textContent(value){return Array.isArray(value)?value.map(textContent).join(''):value&&typeof value==='object'&&value.props?textContent(value.props.children):typeof value==='string'?value:''}
+const checkout=(locale,approval)=>CheckoutPage({locale,searchParams:Promise.resolve({service:'seo-foundation',output:'id',approval})})
 const expectedPrices={'digital-business-consultation':150000,'marketing-marketplace-audit':200000,'tracking-basic':450000,'business-website':2750000,'seo-audit-roadmap':500000,'seo-foundation':950000,'ads-tracking':650000,'career-consultation':100000,'cv-review':75000,'cv-rewrite-optimization':150000}
 const technical=new Set(['tracking-basic','business-website','seo-foundation','ads-tracking'])
 const sqlPlace=(clientId,key,locale,terms,agreed=true,fingerprint=server.agreement(terms,locale).fingerprint)=>scalar('select public.commerce_place_catalog_order($1,$2,$3,$4,$5,$6,$7)',[clientId,key,locale,terms,fingerprint,server.policyBundle(locale),agreed])
@@ -80,6 +89,7 @@ try{
   await db.exec(`insert into auth.users(id,email,email_confirmed_at) values('${a}','a@example.invalid',now()),('${b}','b@example.invalid',now()),('${owner}','owner@example.invalid',now()),('${team}','team@example.invalid',now());insert into staff_access(user_id,role) values('${owner}','owner'),('${team}','team');`)
   context={user:{id:a},client:client(),configured:true}
   const agreement=await server.catalogAgreement('tracking-basic','en','id'),key=await uuid(),before=rpcCalls.length
+  equal(agreement.existingOrderId,null)
   const missing=form(key,agreement);equal(await actions.acceptOrder('en','tracking-basic','',{},missing),{message:'invalid'});equal(rpcCalls.length,before)
   missing.set('agreement','on');missing.delete('outputLanguage');equal(await actions.acceptOrder('en','tracking-basic','',{},missing),{message:'invalid'});equal(rpcCalls.length,before)
   const noTechnical=form(key,agreement);noTechnical.set('agreement','on');noTechnical.delete('supportedConditions')
@@ -127,15 +137,42 @@ try{
   context.user={id:owner};await server.reviewCompatibility(approval,true)
   equal(await scalar('select reviewed_by from catalog_compatibility where id=$1',[approval]),owner)
   context.user={id:a}
-  for(const locale of ['en','id']){const prepared=await server.catalogAgreement('seo-foundation',locale,'id',approval);check(!!prepared);equal(prepared.terms.compatibility_target,{url:'https://website.example.invalid/',platform:'wordpress'})}
+  for(const locale of ['en','id']){
+    const prepared=await server.catalogAgreement('seo-foundation',locale,'id',approval);check(!!prepared);equal(prepared.existingOrderId,null);equal(prepared.terms.compatibility_target,{url:'https://website.example.invalid/',platform:'wordpress'})
+    const page=await checkout(locale,approval),acceptance=elements(page).filter(node=>node.type===AcceptanceForm)
+    equal(acceptance.length,1);equal(acceptance[0].props.approvalId,approval);equal(acceptance[0].props.fingerprint,prepared.fingerprint)
+    check(!textContent(page).includes(locale==='en'?'This approval has already been used':'Approval ini sudah digunakan'))
+  }
   const foundation=await server.catalogAgreement('seo-foundation','en','id',approval),foundationKey=await uuid()
   for(const changed of [{...foundation.terms,compatibility_target:{url:'https://other.example.invalid/',platform:'wordpress'}},{...foundation.terms,compatibility_target:{...foundation.terms.compatibility_target,platform:'nextjs'}},{...foundation.terms,specification_version:'old'},{...foundation.terms,compatibility_approval_id:undefined}])await denied(async()=>sqlPlace(a,await uuid(),'en',changed),/Owner compatibility approval required|Unapproved catalog terms/)
   await denied(async()=>sqlPlace(b,await uuid(),'en',foundation.terms),/Owner compatibility approval required/)
   const foundationOrder=await server.placeOrder({key:foundationKey,locale:'en',serviceId:'seo-foundation',outputLanguage:'id',approvalId:approval,fingerprint:foundation.fingerprint})
   equal(await server.placeOrder({key:foundationKey,locale:'en',serviceId:'seo-foundation',outputLanguage:'id',approvalId:approval,fingerprint:foundation.fingerprint}),foundationOrder)
   equal(await scalar('select order_id from catalog_compatibility where id=$1',[approval]),foundationOrder)
+  for(const locale of ['en','id']){
+    const current=await server.catalogAgreement('seo-foundation',locale,'id',approval)
+    equal(current.existingOrderId,foundationOrder)
+    equal(current.fingerprint,server.agreement(current.terms,locale).fingerprint)
+    check(!('existingOrderId' in current.terms))
+    const page=await checkout(locale,approval),nodes=elements(page)
+    equal(nodes.filter(node=>node.type===AcceptanceForm).length,0)
+    check(textContent(page).includes(locale==='en'?'This approval has already been used to create an order.':'Approval ini sudah digunakan untuk membuat pesanan.'))
+    const link=nodes.find(node=>node.type==='a'&&textContent(node)===(locale==='en'?'Open existing order':'Buka pesanan yang sudah ada'))
+    check(!!link);equal(link.props.href,(locale==='en'?'/orders/':'/id/pesanan/')+foundationOrder)
+  }
+  const resumed=await server.catalogAgreement('seo-foundation','en','id',approval)
+  equal(resumed.fingerprint,foundation.fingerprint);equal(resumed.terms,foundation.terms)
+  const actionRetry=form(foundationKey,foundation);actionRetry.set('agreement','on');actionRetry.set('approvalId',approval)
+  await denied(()=>actions.acceptOrder('en','seo-foundation','',{},actionRetry),new RegExp('NEXT_REDIRECT:/orders/'+foundationOrder))
+  equal(await scalar('select count(*)::int from orders where creation_key=$1',[foundationKey]),1)
+  equal(await scalar('select count(*)::int from order_snapshots where order_id=$1',[foundationOrder]),1)
+  equal(await scalar('select count(*)::int from policy_acceptances where order_id=$1',[foundationOrder]),4)
+  orderReadFault='missing';equal(await server.catalogAgreement('seo-foundation','en','id',approval),null)
+  orderReadFault='error';await denied(()=>server.catalogAgreement('seo-foundation','en','id',approval),/Commerce unavailable/);orderReadFault=null
   const ordersBeforeReuse=await scalar('select count(*)::int from orders')
   await denied(async()=>server.placeOrder({key:await uuid(),locale:'en',serviceId:'seo-foundation',outputLanguage:'id',approvalId:approval,fingerprint:foundation.fingerprint}),/Commerce unavailable/)
+  const differentKey=form(await uuid(),foundation);differentKey.set('agreement','on');differentKey.set('approvalId',approval)
+  equal(await actions.acceptOrder('en','seo-foundation','',{},differentKey),{message:'unavailable'})
   equal(await scalar('select count(*)::int from orders'),ordersBeforeReuse)
   const rejected=await server.requestCompatibility('https://rejected.example.invalid','nextjs')
   context.user={id:owner};await server.reviewCompatibility(rejected,false);context.user={id:a}
@@ -147,13 +184,25 @@ try{
   // RLS separates client transactions and approvals; browsers cannot invoke any
   // privileged compatibility/order RPC even for their own client ID.
   await db.exec(`select set_config('request.jwt.claim.sub','${b}',false);set role authenticated;`)
+  context.user={id:b}
   equal(await scalar('select count(*)::int from orders'),0);equal(await scalar('select count(*)::int from catalog_compatibility'),0)
+  for(const locale of ['en','id']){
+    equal(await server.catalogAgreement('seo-foundation',locale,'id',approval),null)
+    const page=await checkout(locale,approval),nodes=elements(page)
+    equal(nodes.filter(node=>node.type===AcceptanceForm).length,0)
+    check(!nodes.some(node=>node.type==='a'&&node.props.href===(locale==='en'?'/orders/':'/id/pesanan/')+foundationOrder))
+    await denied(()=>OrdersPage({locale,id:foundationOrder}),/NEXT_NOT_FOUND/)
+    const foreignRetry=form(foundationKey,foundation);foreignRetry.set('agreement','on');foreignRetry.set('approvalId',approval)
+    equal(await actions.acceptOrder(locale,'seo-foundation','',{},foreignRetry),{message:'unavailable'})
+  }
   await denied(()=>sqlPlace(a,key,'en',agreement.terms),/permission denied/)
   await denied(()=>scalar('select catalog_request_compatibility($1,$2,$3,$4)',[b,'https://new.example.invalid/','wordpress',packages.DIRECT_PACKAGE_VERSION]),/permission denied/)
   await denied(()=>scalar('select catalog_review_compatibility($1,$2,$3)',[owner,approval,true]),/permission denied/)
   await denied(()=>db.exec("update catalog_compatibility set status='approved'"),/permission denied/)
   await db.exec(`reset role;select set_config('request.jwt.claim.sub','${a}',false);set role authenticated;`)
+  context.user={id:a}
   check(await scalar('select count(*)::int from orders')>0);equal(await scalar('select count(*)::int from catalog_compatibility'),2)
+  equal((await server.catalogAgreement('seo-foundation','en','id',approval)).existingOrderId,foundationOrder)
   await db.exec('reset role;set role anon');await denied(()=>sqlPlace(a,key,'en',agreement.terms),/permission denied/);await db.exec('reset role')
   equal(await scalar("select has_function_privilege('service_role','public.commerce_place_catalog_order(uuid,uuid,text,jsonb,text,jsonb,boolean)','execute')"),true)
   console.log(`Direct checkout: ${checks} focused checks passed (approved terms, server prices, explicit acceptance, output-language intent, atomic duplicates, immutable snapshots, owner compatibility/target binding and RLS). Local PGlite only; hosted concurrency/technical review remains operator QA.`)

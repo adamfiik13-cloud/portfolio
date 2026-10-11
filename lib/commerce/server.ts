@@ -80,15 +80,25 @@ export async function catalogAgreement(serviceId: string, locale: Locale, output
   const catalog = catalogTerms(serviceId, locale, outputLanguage)
   if (!catalog?.eligible) return null
   let terms = catalog.terms
+  let existingOrderId: string | null = null
   if (serviceId === "seo-foundation") {
     const { client, user } = await commerceContext()
     if (!client || !user || !isUuid(approvalId)) return null
     const { data, error } = await client.from("catalog_compatibility").select("id,client_id,website_url,platform,status,specification_version,order_id").eq("id", approvalId).eq("client_id", user.id).maybeSingle()
     if (error) throw new Error("Commerce unavailable")
     if (!data || data.status !== "approved" || data.specification_version !== terms.specification_version) return null
+    if (data.order_id !== null) {
+      if (!isUuid(data.order_id)) return null
+      const { data: order, error: orderError } = await client.from("orders").select("id").eq("id", data.order_id).eq("client_id", user.id).maybeSingle()
+      if (orderError) throw new Error("Commerce unavailable")
+      if (!order) return null
+      existingOrderId = order.id
+    }
     terms = { ...terms, compatibility_approval_id: data.id, compatibility_target: { url: data.website_url, platform: data.platform } }
   }
-  return agreement(terms, locale)
+  // Presentation state stays outside the agreement hash so a successful submit
+  // can still be recovered by retrying its original request key.
+  return { ...agreement(terms, locale), existingOrderId }
 }
 export async function requestCompatibility(url: string, platform: string) {
   const { client, user } = await commerceContext()

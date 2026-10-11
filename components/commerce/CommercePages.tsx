@@ -103,8 +103,12 @@ export async function CheckoutPage({ locale, searchParams }: { locale: Locale; s
       <a className="inline-flex min-h-11 underline" href={serviceInquiry(catalog.service, locale)} target="_blank" rel="noopener noreferrer">{t("inquiry", locale)}</a>
     </section>}
     <Policies locale={locale} bundle={preview.policies} />
+    {current?.existingOrderId && <div className="space-y-3" role="status">
+      <p>{locale === "en" ? "This approval has already been used to create an order." : "Approval ini sudah digunakan untuk membuat pesanan."}</p>
+      <a className="inline-flex min-h-11 items-center underline text-red-bright" href={commercePaths.orders[locale] + "/" + current.existingOrderId}>{locale === "en" ? "Open existing order" : "Buka pesanan yang sudah ada"}</a>
+    </div>}
     {!context.user ? <div className="flex flex-col items-start gap-2">{(["login", "register"] as const).map(k => <a key={k} className="inline-flex min-h-11 items-center underline" href={authPaths[k][locale] + "?service=" + encodeURIComponent(id) + "&output=" + outputLanguage}>{t(k === "login" ? "signIn" : "register", locale)}</a>)}</div>
-      : current && <AcceptanceForm locale={locale} serviceId={id} outputLanguage={outputLanguage} approvalId={approvalId} fingerprint={current.fingerprint} requestKey={randomUUID()} />}
+      : current && !current.existingOrderId && <AcceptanceForm locale={locale} serviceId={id} outputLanguage={outputLanguage} approvalId={approvalId} fingerprint={current.fingerprint} requestKey={randomUUID()} />}
   </Shell>
 }
 export async function OrdersPage({ locale, id }: { locale: Locale; id?: string }) {
