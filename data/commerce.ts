@@ -5,12 +5,14 @@ export const commercePaths = {
   orders: { en: "/orders", id: "/id/pesanan" },
   offers: { en: "/offers", id: "/id/penawaran" },
   owner: { en: "/owner/offers", id: "/id/pemilik/penawaran" },
+  ownerOrders: { en: "/owner/orders", id: "/id/pemilik/pesanan" },
 } as const
 export const commerceCopy = {
   checkout: ["Order summary", "Ringkasan pesanan"],
   orders: ["Your orders", "Pesanan Anda"],
   offers: ["Your offers", "Penawaran Anda"],
   owner: ["Create a custom offer", "Buat penawaran khusus"],
+  ownerOrders: ["Manage orders", "Kelola pesanan"],
   entry: ["Review order options", "Tinjau pilihan pemesanan"],
   payment: ["Online payment is not yet available. No payment is collected and work has not started.", "Pembayaran online belum tersedia. Tidak ada pembayaran yang ditagih dan pekerjaan belum dimulai."],
   commencement: ["Work and the delivery countdown start only after verified payment AND mandatory brief completeness approved by admin.", "Pekerjaan dan hitungan durasi dimulai hanya setelah pembayaran terverifikasi DAN kelengkapan mandatory brief disetujui admin."],

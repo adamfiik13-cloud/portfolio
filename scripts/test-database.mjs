@@ -19,7 +19,7 @@ const root = () => run("reset role; select set_config('request.jwt.claim.sub',''
 try {
   await run(`create role anon nologin; create role authenticated nologin; create role service_role nologin bypassrls;
     create schema auth; create schema storage;
-    create table auth.users(id uuid primary key,email text,raw_user_meta_data jsonb default '{}');
+    create table auth.users(id uuid primary key,email text,email_confirmed_at timestamptz default now(),is_anonymous boolean default false,raw_user_meta_data jsonb default '{}');
     create function auth.uid() returns uuid language sql stable as $$ select nullif(current_setting('request.jwt.claim.sub',true),'')::uuid $$;
     grant usage on schema public,auth,storage to anon,authenticated,service_role;
     grant execute on function auth.uid() to anon,authenticated,service_role;
@@ -31,7 +31,7 @@ try {
     await run((await readFile('supabase/migrations/'+file,'utf8')).replace(/^\uFEFF/,''))
     console.log('Applied '+file)
   }
-  assert.equal(await scalar("select count(*)::int from pg_tables where schemaname='public' and rowsecurity"),17);checks++
+  assert.equal(await scalar("select count(*)::int from pg_tables where schemaname='public' and not rowsecurity"),0);checks++
   assert.equal(await scalar('select count(*)::int from storage.buckets where public=false'),3);checks++
   await run(`insert into auth.users(id,email,raw_user_meta_data) values('${a}','a@example.invalid','{"role":"owner"}'),('${b}','b@example.invalid','{}'),('${team}','team@example.invalid','{}'),('${admin}','admin@example.invalid','{}');
     insert into public.staff_access(user_id,role) values('${team}','team'),('${admin}','owner');
@@ -75,7 +75,7 @@ try {
     const {rows}=await db.query("insert into public.policy_versions(policy_type,version,locale,effective_date,content,content_sha256,published_at) values($1,'1.0','en','2026-09-28','Test-only policy',$2,now()) returning id",[type,'a'.repeat(64)])
     policies.push({type,id:rows[0].id})
   }
-  await db.query(`insert into public.order_snapshots(order_id,service_name,agreed_amount_idr,scope,deliverables,requirements,exclusions,revision_rule,estimated_duration,cancellation_refund_terms,policy_version_ids,content_sha256) values($1,'Tracking Basic',450000,'[]','[]','[]','[]','{}','3-5 business days','{}',$2,$3)`,[o1,policies.map(p=>p.id),'b'.repeat(64)])
+  await db.query(`insert into public.order_snapshots(order_id,service_name,selected_package,agreed_amount_idr,scope,deliverables,requirements,exclusions,revision_rule,estimated_duration,cancellation_refund_terms,policy_version_ids,content_sha256) values($1,'Tracking Basic','{"terms":{"requirements":["Mandatory data"]}}',450000,'[]','[]','["Mandatory data"]','[]','{}','3-5 business days','{}',$2,$3)`,[o1,policies.map(p=>p.id),'b'.repeat(64)])
   await run('set role service_role')
   await denied("update public.order_snapshots set service_name='Changed'",'snapshot immutable even with service role')
   await denied("delete from public.policy_versions",'version immutable')
@@ -85,8 +85,8 @@ try {
   await denied('delete from public.policy_acceptances','acceptance immutable')
   await run(`insert into public.payment_records(order_id,provider,provider_reference,amount_idr,status,verified_at) values('${o1}','test','test-only-reference',450000,'verified',now()); update public.orders set payment_status='paid' where id='${o1}';`)
   await denied(`update public.orders set work_status='in_progress' where id='${o1}'`,'payment alone insufficient')
-  await denied(`insert into public.briefs(order_id,status,submitted_at,approved_at,approved_by) values('${o1}','approved',now(),now(),'${team}')`,'team cannot approve mandatory brief')
-  await run(`insert into public.briefs(order_id,status,submitted_at,approved_at,approved_by) values('${o1}','approved',now(),now(),'${admin}'); update public.orders set work_status='in_progress' where id='${o1}';`)
+  await denied(`insert into public.briefs(order_id,responses,status,submitted_at,approved_at,approved_by) values('${o1}','{"requirement_1":"Complete test-only data"}','approved',now(),now(),'${team}')`,'team cannot approve mandatory brief')
+  await run(`insert into public.briefs(order_id,responses,status,submitted_at,approved_at,approved_by) values('${o1}','{"requirement_1":"Complete test-only data"}','approved',now(),now(),'${admin}'); update public.orders set work_status='in_progress' where id='${o1}';`)
   assert.equal(await scalar(`select work_started_at is not null from public.orders where id='${o1}'`),true);checks++
   assert.equal(await scalar(`select count(*)::int from public.order_status_history where order_id='${o1}'`),2);checks++
   await denied(`insert into public.refunds(order_id,payment_id,requested_by,requested_amount_idr,reason) select '${o1}',id,'${a}',450001,'test' from public.payment_records where order_id='${o1}'`,'refund bounded by payment')

@@ -201,3 +201,14 @@ The durable outbox records `pending`, `sending`, `sent`, `retryable` or `manual_
 ### Extension automated evidence
 
 Local/mocked checks PASS: 570 direct-package/public-navigation checks, 684 direct-checkout/eligibility checks, 85 notification checks, 180 commerce regression checks and 188 payment checks. These cover server price authority, explicit acceptance, selected output/auth intent, duplicate creation, immutable snapshots, owner compatibility/RLS, existing custom offers, verified-payment replays, email deduplication/failure and unchanged payment/work protection. Lint and type-check PASS; one production build with `APP_ENV=staging` PASS (Next retried static-generation timeouts within that invocation). Local smoke returned HTTP 200 for EN/ID home/catalog, representative details and checkout; staging noindex/nofollow, empty sitemap and no advertised production sitemap PASS. No real email, payment or hosted database mutation was performed. Extension hosted migration and authenticated/email QA remain pending operator action.
+
+### Manual operator-reported hosted staging QA — 11 October 2026 WITA
+
+This later operator checkpoint is separate from the automated evidence above; it supersedes the pending migration/delivery note for the specific checks reported here only.
+
+- Seven migration versions matched Local/Remote. Direct consultation checkout at `150000 IDR`, Sandbox payment and one email received in the inbox: PASS. Order: `c6bf25e9-98e3-4c6a-8943-04488bbdd16a`. Rechecking did not duplicate the payment, snapshot, four policy acceptances, notification job or email.
+- SEO Foundation: pending compatibility blocked checkout, owner approval succeeded, Client B was denied, an unpaid order was created, and the consumed-approval EN/ID correction passed. Approval: `9a8ce333-94d5-4a95-a8d8-70cce2254fca`; order: `f7dff8aa-950a-4e78-8858-8ddd743df973`. Technical compatibility approval is not brief approval or payment verification.
+- Ten packages, Login/My orders navigation, mobile and keyboard checks: PASS as reported by the operator.
+- The operator selected **option A**: hosted email failure/retry QA is deferred to a required checkpoint before Production activation. Successful inbox delivery and duplicate rechecks do not prove failure recovery, dedup-window recovery or hosted concurrency.
+
+**P5-SNAP-01 — unresolved, required before Production:** Snap sometimes fails to open on the first attempt despite an attempt in `ready` and a saved token, then opens after refresh. The root cause has not been established. Refresh is a workaround, not a permanent fix. Do not infer a provider-response, request or Snap.js cause from these observations, patch payment behavior based on speculation, or mark all payment/production readiness complete. Phase 6's brief/file work does not resolve this issue.

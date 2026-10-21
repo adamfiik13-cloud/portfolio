@@ -20,20 +20,24 @@ import { paymentCopy } from "@/data/payment-copy"
 import CompatibilityForm from "./CompatibilityForm"
 import ConfirmationPanel from "./ConfirmationPanel"
 import { readConfirmationStatus, type ConfirmationStatus } from "@/lib/notifications/server"
+import { readWorkspace } from "@/lib/workspace/server"
+import WorkspaceOverview, { OrderStatuses } from "@/components/workspace/WorkspaceOverview"
+import BriefWorkspace from "@/components/workspace/BriefWorkspace"
+import { workspaceText as wt, workspaceNextStep } from "@/data/workspace"
 
 export type CommerceKind = keyof typeof commercePaths
 export type CommerceSearch = Promise<Record<string, string | string[] | undefined>>
 export function commerceMetadata(kind: CommerceKind, locale: Locale): Metadata {
   return { title: t(kind, locale), robots: { index: false, follow: false }, alternates: { canonical: null, languages: {} }, openGraph: null, twitter: null, referrer: "no-referrer" }
 }
-function Shell({ kind, locale, suffix = "", children }: { kind: CommerceKind; locale: Locale; suffix?: string; children: React.ReactNode }) {
+function Shell({ kind, locale, suffix = "", title, titleLocale, children }: { kind: CommerceKind; locale: Locale; suffix?: string; title?: string; titleLocale?: Locale; children: React.ReactNode }) {
   return <PublicLocaleProvider locale={locale} paths={{ en: commercePaths[kind].en + suffix, id: commercePaths[kind].id + suffix }}>
     <a className="skip-link" href="#commerce-main">{t(kind, locale)}</a>
     <header className="public-container min-h-20 flex items-center justify-between gap-4"><BrandSignature /><LanguageSwitcher /></header>
     <main id="commerce-main" tabIndex={-1} className="public-container py-10 sm:py-16 font-interface">
       <div className="mx-auto max-w-3xl space-y-8 break-words min-w-0">
-        <h1 className="font-display font-bold text-4xl leading-tight">{t(kind, locale)}</h1>
-        <nav className="flex flex-wrap gap-x-5 gap-y-1 text-muted underline underline-offset-4" aria-label={t("account", locale)}>{(["orders", "offers"] as const).map(k => <a key={k} className="inline-flex min-h-11 items-center" href={commercePaths[k][locale]}>{t(k, locale)}</a>)}<a className="inline-flex min-h-11 items-center" href={authPaths.account[locale]}>{t("account", locale)}</a></nav>
+        <h1 lang={titleLocale} className="font-display font-bold text-4xl leading-tight">{title ?? t(kind, locale)}</h1>
+        <nav className="flex flex-wrap gap-x-5 gap-y-1 text-muted underline underline-offset-4" aria-label={t("account", locale)}>{(["orders", "offers"] as const).map(k => <a key={k} className="inline-flex min-h-11 items-center" href={commercePaths[k][locale]}>{t(k, locale)}</a>)}<a className="inline-flex min-h-11 items-center" href={authPaths.account[locale]}>{t("account", locale)}</a>{kind === "ownerOrders" && <a className="inline-flex min-h-11 items-center" href={commercePaths.owner[locale]}>{t("owner", locale)}</a>}</nav>
         <div className="border-l-2 border-red pl-5 space-y-3"><p>{paymentReady() ? paymentCopy[locale].notice : t("payment", locale)}</p><p className="text-muted">{t("commencement", locale)}</p></div>
         {children}
       </div>
@@ -56,7 +60,7 @@ function Summary({ terms, locale, incomplete = false }: { terms: TransactionTerm
       {terms.technical_conditions?.length ? <div><dt className="font-semibold">{locale === "en" ? "Supported technical conditions" : "Kondisi teknis yang didukung"}</dt><dd>{list(terms.technical_conditions)}</dd></div> : null}
       {terms.compatibility_target && <div><dt className="font-semibold">{locale === "en" ? "Owner-reviewed website" : "Website yang diperiksa owner"}</dt><dd className="break-all">{terms.compatibility_target.url} · {terms.compatibility_target.platform}</dd></div>}
       {terms.scheduling_note && <div><dt className="font-semibold">{locale === "en" ? "Manual scheduling" : "Penjadwalan manual"}</dt><dd>{terms.scheduling_note}</dd></div>}
-      {terms.brief_fields && <div><dt className="font-semibold">{locale === "en" ? "Brief checklist and next steps" : "Checklist brief dan langkah berikutnya"}</dt><dd><ul className="space-y-3 mt-2">{terms.brief_fields.map(f => <li key={f.id}><strong>{f.label}</strong> ({f.required ? (locale === "en" ? "required" : "wajib") : (locale === "en" ? "optional" : "opsional")})<p className="text-muted">{f.instruction}</p></li>)}</ul><p className="mt-3 text-muted">{locale === "en" ? "Contact Adam's Work through the agreed channel to prepare your brief. The brief submission/admin-approval interface is not available yet. Never send passwords or API keys in ordinary brief fields." : "Hubungi Adam's Work melalui kanal yang disepakati untuk menyiapkan brief. Antarmuka pengiriman brief/persetujuan admin belum tersedia. Jangan kirim password atau API key dalam isian brief biasa."}</p></dd></div>}
+      {terms.brief_fields && <div><dt className="font-semibold">{locale === "en" ? "Brief checklist and next steps" : "Checklist brief dan langkah berikutnya"}</dt><dd><ul className="space-y-3 mt-2">{terms.brief_fields.map(f => <li key={f.id}><strong>{f.label}</strong> ({f.required ? (locale === "en" ? "required" : "wajib") : (locale === "en" ? "optional" : "opsional")})<p className="text-muted">{f.instruction}</p></li>)}</ul><p className="mt-3 text-muted">{locale === "en" ? "Prepare the accepted requirements in your order workspace after verified payment. Never send passwords or API keys in ordinary brief fields." : "Siapkan kebutuhan yang disepakati di ruang kerja pesanan setelah pembayaran terverifikasi. Jangan kirim password atau API key dalam isian brief biasa."}</p></dd></div>}
     </dl>
   </section>
 }
@@ -111,28 +115,46 @@ export async function CheckoutPage({ locale, searchParams }: { locale: Locale; s
       : current && !current.existingOrderId && <AcceptanceForm locale={locale} serviceId={id} outputLanguage={outputLanguage} approvalId={approvalId} fingerprint={current.fingerprint} requestKey={randomUUID()} />}
   </Shell>
 }
-export async function OrdersPage({ locale, id }: { locale: Locale; id?: string }) {
-  const { client, user } = await signedIn(locale)
+export async function OrdersPage({ locale, id, asOwner = false }: { locale: Locale; id?: string; asOwner?: boolean }) {
+  await signedIn(locale)
+  const context = asOwner ? await ownerContext() : await commerceContext()
+  if (!context?.client || !context.user) notFound()
+  const { client, user } = context, kind = asOwner ? "ownerOrders" : "orders"
   if (id && !isUuid(id)) notFound()
   if (!id) {
-    const { data, error } = await client.from("orders").select("id,service_id,amount_idr,work_status,payment_status,refund_status,created_at").eq("client_id", user.id).order("created_at", { ascending: false }).limit(100)
-    return <Shell kind="orders" locale={locale}>{error ? <p role="status">{t("unavailable", locale)}</p> : !data?.length ? <p>{t("empty", locale)}</p> : <ul className="space-y-4">{data.map(o => <li key={o.id} className="border border-line rounded-xl p-5"><a className="inline-flex min-h-11 underline break-all" href={commercePaths.orders[locale] + "/" + o.id}>{o.id}</a><p>IDR {o.amount_idr.toLocaleString(locale)} · {statusLabel(o.work_status, locale)} · {statusLabel(o.payment_status, locale)}</p></li>)}</ul>}</Shell>
+    let query = client.from("orders").select("id,client_id,locale,amount_idr,work_status,payment_status,refund_status,created_at").order("created_at", { ascending: false }).limit(100)
+    if (!asOwner) query = query.eq("client_id", user.id)
+    const { data, error } = await query
+    if (error || !data?.length) return <Shell kind={kind} locale={locale}>{error ? <p role="status">{wt("unavailable", locale)}</p> : <p>{t("empty", locale)}</p>}</Shell>
+    const ids = data.map(order => order.id)
+    const [{ data: snapshots, error: snapshotError }, { data: briefs, error: briefError }] = await Promise.all([
+      client.from("order_snapshots").select("order_id,service_name,selected_package").in("order_id", ids),
+      client.from("briefs").select("order_id,status").in("order_id", ids),
+    ])
+    return <Shell kind={kind} locale={locale}>{snapshotError || briefError ? <p role="status">{wt("unavailable", locale)}</p> : <ul className="space-y-5">{data.map(order => {
+      const snapshot = snapshots?.find(s => s.order_id === order.id), briefStatus = briefs?.find(b => b.order_id === order.id)?.status ?? "incomplete"
+      const href = commercePaths[kind][locale] + "/" + order.id
+      const step = workspaceNextStep(order.payment_status, briefStatus, order.work_status, asOwner)
+      return <li key={order.id} className="border border-line rounded-xl p-5 space-y-4"><h2 lang={order.locale} className="font-display text-2xl"><a href={href} className="inline-flex min-h-11 items-center underline underline-offset-4">{snapshot?.service_name ?? wt("title", locale)}</a></h2>{asOwner && <p className="text-sm">{wt("client", locale)}: {snapshot?.selected_package?.client?.display_name || snapshot?.selected_package?.client?.email || order.client_id}</p>}<p className="text-sm text-muted break-all">{wt("reference", locale)}: {order.id}</p><p>IDR {new Intl.NumberFormat(locale).format(order.amount_idr)}</p><OrderStatuses locale={locale} payment={order.payment_status} brief={briefStatus} work={order.work_status} /><p>{wt("next", locale)}: {wt(step, locale)}</p><a href={href} className="inline-flex min-h-11 items-center underline text-red-bright">{wt("title", locale)} →</a></li>
+    })}</ul>}</Shell>
   }
-  const { data: order, error } = await client.from("orders").select("id,locale,work_status,payment_status,refund_status").eq("id", id).eq("client_id", user.id).maybeSingle()
-  if (error) return <Shell kind="orders" locale={locale}><p role="status">{t("unavailable", locale)}</p></Shell>
-  if (!order) notFound()
-  const [{ data: snapshot, error: snapshotError }, { data: brief }, { data: accepted, error: acceptanceError }] = await Promise.all([
+  let workspace: Awaited<ReturnType<typeof readWorkspace>>
+  try { workspace = await readWorkspace(id, asOwner) } catch { return <Shell kind={kind} locale={locale}><p role="status">{wt("unavailable", locale)}</p></Shell> }
+  if (!workspace) notFound()
+  const { order, terms, brief } = workspace
+  const [{ data: snapshot, error: snapshotError }, { data: accepted, error: acceptanceError }] = await Promise.all([
     client.from("order_snapshots").select("selected_package,policy_version_ids,created_at").eq("order_id", id).single(),
-    client.from("briefs").select("status").eq("order_id", id).maybeSingle(),
-    client.from("policy_acceptances").select("policy_type,version,locale,effective_date,accepted_at").eq("order_id", id).eq("user_id", user.id),
+    client.from("policy_acceptances").select("policy_type,version,locale,effective_date,accepted_at").eq("order_id", id).eq("user_id", order.client_id),
   ])
   const { data: policies, error: policiesError } = await client.from("policy_versions").select("policy_type,version,locale,effective_date,content,content_sha256").in("id", snapshot?.policy_version_ids ?? [])
   const contractLocale = order.locale as Locale
-  return <Shell kind="orders" locale={locale} suffix={"/" + id}>
-    <p className="break-all">{id}</p><dl className="grid sm:grid-cols-2 gap-5">{([["work", order.work_status], ["paymentStatus", order.payment_status], ["refund", order.refund_status], ["brief", brief?.status ?? "incomplete"]] as const).map(([key, value]) => <div key={key}><dt className="text-muted">{t(key, locale)}</dt><dd>{statusLabel(value, locale)}</dd></div>)}</dl>
-    <PaymentPanel orderId={id} locale={locale} ready={paymentReady()} paid={order.payment_status === "paid"} eligible={!["cancelled", "completed"].includes(order.work_status)} />
+  return <Shell kind={kind} locale={locale} suffix={"/" + id} title={terms.service_name} titleLocale={contractLocale}>
+    <WorkspaceOverview locale={locale} order={order} briefStatus={brief.status} serviceName={terms.service_name} showServiceTitle={false} asOwner={asOwner} clientName={asOwner ? workspace.client?.display_name || workspace.client?.email || order.client_id : undefined} />
+    <BriefWorkspace locale={locale} order={order} terms={terms} fields={workspace.fields} brief={brief} files={workspace.files} history={workspace.history} asOwner={asOwner} />
+    <div id="order-payment" className="scroll-mt-8">{!asOwner && <PaymentPanel orderId={id} locale={locale} ready={paymentReady()} paid={order.payment_status === "paid"} eligible={!["cancelled", "completed"].includes(order.work_status)} />}</div>
     {order.payment_status === "paid" && <ConfirmationPanel orderId={id} locale={locale} initialStatus={await readConfirmationStatus(id)} />}
     {snapshotError || acceptanceError || policiesError || !snapshot?.selected_package?.terms ? <p role="status">{t("unavailable", locale)}</p> : <>
+      <p>{t("refund", locale)}: {statusLabel(order.refund_status, locale)}</p>
       <h2 className="font-display text-2xl">{t("terms", locale)} · {contractLocale === "en" ? "English" : "Bahasa Indonesia"}</h2>
       <p className="text-muted">{locale === "en" ? "The accepted agreement is retained in its original contractual language. Later content changes do not change it." : "Kesepakatan yang disetujui disimpan dalam bahasa kontrak asli. Perubahan konten berikutnya tidak mengubahnya."}</p>
       <div lang={contractLocale}><Summary terms={snapshot.selected_package.terms} locale={contractLocale} /><Policies locale={contractLocale} bundle={policies ?? []} /></div>
@@ -140,6 +162,7 @@ export async function OrdersPage({ locale, id }: { locale: Locale; id?: string }
     </>}
   </Shell>
 }
+export function OwnerOrdersPage({ locale, id }: { locale: Locale; id?: string }) { return <OrdersPage locale={locale} id={id} asOwner /> }
 export async function OffersPage({ locale, id }: { locale: Locale; id?: string }) {
   const { client, user } = await signedIn(locale, id)
   if (!id) {
@@ -170,6 +193,7 @@ export async function OwnerOffersPage({ locale }: { locale: Locale }) {
     context.client.from("payment_notifications").select("order_id,status,attempts,last_error_code").in("status", ["pending", "sending", "retryable", "manual_review"]).order("created_at", { ascending: true }).limit(100),
   ])
   return <Shell kind="owner" locale={locale}>
+    <a href={commercePaths.ownerOrders[locale]} className="inline-flex min-h-11 items-center underline text-red-bright">{wt("ownerOrders", locale)} →</a>
     {error || offerError ? <p role="status">{t("unavailable", locale)}</p> : <><OwnerOfferForm locale={locale} requestKey={randomUUID()} clients={clients ?? []} /><ul className="space-y-4">{offers?.map(o => <li key={o.id} className="border border-line rounded-xl p-4"><p>{o.title} · {statusLabel(o.status, locale)}</p><p className="text-muted break-all">{commercePaths.offers[locale] + "/" + o.id}</p></li>)}</ul></>}
     <section className="space-y-4"><h2 className="font-display text-2xl">{locale === "en" ? "SEO Foundation compatibility requests" : "Permintaan kompatibilitas Fondasi SEO"}</h2>
       {compatibilityError ? <p>{t("unavailable", locale)}</p> : compatibility?.map(r => <form key={r.id} action={reviewCompatibilityAction.bind(null, locale, r.id)} className="border border-line rounded-xl p-5 space-y-3"><p className="break-all">{r.website_url} · {r.platform} · {clients?.find(c => c.id === r.client_id)?.display_name || r.client_id}</p>
