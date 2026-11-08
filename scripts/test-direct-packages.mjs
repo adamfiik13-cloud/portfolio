@@ -18,7 +18,7 @@ function load(file) {
   if (cache.has(full)) return cache.get(full).exports
   const loaded = { exports: {} }; cache.set(full, loaded)
   const compiled = ts.transpileModule(fs.readFileSync(full, 'utf8'), { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022, jsx: ts.JsxEmit.ReactJSX, esModuleInterop: true } }).outputText
-  const require = id => id === '@/components/ui/Button' ? { __esModule: true, default: ({ children, href, ...props }) => React.createElement('a', { href, ...props }, children) } : id.startsWith('@/') ? load(id.slice(2)) : id.startsWith('.') ? load(path.resolve(path.dirname(full), id)) : native(id)
+  const require = id => id === 'server-only' ? {} : id === '@/components/ui/Button' ? { __esModule: true, default: ({ children, href, ...props }) => React.createElement('a', { href, ...props }, children) } : id.startsWith('@/') ? load(id.slice(2)) : id.startsWith('.') ? load(path.resolve(path.dirname(full), id)) : native(id)
   new Function('require', 'module', 'exports', compiled)(require, loaded, loaded.exports)
   return loaded.exports
 }

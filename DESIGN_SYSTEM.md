@@ -176,10 +176,11 @@ Requirements:
 ### Public service catalog
 
 - Use image-led, full-link service cards with reusable 16:10 code-native category thumbnails, visible pricing and commercial models. Do not add seller, rating, or sales UI.
-- Catalog order: introduction, localized search/category controls, editorial Featured Services, complete business catalog, then Career Services.
-- Separate Career Services as additional support for individuals; keep business services prominent.
-- Detail pages emphasize scope, scope-derived output expectations, exclusions, client inputs, and confirmed versus starting prices. Outputs must not imply guaranteed business outcomes.
-- Use “Choose This Service”, “Book a Consultation”, or “Request a Quote” with equivalent Indonesian labels; clarify that Phase 2B opens WhatsApp and does not complete booking or payment.
+- Service pages alone use the scoped `services-theme`: off-white background, white cards, dark text, soft gray borders and red actions. Its tokens and navigation overrides do not change the homepage, Auth or workspace theme. Keep visible focus, 44px controls, local fonts and reduced motion.
+- Catalog order: introduction, order-method/search/category controls, “Order directly” and “Discuss first”. Show all 19 services once by default; no duplicate Featured grid. Resolve modes from approved eligibility on the server and pass only public mode metadata to the client. Nine packages are direct; SEO Foundation remains in discussion with compatibility approval; nine other services remain inquiry. Separate Career Services within their order-method group.
+- Detail hierarchy: title/benefit and labeled output illustration, one order panel, outputs, scope/tools and exclusions, client inputs, timing/revisions, then supporting native accordions. Use real assets or clearly illustrative code-native visuals; never invent client results.
+- At desktop widths the single order panel is sticky beside the main content. On mobile/zoom reflow it follows the short introduction/visual before long content. It emphasizes price, approved timing/revision facts, output language and one primary CTA. Keep important fee/exclusion/approval information visible; full disclosure may also appear in supporting details.
+- Staging eligible CTAs are “Review order” / “Lanjut ke ringkasan pesanan” or “Check compatibility” / “Periksa kompatibilitas”. Inquiry uses “Discuss your project” / “Diskusikan kebutuhan”. Preserve service/output/approval intent across EN/ID navigation; full terms/acceptance remain at checkout. Production stays inquiry-only until separately activated; catalog grouping does not authorize checkout or payments.
 
 ### Public policy pages
 

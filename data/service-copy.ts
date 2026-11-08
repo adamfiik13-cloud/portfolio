@@ -1,6 +1,27 @@
 import type { PublicLocale } from "./public-content"
 
 export const serviceCopy = {
+  catalogIntro: { en: "Find the website, SEO, tracking or growth support you need. Choose a defined package or discuss your project first.", id: "Temukan layanan website, SEO, tracking, atau pertumbuhan yang Anda butuhkan. Pilih paket dengan cakupan jelas atau diskusikan kebutuhan terlebih dahulu." },
+  orderDirectly: { en: "Order directly", id: "Pesan langsung" },
+  discussFirst: { en: "Discuss first", id: "Diskusi terlebih dahulu" },
+  orderFilter: { en: "How would you like to start?", id: "Bagaimana Anda ingin memulai?" },
+  directGroupHelp: { en: "Defined packages with a clear price and scope. Open the details, choose your output language, then review the agreement before payment.", id: "Paket dengan harga dan cakupan jelas. Buka detail, pilih bahasa hasil, lalu tinjau kesepakatan sebelum pembayaran." },
+  discussGroupHelp: { en: "Confirm your needs first. SEO Foundation requires a compatibility check; the other services here use an inquiry or custom offer.", id: "Konfirmasikan kebutuhan terlebih dahulu. Fondasi SEO memerlukan pemeriksaan kompatibilitas; layanan lainnya di sini melalui diskusi atau penawaran khusus." },
+  compatibilityBadge: { en: "Compatibility check required", id: "Perlu pemeriksaan kompatibilitas" },
+  compatibilityRequired: { en: "The owner must check and approve your website's compatibility before you can order SEO Foundation. This is separate from approval of the work brief.", id: "Owner harus memeriksa dan menyetujui kompatibilitas website Anda sebelum Fondasi SEO dapat dipesan. Ini berbeda dari persetujuan brief pekerjaan." },
+  viewPackage: { en: "View package & next step", id: "Lihat paket & langkah berikutnya" },
+  viewDiscuss: { en: "View scope before discussing", id: "Lihat cakupan sebelum berdiskusi" },
+  discussProject: { en: "Discuss your project", id: "Diskusikan kebutuhan" },
+  onlineOrderingInactive: { en: "Online ordering is not available here yet. Discuss the package on WhatsApp; no payment is collected here.", id: "Pemesanan online belum tersedia di sini. Diskusikan paket melalui WhatsApp; tidak ada pembayaran yang ditagih di sini." },
+  oneOutputLanguage: { en: "One output language only. The interface language does not include bilingual deliverables.", id: "Hasil kerja dalam satu bahasa pilihan. Bahasa antarmuka tidak berarti hasil kerja bilingual." },
+  costSummary: { en: "Pay the listed total 100% upfront. Gateway fees are covered with no customer surcharge. No PPN is added: Adam’s Work is not PKP; the commercial invoice is not a Faktur Pajak.", id: "Bayar total tercantum 100% di muka. Biaya gateway ditanggung tanpa tambahan kepada klien. Tidak ada penambahan PPN: Adam’s Work belum PKP; invoice komersial bukan Faktur Pajak." },
+  costApproval: { en: "Domain, hosting, premium tools and advertising budgets are excluded unless listed. Excluded third-party costs need your separate approval; no additional purchase or charge without approval.", id: "Domain, hosting, tools premium, dan anggaran iklan tidak termasuk kecuali tercantum. Biaya pihak ketiga yang dikecualikan perlu persetujuan Anda terpisah; tidak ada pembelian atau biaya tambahan tanpa persetujuan." },
+  fullCosts: { en: "Full cost disclosure", id: "Rincian ketentuan biaya" },
+  timingAndRevisions: { en: "Timing & revisions", id: "Waktu pengerjaan & revisi" },
+  additionalDetails: { en: "Additional details", id: "Detail tambahan" },
+  outputPreview: { en: "Output illustration", id: "Ilustrasi hasil kerja" },
+  illustrationNotice: { en: "A schematic of the output format, not a client screenshot or a promised result. The included contents are listed below.", id: "Gambaran format hasil, bukan screenshot klien atau janji hasil. Isi yang termasuk dijelaskan di bawah." },
+  workStartSummary: { en: "Payment is 100% upfront. Work starts only after server-verified payment and an admin-approved complete brief. Work allocations are not installment payments.", id: "Pembayaran 100% di muka. Pekerjaan dimulai hanya setelah pembayaran terverifikasi server dan brief lengkap disetujui admin. Pembagian pekerjaan bukan pembayaran cicilan." },
   approvedPackage: { en: "Defined package scope", id: "Cakupan paket yang ditetapkan" },
   workTools: { en: "The work and tools", id: "Pekerjaan dan tools" },
   tools: { en: "Tools / platforms", id: "Tools / platform" },
@@ -10,9 +31,9 @@ export const serviceCopy = {
   nextSteps: { en: "After your order", id: "Setelah pemesanan" },
   packageTotal: { en: "Total package price", id: "Total harga paket" },
   outputLanguage: { en: "Deliverable language", id: "Bahasa hasil kerja" },
-  reviewPackageOrder: { en: "Review this package order", id: "Tinjau pesanan paket" },
-  requestCompatibility: { en: "Request compatibility review", id: "Minta pemeriksaan kompatibilitas" },
-  reviewBeforePayment: { en: "Review the full agreement and policies before creating an order or paying. This staging flow uses Midtrans Sandbox.", id: "Tinjau kesepakatan lengkap dan kebijakan sebelum membuat pesanan atau membayar. Alur staging ini menggunakan Midtrans Sandbox." },
+  reviewPackageOrder: { en: "Review order", id: "Lanjut ke ringkasan pesanan" },
+  requestCompatibility: { en: "Check compatibility", id: "Periksa kompatibilitas" },
+  reviewBeforePayment: { en: "Next: review the complete scope, total and policies before payment. This staging flow uses Midtrans Sandbox.", id: "Berikutnya: tinjau cakupan lengkap, total, dan kebijakan sebelum pembayaran. Alur staging ini menggunakan Midtrans Sandbox." },
   outsidePackage: { en: "Need something outside this scope?", id: "Perlu pekerjaan di luar cakupan ini?" },
   catalogConfirmation: { en: "Defined package prices apply to their listed scope. Other services and additional requirements are confirmed through inquiry or a custom offer.", id: "Harga paket yang ditetapkan berlaku untuk cakupan tercantum. Layanan lainnya dan kebutuhan tambahan dikonfirmasi melalui inquiry atau penawaran khusus." },
   "label": {
@@ -36,8 +57,8 @@ export const serviceCopy = {
     "id": "Cakupan pekerjaan dan harga akhir dikonfirmasi setelah kebutuhan dibahas."
   },
   "inquiryNote": {
-    "en": "This opens a WhatsApp inquiry. Online checkout and booking are not available yet.",
-    "id": "Tombol ini membuka percakapan WhatsApp. Pembayaran dan pemesanan online belum tersedia."
+    "en": "This opens WhatsApp to discuss your needs and confirm the scope. The button does not create an order, reserve a slot or collect payment.",
+    "id": "Tombol ini membuka WhatsApp untuk membahas kebutuhan dan mengonfirmasi cakupan. Tombol tidak membuat pesanan, memesan jadwal, atau menagih pembayaran."
   },
   "career": {
     "en": "Additional services for individual professionals",
