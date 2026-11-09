@@ -38,7 +38,7 @@ function load(file) {
   const loadedModule = { exports: {} }; cache.set(full, loadedModule)
   const compiled = ts.transpileModule(fs.readFileSync(full, 'utf8'), { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022, jsx: ts.JsxEmit.ReactJSX, esModuleInterop: true } }).outputText
   const require = id => {
-    if (id === 'server-only') return {}
+    if (id === 'server-only' || id.endsWith('.css')) return {}
     if (id === 'next/navigation') return { useRouter: () => ({ refresh: () => {} }), notFound: () => { throw Error('404') }, redirect: () => { throw Error('redirect') } }
     if (id === '@/lib/workspace/actions') return { briefAction: noAction, reviewBriefAction: noAction, startWorkAction: noAction }
     if (id === '@/lib/workspace/server') return { readWorkspace: async (_id, asOwner) => asOwner ? owner ? workspace : null : userId === clientId ? workspace : null }
@@ -65,6 +65,7 @@ terms.service_name = 'Accepted consultation title'; terms.brief_fields = fields
 db.order_snapshots[0].selected_package.terms = terms
 const overview = load('components/workspace/WorkspaceOverview.tsx').default
 const briefComponent = load('components/workspace/BriefWorkspace.tsx').default
+const detailComponent = load('components/workspace/OrderDetail.tsx').default
 const pages = load('components/commerce/CommercePages.tsx')
 const order = { ...db.orders[0], payment_verified: true, work_started_at: null }
 const initialBrief = { status: 'incomplete', responses: { accepted_input: 'Saved answer' }, revision: 2, review_note: null }
@@ -90,7 +91,10 @@ for (const locale of ['en', 'id']) {
     check(html.includes('lang="en"') && html.includes('Bahasa Indonesia'))
     equal(html.includes('name="answer:accepted_input"'), ['incomplete', 'changes_requested'].includes(status))
     check(!html.includes('id="owner-start-work"') && !html.includes('id="owner-brief-review"'))
-    if (status === 'changes_requested') check(html.includes('Please clarify the accepted goal.'))
+    if (status === 'changes_requested') {
+      const detail = renderToStaticMarkup(React.createElement(detailComponent, { locale, workspace: { ...workspace, brief: currentBrief }, asOwner: false, payment: null, email: null }))
+      check(detail.includes('Please clarify the accepted goal.') && detail.indexOf('Please clarify the accepted goal.') < detail.indexOf('<details'))
+    }
   }
   const unpaid = renderToStaticMarkup(React.createElement(briefComponent, { locale, order: { ...order, payment_status: 'pending' }, terms, fields, brief: initialBrief, files: [], history: [] }))
   check(!unpaid.includes('name="answer:') && !unpaid.includes('type="file"'))

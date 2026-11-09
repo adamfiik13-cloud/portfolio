@@ -182,6 +182,14 @@ Requirements:
 - At desktop widths the single order panel is sticky beside the main content. On mobile/zoom reflow it follows the short introduction/visual before long content. It emphasizes price, approved timing/revision facts, output language and one primary CTA. Keep important fee/exclusion/approval information visible; full disclosure may also appear in supporting details.
 - Staging eligible CTAs are “Review order” / “Lanjut ke ringkasan pesanan” or “Check compatibility” / “Periksa kompatibilitas”. Inquiry uses “Discuss your project” / “Diskusikan kebutuhan”. Preserve service/output/approval intent across EN/ID navigation; full terms/acceptance remain at checkout. Production stays inquiry-only until separately activated; catalog grouping does not authorize checkout or payments.
 
+### Order detail workspace
+
+- Only client/owner order detail uses `order-detail-theme`: semantic workspace variables for #F7F6F2 background, #FFFFFF surface, #1C1D22 text, #565961 secondary, #D8D9DC borders and #B51C29 primary actions. Keep public services, order lists, checkout, Auth and homepage variants unchanged.
+- A compact role-aware navigation precedes the service title, current-status notice/active review note, active work area and optional supporting details. Desktop max-width is 1120px with a flexible main column, 304px summary and 24px gap; mobile/zoom uses one column and no fixed bottom navigation or internally scrolling summary.
+- League Spartan titles/actions, Source Sans 3 operational content; 16px forms/body, 14px secondary, 28–32px page title, 44px controls, visible focus and 8/16/24/32px spacing. Use restrained flat surfaces; status always has a text label.
+- Changes requested gives clients the owner's visible note and Update brief action; owners wait for the client. Submitted briefs are read-only for clients and reviewable by owners. Start appears only with verified payment/approved brief and no existing start timestamp. Agreements, policies, full reference and history use native supporting details.
+- Check for updates is manual: no polling/Realtime. Preserve unsaved drafts across refreshed server data, adopt newer answers automatically only when the editor is clean, and require an explicit conflict choice before submitting retained drafts against a newer revision. Confirm success only from a validated server acknowledgement.
+
 ### Public policy pages
 
 - Use a shared narrow editorial layout with Source Sans 3 legal body copy, League Spartan headings, visible version/date information, and readable section spacing.

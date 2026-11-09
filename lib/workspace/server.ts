@@ -53,7 +53,7 @@ export async function saveBrief(orderId: string, revision: number, responses: Re
   if (!context) throw new Error("Unauthorized")
   const { data, error } = await mutationClient().rpc("workspace_save_brief", { p_actor: context.user.id, p_order: orderId, p_revision: revision, p_responses: responses, p_submit: submit })
   rpcError(error)
-  if (!data || !Number.isSafeInteger(data.revision)) throw new Error("Workspace unavailable")
+  if (!data || data.revision !== revision + 1 || data.status !== (submit ? "submitted" : workspace.brief.status)) throw new Error("Workspace unavailable")
   return data as { revision: number; status: BriefStatus }
 }
 export async function reviewBrief(orderId: string, revision: number, decision: "approve" | "changes_requested", note: string) {
@@ -62,7 +62,7 @@ export async function reviewBrief(orderId: string, revision: number, decision: "
   if (!Number.isSafeInteger(revision) || revision < 0 || !["approve", "changes_requested"].includes(decision) || typeof note !== "string" || note.length > 5000 || decision === "changes_requested" && !note.trim()) throw new Error("Invalid review")
   const { data, error } = await mutationClient().rpc("workspace_review_brief", { p_actor: context.user.id, p_order: orderId, p_revision: revision, p_decision: decision, p_note: note })
   rpcError(error)
-  if (!data || !Number.isSafeInteger(data.revision)) throw new Error("Workspace unavailable")
+  if (!data || data.revision !== revision + 1 || data.status !== (decision === "approve" ? "approved" : "changes_requested")) throw new Error("Workspace unavailable")
   return data as { revision: number; status: BriefStatus }
 }
 export async function startWork(orderId: string, revision: number) {

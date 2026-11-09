@@ -10,7 +10,7 @@ import { PGlite } from '@electric-sql/pglite'
 // SQL, Storage upload, provider request, real email or payment is performed.
 const native=createRequire(import.meta.url),cache=new Map(),db=new PGlite()
 const a='11111111-1111-4111-8111-111111111111',b='22222222-2222-4222-8222-222222222222',owner='33333333-3333-4333-8333-333333333333',team='44444444-4444-4444-8444-444444444444',unverified='55555555-5555-4555-8555-555555555555',admin='66666666-6666-4666-8666-666666666666'
-let checks=0,context={client:null,user:null,configured:true},rpcCalls=[],queryFailure=false
+let checks=0,context={client:null,user:null,configured:true},rpcCalls=[],queryFailure=false,rpcOverride=null
 const check=value=>{assert(value);checks++},equal=(actual,expected)=>{assert.deepEqual(actual,expected);checks++},denied=async(fn,pattern)=>{await assert.rejects(fn,pattern);checks++}
 const scalar=async(sql,args=[])=>Object.values((await db.query(sql,args)).rows[0])[0],uuid=()=>scalar('select gen_random_uuid()')
 const env={APP_ENV:'staging',SUPABASE_STAGING_PROJECT_REF:'stage',SUPABASE_PRODUCTION_PROJECT_REF:'prod',SUPABASE_PROJECT_REF:'stage',SUPABASE_SERVICE_ROLE_KEY:'mock-only',NEXT_PUBLIC_SUPABASE_URL:'https://stage.supabase.co',NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY:'mock-only'}
@@ -41,6 +41,7 @@ function client(privileged=false){return {from:table=>{
   return q
 },rpc:async(name,args)=>{
   assert(['workspace_save_brief','workspace_review_brief','workspace_start_work'].includes(name));rpcCalls.push({name,args})
+  if(rpcOverride)return rpcOverride
   try{const value=await scalar(`select public.${name}(${Object.values(args).map((_,i)=>'$'+(i+1)).join(',')})`,Object.values(args));return {data:value instanceof Date?value.toISOString():value,error:null}}
   catch(error){return {data:null,error:{message:error.message==='Stale brief'?'Stale brief':'withheld'}}}
 }}}
@@ -100,8 +101,18 @@ try{
   await denied(()=>review(admin,id,2,'approve'));await denied(()=>review(unverified,id,2,'approve'))
   await db.query('update staff_access set active=false where user_id=$1',[owner]);await denied(()=>review(owner,id,2,'approve'));await db.query('update staff_access set active=true where user_id=$1',[owner])
   await denied(()=>review(owner,id,2,'changes_requested',''));await denied(()=>review(owner,id,2,'changes_requested','   '));await denied(()=>review(owner,id,2,'changes_requested','x'.repeat(5001)));await denied(()=>review(owner,id,2,'unexpected','note'))
+  const priorContext=context;context={client:client(),user:{id:a},configured:true}
+  const beforeReview=await server.readWorkspace(id)
+  equal(beforeReview.brief.status,'submitted');equal(beforeReview.brief.revision,2)
+  const retainedFile=await uuid()
+  await db.query("insert into order_files(id,order_id,uploader_id,category,bucket_id,storage_path,original_filename,size_bytes,mime_type,visibility,status) values($1,$2,$3,'brief','client-briefs',$4,'existing.pdf',100,'application/pdf','client','ready')",[retainedFile,id,a,id+'/'+retainedFile])
   equal(await review(owner,id,2,'changes_requested','Please clarify the agreed inputs.'),{revision:3,status:'changes_requested'})
   equal(await scalar('select review_note from briefs where order_id=$1',[id]),'Please clarify the agreed inputs.')
+  const freshReview=await server.readWorkspace(id)
+  equal(freshReview.brief.status,'changes_requested');equal(freshReview.brief.revision,3);equal(freshReview.brief.review_note,'Please clarify the agreed inputs.');equal(freshReview.brief.responses,complete)
+  check(load('lib/workspace/rules.ts').editableBrief(freshReview.order.payment_status,freshReview.order.work_status,freshReview.order.work_started_at,freshReview.brief.status))
+  check(freshReview.files.some(file=>file.id===retainedFile));equal(beforeReview.brief.status,'submitted');equal(beforeReview.brief.review_note,null)
+  context=priorContext
   await denied(()=>review(owner,id,2,'approve'))
   equal(await save(a,id,3,{...complete,optional_context:'Clarified test-only context'},true),{revision:4,status:'submitted'})
   await denied(()=>start(owner,id,4))
@@ -138,8 +149,18 @@ try{
   const serverOrder=await order();await paid(serverOrder)
   equal(await server.workspaceContext('not-a-uuid'),null)
   context={client:client(),user:{id:b},configured:true};await denied(()=>server.saveBrief(serverOrder,0,complete,false))
+  context.user={id:a}
+  for(const data of [{revision:1,status:'submitted'},{revision:0,status:'incomplete'},{revision:-1,status:'incomplete'},null]){
+    rpcOverride={data,error:null};await denied(()=>server.saveBrief(serverOrder,0,complete,false),/Workspace unavailable/)
+  }
+  rpcOverride=null;equal(await scalar('select revision from briefs where order_id=$1',[serverOrder]),0)
   context.user={id:a};equal(await server.saveBrief(serverOrder,0,complete,false),{revision:1,status:'incomplete'});equal(rpcCalls.at(-1).args.p_actor,a)
   equal(await server.saveBrief(serverOrder,1,complete,true),{revision:2,status:'submitted'})
+  context.user={id:owner}
+  for(const data of [{revision:3,status:'submitted'},{revision:2,status:'changes_requested'},{revision:-1,status:'changes_requested'},null]){
+    rpcOverride={data,error:null};await denied(()=>server.reviewBrief(serverOrder,2,'changes_requested','Test correction.'),/Workspace unavailable/)
+  }
+  rpcOverride=null;equal(await scalar('select status from briefs where order_id=$1',[serverOrder]),'submitted')
   context.user={id:team};await denied(()=>server.reviewBrief(serverOrder,2,'approve',''));await denied(()=>server.startWork(serverOrder,2))
   context.user={id:owner};equal(await server.reviewBrief(serverOrder,2,'approve',''),{revision:3,status:'approved'});equal(rpcCalls.at(-1).args.p_actor,owner)
   const startTimestamp=await server.startWork(serverOrder,3);equal(await server.startWork(serverOrder,3),startTimestamp)

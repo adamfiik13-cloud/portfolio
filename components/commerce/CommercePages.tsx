@@ -21,8 +21,9 @@ import CompatibilityForm from "./CompatibilityForm"
 import ConfirmationPanel from "./ConfirmationPanel"
 import { readConfirmationStatus, type ConfirmationStatus } from "@/lib/notifications/server"
 import { readWorkspace } from "@/lib/workspace/server"
-import WorkspaceOverview, { OrderStatuses } from "@/components/workspace/WorkspaceOverview"
-import BriefWorkspace from "@/components/workspace/BriefWorkspace"
+import { OrderStatuses } from "@/components/workspace/WorkspaceOverview"
+import OrderDetail from "@/components/workspace/OrderDetail"
+import { orderDetailText as dt } from "@/data/order-detail"
 import { workspaceText as wt, workspaceNextStep } from "@/data/workspace"
 
 export type CommerceKind = keyof typeof commercePaths
@@ -141,26 +142,23 @@ export async function OrdersPage({ locale, id, asOwner = false }: { locale: Loca
   let workspace: Awaited<ReturnType<typeof readWorkspace>>
   try { workspace = await readWorkspace(id, asOwner) } catch { return <Shell kind={kind} locale={locale}><p role="status">{wt("unavailable", locale)}</p></Shell> }
   if (!workspace) notFound()
-  const { order, terms, brief } = workspace
+  const { order } = workspace
   const [{ data: snapshot, error: snapshotError }, { data: accepted, error: acceptanceError }] = await Promise.all([
     client.from("order_snapshots").select("selected_package,policy_version_ids,created_at").eq("order_id", id).single(),
     client.from("policy_acceptances").select("policy_type,version,locale,effective_date,accepted_at").eq("order_id", id).eq("user_id", order.client_id),
   ])
   const { data: policies, error: policiesError } = await client.from("policy_versions").select("policy_type,version,locale,effective_date,content,content_sha256").in("id", snapshot?.policy_version_ids ?? [])
   const contractLocale = order.locale as Locale
-  return <Shell kind={kind} locale={locale} suffix={"/" + id} title={terms.service_name} titleLocale={contractLocale}>
-    <WorkspaceOverview locale={locale} order={order} briefStatus={brief.status} serviceName={terms.service_name} showServiceTitle={false} asOwner={asOwner} clientName={asOwner ? workspace.client?.display_name || workspace.client?.email || order.client_id : undefined} />
-    <BriefWorkspace locale={locale} order={order} terms={terms} fields={workspace.fields} brief={brief} files={workspace.files} history={workspace.history} asOwner={asOwner} />
-    <div id="order-payment" className="scroll-mt-8">{!asOwner && <PaymentPanel orderId={id} locale={locale} ready={paymentReady()} paid={order.payment_status === "paid"} eligible={!["cancelled", "completed"].includes(order.work_status)} />}</div>
-    {order.payment_status === "paid" && <ConfirmationPanel orderId={id} locale={locale} initialStatus={await readConfirmationStatus(id)} />}
-    {snapshotError || acceptanceError || policiesError || !snapshot?.selected_package?.terms ? <p role="status">{t("unavailable", locale)}</p> : <>
-      <p>{t("refund", locale)}: {statusLabel(order.refund_status, locale)}</p>
+  return <OrderDetail locale={locale} workspace={workspace} asOwner={asOwner}
+    payment={!asOwner && <PaymentPanel orderId={id} locale={locale} ready={paymentReady()} paid={order.payment_status === "paid"} eligible={!["cancelled", "completed"].includes(order.work_status)} />}
+    email={order.payment_status === "paid" && <ConfirmationPanel orderId={id} locale={locale} initialStatus={await readConfirmationStatus(id)} />}>
+    {snapshotError || acceptanceError || policiesError || !snapshot?.selected_package?.terms ? <p role="alert">{dt("detailsUnavailable", locale)}</p> : <>
       <h2 className="font-display text-2xl">{t("terms", locale)} · {contractLocale === "en" ? "English" : "Bahasa Indonesia"}</h2>
       <p className="text-muted">{locale === "en" ? "The accepted agreement is retained in its original contractual language. Later content changes do not change it." : "Kesepakatan yang disetujui disimpan dalam bahasa kontrak asli. Perubahan konten berikutnya tidak mengubahnya."}</p>
       <div lang={contractLocale}><Summary terms={snapshot.selected_package.terms} locale={contractLocale} /><Policies locale={contractLocale} bundle={policies ?? []} /></div>
       <ul className="text-muted space-y-2">{accepted?.map(a => <li key={a.policy_type}>{policyDefinitions.find(p => p.id === a.policy_type)?.label[locale]} · {t("version", locale)} {a.version} · {new Intl.DateTimeFormat(locale === "en" ? "en-GB" : "id-ID", { dateStyle: "long", timeStyle: "short" }).format(new Date(a.accepted_at))}</li>)}</ul>
     </>}
-  </Shell>
+  </OrderDetail>
 }
 export function OwnerOrdersPage({ locale, id }: { locale: Locale; id?: string }) { return <OrdersPage locale={locale} id={id} asOwner /> }
 export async function OffersPage({ locale, id }: { locale: Locale; id?: string }) {
